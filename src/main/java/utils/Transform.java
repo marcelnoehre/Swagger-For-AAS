@@ -3,6 +3,8 @@ package utils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import templates.Path;
+
 public class Transform {
 	@SuppressWarnings("unchecked")
 	public static String arrayToJson(String[] array) {
@@ -32,5 +34,14 @@ public class Transform {
 		} else {
 			return null;
 		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static String pathsToJson(Path[] paths) {
+		JSONObject container = new JSONObject();
+		for(Path path : paths) {
+			container.put(path.getPath(), path.asJson());
+		}
+		return container.toJSONString();
 	}
 }
