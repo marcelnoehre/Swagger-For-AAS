@@ -28,7 +28,7 @@ public class RestService {
         this.client = HttpClients.custom().setConnectionManager(poolingConnectionManager).build();
     }
     
-    public void httpGet(String url) {
+    public String[] httpGet(String url) {
     	int resultCode = -1;
     	String response = "";
 		try {
@@ -39,11 +39,10 @@ public class RestService {
 		} catch (IOException io) {
 			io.printStackTrace();
 		}
-		System.out.println(resultCode);
-		System.out.println(response);
+		return new String[] {Integer.toString(resultCode), response};
     }
     
-    public void httpPost(String url, String input) {
+    public String[] httpPost(String url, String input) {
     	int resultCode = -1;
     	String response = "";
     	try {
@@ -56,11 +55,10 @@ public class RestService {
     	} catch(IOException io) {
     		io.printStackTrace();
     	}
-		System.out.println(resultCode);
-		System.out.println(response);
+		return new String[] {Integer.toString(resultCode), response};
     }
     
-    public void httpPut(String url, String input) {
+    public String[] httpPut(String url, String input) {
     	int resultCode = -1;
     	String response = "";
     	try {
@@ -73,11 +71,10 @@ public class RestService {
     	} catch(IOException io) {
     		io.printStackTrace();
     	}
-		System.out.println(resultCode);
-		System.out.println(response);
+		return new String[] {Integer.toString(resultCode), response};
     }
     
-    public void httpDelete(String url) {
+    public String[] httpDelete(String url) {
     	int resultCode = -1;
     	String response = "";
 		try {
@@ -88,7 +85,6 @@ public class RestService {
 		} catch (IOException io) {
 			io.printStackTrace();
 		}
-		System.out.println(resultCode);
-		System.out.println(response);
+		return new String[] {Integer.toString(resultCode), response};
     }
 }
