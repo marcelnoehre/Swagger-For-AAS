@@ -21,11 +21,11 @@ public class SwaggerService {
 	
 	public void generateDocumentation() {
 		Data.generateInfo(restService, routes);
-		//TODO: generate tags
+		Data.generateTags();
 		for(String[] route : Routes.getRoutes()) {
 			//TODO: generate paths
 		}
 		//TODO: generate definitions
-		//TODO: generate externalDocs
+		Data.generateExternalDocs(restService, routes);
 	}
 }
