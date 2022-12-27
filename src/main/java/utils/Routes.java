@@ -1,18 +1,26 @@
 package utils;
 
+import java.util.ArrayList;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+import requests.RestService;
+
 public class Routes {
 	private String baseUrl;
 	private String aasIdShort;
-	private String assetIdShort;
-	private String submodelIdShort;
-	private String elementIdShort;
-	private String cdIdShort;
+	private String submodelIdShort = "";
+	private String elementIdShort = "";
+	private String cdIdShort = "";
 	
 	private static final String[] GET_AAS = new String[] {"GET","/aas/{aas.idShort}/", "core;complete;thumbnail;aasenv"};
 	private static final String[] PUT_AAS = new String[] {"PUT", "/aas/"};
 	private static final String[] DELETE_AAS = new String[] {"DELETE", "/aas/{aas.idShort}"};
 	
-	private static final String[] GET_ASSETS = new String[] {"GET", "/assets/{asset.idShort}", ""};
+	private static final String[] GET_ASSETS = new String[] {"GET", "/assets/{aas.idShort}", ""};
 	private static final String[] PUT_ASSETS = new String[] {"PUT", "/assets/"};
 	
 	private static final String[] GET_SUBMODEL_LIST = new String[] {"GET", "/aas/{aas.idShort}/submodels/", "core;deep;complete"};
@@ -32,17 +40,37 @@ public class Routes {
 	
 	private static final String[][] ROUTES = new String[][] {GET_AAS, PUT_AAS, DELETE_AAS, GET_ASSETS, PUT_ASSETS, GET_SUBMODEL_LIST, GET_SUBMODEL, PUT_SUBMODEL, DELETE_SUBMODEL, GET_ELEMENT_LIST, GET_ELEMENT, PUT_ELEMENT, DELETE_ELEMENT, GET_CONCEPT_DESCRIPTION_LIST, GET_CONCEPT_DESCRIPTION, PUT_CONCEPT_DESCRIPTION, DELETE_CONCEPT_DESCRIPTION};
 	
-	public Routes(String baseUrl, String aasIdShort) {
+	public Routes(RestService restService, String baseUrl, String aasIdShort) {
 		this.baseUrl = baseUrl;
 		this.aasIdShort = aasIdShort;
-		//TODO: get assetID from REST
-		this.assetIdShort = "";
-		//TODO: get submodelID from REST
-		this.submodelIdShort = "";
-		//TODO: get elementId from REST
-		this.elementIdShort = "";
-		//TODO: get cdIdShort from REST
-		this.cdIdShort = "";
+		try {
+			JSONParser parser = new JSONParser();
+			ArrayList<String> submodelIds = new ArrayList<String>();
+			JSONArray submodels = (JSONArray) parser.parse(restService.httpGet(baseUrl+this.replaceIDs(GET_SUBMODEL_LIST[1]))[1]);
+			for(Object submodel : submodels) {
+				try {
+					submodelIds.add(((JSONObject) submodel).get("idShort").toString());	
+				} catch(NullPointerException submodelException) {}
+			}
+			for(String submodelId : submodelIds) {
+				this.submodelIdShort = submodelId;	
+				JSONArray elements = (JSONArray) parser.parse(restService.httpGet(baseUrl+this.replaceIDs(GET_ELEMENT_LIST[1]))[1]);
+				for(Object element : elements) {
+					try {
+						this.elementIdShort = ((JSONObject) element).get("idShorts").toString();
+						break;
+					} catch(NullPointerException elementException) {}
+				}
+				break;
+			}
+			JSONArray cds = (JSONArray) parser.parse(restService.httpGet(baseUrl+this.replaceIDs(GET_CONCEPT_DESCRIPTION_LIST[1]))[1]);
+			for(Object cd : cds) {
+				try {
+					this.cdIdShort = ((JSONObject) cd).get("idShort").toString();
+					break;
+				} catch(NullPointerException cdException) {}
+			}
+		} catch (ParseException parseException) {}
 	}
 	
 	public String getBaseUrl() {
@@ -54,16 +82,27 @@ public class Routes {
 	}
 	
 	public String replaceIDs(String route) {
-		return route.replace("{aas.idShort}", this.aasIdShort).replace("{asset.idShort}", this.assetIdShort).replace("{submodel.idShort}", this.submodelIdShort).replace("{element.idShort}", this.elementIdShort).replace("{cd.idShort}", this.cdIdShort);
+		return route.replace("{aas.idShort}", this.aasIdShort).replace("{submodel.idShort}", this.submodelIdShort).replace("{element.idShort}", this.elementIdShort).replace("{cd.idShort}", this.cdIdShort);
 	}
 	
-	public String getAASID() {
+	public String getAASId() {
 		return this.aasIdShort;
 	}
 	
-	//TODO: getter for all ids
+	public String getSubmodelId() {
+		return this.submodelIdShort;
+	}
 	
-	public String getAASRoute() {
+	public String getElementId() {
+		return this.elementIdShort;
+	}
+	
+	public String getCdId() {
+		return this.cdIdShort;
+	}
+	
+	public String getAASRouteWithId() {
 		return this.replaceIDs(GET_AAS[1]);
 	}
+	
 }
