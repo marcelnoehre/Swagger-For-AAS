@@ -73,16 +73,16 @@ public class Routes {
 		} catch (ParseException parseException) {}
 	}
 	
+	private String replaceIDs(String route) {
+		return route.replace("{aas.idShort}", this.aasIdShort).replace("{submodel.idShort}", this.submodelIdShort).replace("{element.idShort}", this.elementIdShort).replace("{cd.idShort}", this.cdIdShort);
+	}
+	
 	public String getBaseUrl() {
 		return this.baseUrl;
 	}
 	
 	public static String[][] getRoutes() {
 		return ROUTES;
-	}
-	
-	public String replaceIDs(String route) {
-		return route.replace("{aas.idShort}", this.aasIdShort).replace("{submodel.idShort}", this.submodelIdShort).replace("{element.idShort}", this.elementIdShort).replace("{cd.idShort}", this.cdIdShort);
 	}
 	
 	public String getAASId() {
@@ -105,4 +105,19 @@ public class Routes {
 		return this.replaceIDs(GET_AAS[1]);
 	}
 	
+	public String getAssetRouteWithId() {
+		return this.replaceIDs(GET_ASSETS[1]);
+	}
+	
+	public String getSubmodelRouteWithId() {
+		return this.replaceIDs(GET_SUBMODEL[1]);
+	}
+	
+	public String getElementRouteWithId() {
+		return this.replaceIDs(GET_ELEMENT[1]);
+	}
+	
+	public String getConceptDescriptionRouteWithId() {
+		return this.replaceIDs(GET_CONCEPT_DESCRIPTION[1]);
+	}
 }

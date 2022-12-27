@@ -46,12 +46,17 @@ public class Data {
 	}
 	
 	public static Tag[] generateTags() {
-		String[] tagNames = new String[] {"Asset Administration Shell", "Asset", "Submodel", "Element", "Concept Description"};
-		ArrayList<Tag> tags = new ArrayList<Tag>();
+		String[] tagNames = new String[] {"Asset Administration Shell", "Asset", "Submodel", "Submodelelement", "Concept Description"};
+		ArrayList<Tag> tagList = new ArrayList<Tag>();
 		for(String tag : tagNames) {
-			tags.add(new Tag(tag, "Operations that belong to " + tag + "s", null));
+			tagList.add(new Tag(tag, "Operations that belong to " + tag + "s", null));
 		}
-		return (Tag[]) tags.toArray();
+		Tag[] tags = new Tag[tagList.size()];
+		int i = 0;
+		for(Tag tag : tagList) {
+			tags[i] = tag;
+		}
+		return tags;
 	}
 	
 	public static ExternalDocs generateExternalDocs(RestService restService, Routes routes) {
