@@ -9,6 +9,8 @@ import org.json.simple.parser.ParseException;
 
 import requests.RestService;
 import templates.Contact;
+import templates.Definition;
+import templates.DefinitionProperty;
 import templates.ExternalDocs;
 import templates.Info;
 import templates.License;
@@ -20,6 +22,7 @@ public class Data {
 		try {
 			JSONParser parser = new JSONParser();
 			JSONObject json = (JSONObject) parser.parse(restService.httpGet(routes.getBaseUrl()+routes.getAASRouteWithId())[1]);
+			System.out.println(json.toJSONString());
 			String description = "";
 			String version = null;
 			String title = "Asset Adminstration Shell: " + routes.getAASId();
@@ -57,6 +60,39 @@ public class Data {
 			tags[i] = tag;
 		}
 		return tags;
+	}
+	
+	public static Definition[] generateDefinitions(RestService restService, Routes routes) {
+		try {
+			JSONParser parser = new JSONParser();
+			DefinitionProperty[] apiResponseProperties = new DefinitionProperty[] {
+					new DefinitionProperty("resultCode", "integer", "int32"),
+					new DefinitionProperty("type", "string", null),
+					new DefinitionProperty("message", "string",null)
+			};
+			Definition apiResponse = new Definition("ApiResponse", "object", new String[] {"resultCode", "type", "message"}, apiResponseProperties);
+			//TODO: generate definitions from example json
+				/*
+				 * get keys to iterate over
+				 * transform key + value to a property
+				 * build array of properties
+				 * build Definition
+				 */
+			JSONObject response = (JSONObject) parser.parse(restService.httpGet(routes.getBaseUrl()+routes.getAASRouteWithId())[1]);
+			//AAS
+			JSONObject aas = (JSONObject) parser.parse(response.get("AAS").toString());
+			//Asset
+			JSONObject asset = (JSONObject) parser.parse(response.get("Asset").toString());
+			//Submodel
+			JSONObject submodel = (JSONObject) parser.parse(restService.httpGet(routes.getBaseUrl()+routes.getSubmodelRouteWithId())[1]);
+			//SubmodelElement
+			JSONObject submodelElement = (JSONObject) parser.parse(restService.httpGet(routes.getBaseUrl()+routes.getElementRouteWithId())[1]);
+			//ConceptDescription
+			JSONObject cd = (JSONObject) parser.parse(restService.httpGet(routes.getBaseUrl()+routes.getConceptDescriptionRouteWithId())[1]);
+		} catch(ParseException parse) {
+			
+		}
+		return null;
 	}
 	
 	public static ExternalDocs generateExternalDocs(RestService restService, Routes routes) {

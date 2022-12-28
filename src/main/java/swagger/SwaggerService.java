@@ -25,7 +25,7 @@ public class SwaggerService {
 		for(String[] route : Routes.getRoutes()) {
 			//TODO: generate paths
 		}
-		//TODO: generate definitions
+		Data.generateDefinitions(restService, routes);
 		Data.generateExternalDocs(restService, routes);
 	}
 }
