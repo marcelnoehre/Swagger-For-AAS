@@ -8,6 +8,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import requests.RestService;
+import templates.Route;
 
 public class Routes {
 	private String baseUrl;
@@ -16,29 +17,29 @@ public class Routes {
 	private String elementIdShort = "";
 	private String cdIdShort = "";
 	
-	private static final String[] GET_AAS = new String[] {"GET","/aas/{aas.idShort}/", "core;complete;thumbnail;aasenv"};
-	private static final String[] GET_SUBMODEL_LIST = new String[] {"GET", "/aas/{aas.idShort}/submodels/", "core;deep;complete"};
-	private static final String[] PUT_AAS = new String[] {"PUT", "/aas/"};
-	private static final String[] DELETE_AAS = new String[] {"DELETE", "/aas/{aas.idShort}"};
+	private static final Route GET_AAS = new Route("AAS", "Information about the Asset Administration Shell", "GET", "/aas/{aas.idShort}/", new String[] {"core", "complete", "thumbnail", "aasenv"});
+	private static final Route GET_SUBMODEL_LIST = new Route("AAS", "A list of all submodels of an AAS", "GET", "/aas/{aas.idShort}/submodels/", new String[] {"core", "deep", "complete"});
+	private static final Route PUT_AAS = new Route("AAS", "Add or update a Asset Administration Shell", "PUT", "/aas/", null);
+	private static final Route DELETE_AAS = new Route("AAS", "Delete a Asset Adminstration Shell","DELETE", "/aas/{aas.idShort}", null);
 	
-	private static final String[] GET_ASSETS = new String[] {"GET", "/assets/{aas.idShort}", ""};
-	private static final String[] PUT_ASSETS = new String[] {"PUT", "/assets/"};
+	private static final Route GET_ASSETS = new Route("Asset", "Information about the Asset", "GET", "/assets/{aas.idShort}", null);
+	private static final Route PUT_ASSETS = new Route("Asset", "Add or update a Asset", "PUT", "/assets/", null);
 	
-	private static final String[] GET_SUBMODEL = new String[] {"GET", "/aas/{aas.idShort}/submodels/{submodel.idShort}/", "core;deep;complete"};
-	private static final String[] GET_ELEMENT_LIST = new String[] {"GET", "/aas/{aas.idShort}/submodels/{submodel.idShort}/table", ""};
-	private static final String[] PUT_SUBMODEL = new String[] {"PUT", "/aas/{aas.idShort}/submodels/"};
-	private static final String[] DELETE_SUBMODEL = new String[] {"DELETE", "/aas/{aas.idShort}/submodels/{submodel.idShort}"};
+	private static final Route GET_SUBMODEL = new Route("Submodel", "Information about the submodel", "GET", "/aas/{aas.idShort}/submodels/{submodel.idShort}/", new String[] {"core", "deep", "complete"});
+	private static final Route GET_ELEMENT_LIST = new Route("Submodel", "A list of all elements of an submodel", "GET", "/aas/{aas.idShort}/submodels/{submodel.idShort}/table", null);
+	private static final Route PUT_SUBMODEL = new Route("Submodel", "Add or update asubmodel", "PUT", "/aas/{aas.idShort}/submodels/", null);
+	private static final Route DELETE_SUBMODEL = new Route("Submodel", "Delete a submodel", "DELETE", "/aas/{aas.idShort}/submodels/{submodel.idShort}", null);
 	
-	private static final String[] GET_ELEMENT = new String[] {"GET", "/aas/{aas.idShort}/submodels/{submodel.idShort}/elements/{element.idShort}/", "core;deep;complete"};
-	private static final String[] PUT_ELEMENT = new String[] {"PUT", "/aas/{aas.idShort}/submodels/{submodel.idShort}/elements/{element.idShort}/"};
-	private static final String[] DELETE_ELEMENT = new String[] {"DELETE", "/aas/{aas.idShort}/submodels/{submodel.idShort}/elements/{element.idShort}"};
+	private static final Route GET_ELEMENT = new Route("Submodelelement", "Information about the submodelelement", "GET", "/aas/{aas.idShort}/submodels/{submodel.idShort}/elements/{element.idShort}/", new String[] {"core", "deep", "complete"});
+	private static final Route PUT_ELEMENT = new Route("Submodelelement", "Add or update a submodelelement", "PUT", "/aas/{aas.idShort}/submodels/{submodel.idShort}/elements/{element.idShort}/", null);
+	private static final Route DELETE_ELEMENT = new Route("Submodelelement", "Delete a submodelelement", "DELETE", "/aas/{aas.idShort}/submodels/{submodel.idShort}/elements/{element.idShort}", null);
 
-	private static final String[] GET_CONCEPT_DESCRIPTION_LIST = new String[] {"GET", "/aas/{aas.idShort}/cds"};
-	private static final String[] GET_CONCEPT_DESCRIPTION = new String[] {"GET", "/aas/{aas.idShort}/cds/{cd.idShort}"};
-	private static final String[] PUT_CONCEPT_DESCRIPTION = new String[] {"PUT", "/aas/{aas.idShort]/cds/"};
-	private static final String[] DELETE_CONCEPT_DESCRIPTION = new String[] {"DELETE", "/aas/{aas.idShort}/cds/{cd.idShort}"};
+	private static final Route GET_CONCEPT_DESCRIPTION_LIST = new Route("Concept Description", "A list of all concept descriptions of an AAS", "GET", "/aas/{aas.idShort}/cds", null);
+	private static final Route GET_CONCEPT_DESCRIPTION = new Route("Concept Description", "Information about a concept description", "GET", "/aas/{aas.idShort}/cds/{cd.idShort}",null);
+	private static final Route PUT_CONCEPT_DESCRIPTION = new Route("Concept Description", "Add or update a concept description", "PUT", "/aas/{aas.idShort]/cds/", null);
+	private static final Route DELETE_CONCEPT_DESCRIPTION = new Route("Concept Description", "Delete a concept description", "DELETE", "/aas/{aas.idShort}/cds/{cd.idShort}", null);
 	
-	private static final String[][] ROUTES = new String[][] {GET_AAS, GET_SUBMODEL_LIST, PUT_AAS, DELETE_AAS, GET_ASSETS, PUT_ASSETS, GET_SUBMODEL, GET_ELEMENT_LIST, PUT_SUBMODEL, DELETE_SUBMODEL, GET_ELEMENT, PUT_ELEMENT, DELETE_ELEMENT, GET_CONCEPT_DESCRIPTION_LIST, GET_CONCEPT_DESCRIPTION, PUT_CONCEPT_DESCRIPTION, DELETE_CONCEPT_DESCRIPTION};
+	private static final Route[] ROUTES = new Route[] {GET_AAS, GET_SUBMODEL_LIST, PUT_AAS, DELETE_AAS, GET_ASSETS, PUT_ASSETS, GET_SUBMODEL, GET_ELEMENT_LIST, PUT_SUBMODEL, DELETE_SUBMODEL, GET_ELEMENT, PUT_ELEMENT, DELETE_ELEMENT, GET_CONCEPT_DESCRIPTION_LIST, GET_CONCEPT_DESCRIPTION, PUT_CONCEPT_DESCRIPTION, DELETE_CONCEPT_DESCRIPTION};
 	
 	public Routes(RestService restService, String baseUrl, String aasIdShort) {
 		this.baseUrl = baseUrl;
@@ -46,7 +47,7 @@ public class Routes {
 		try {
 			JSONParser parser = new JSONParser();
 			ArrayList<String> submodelIds = new ArrayList<String>();
-			JSONArray submodels = (JSONArray) parser.parse(restService.httpGet(baseUrl+this.replaceIDs(GET_SUBMODEL_LIST[1]))[1]);
+			JSONArray submodels = (JSONArray) parser.parse(restService.httpGet(baseUrl+this.replaceIDs(GET_SUBMODEL_LIST.getRoute()))[1]);
 			for(Object submodel : submodels) {
 				try {
 					submodelIds.add(((JSONObject) submodel).get("idShort").toString());	
@@ -54,7 +55,7 @@ public class Routes {
 			}
 			for(String submodelId : submodelIds) {
 				this.submodelIdShort = submodelId;	
-				JSONArray elements = (JSONArray) parser.parse(restService.httpGet(baseUrl+this.replaceIDs(GET_ELEMENT_LIST[1]))[1]);
+				JSONArray elements = (JSONArray) parser.parse(restService.httpGet(baseUrl+this.replaceIDs(GET_ELEMENT_LIST.getRoute()))[1]);
 				for(Object element : elements) {
 					try {
 						this.elementIdShort = ((JSONObject) element).get("idShorts").toString();
@@ -63,7 +64,7 @@ public class Routes {
 				}
 				break;
 			}
-			JSONArray cds = (JSONArray) parser.parse(restService.httpGet(baseUrl+this.replaceIDs(GET_CONCEPT_DESCRIPTION_LIST[1]))[1]);
+			JSONArray cds = (JSONArray) parser.parse(restService.httpGet(baseUrl+this.replaceIDs(GET_CONCEPT_DESCRIPTION_LIST.getRoute()))[1]);
 			for(Object cd : cds) {
 				try {
 					this.cdIdShort = ((JSONObject) cd).get("idShort").toString();
@@ -81,7 +82,7 @@ public class Routes {
 		return this.baseUrl;
 	}
 	
-	public static String[][] getRoutes() {
+	public static Route[] getRoutes() {
 		return ROUTES;
 	}
 	
@@ -102,22 +103,22 @@ public class Routes {
 	}
 	
 	public String getAASRouteWithId() {
-		return this.replaceIDs(GET_AAS[1]);
+		return this.replaceIDs(GET_AAS.getRoute());
 	}
 	
 	public String getAssetRouteWithId() {
-		return this.replaceIDs(GET_ASSETS[1]);
+		return this.replaceIDs(GET_ASSETS.getRoute());
 	}
 	
 	public String getSubmodelRouteWithId() {
-		return this.replaceIDs(GET_SUBMODEL[1]);
+		return this.replaceIDs(GET_SUBMODEL.getRoute());
 	}
 	
 	public String getElementRouteWithId() {
-		return this.replaceIDs(GET_ELEMENT[1]);
+		return this.replaceIDs(GET_ELEMENT.getRoute());
 	}
 	
 	public String getConceptDescriptionRouteWithId() {
-		return this.replaceIDs(GET_CONCEPT_DESCRIPTION[1]);
+		return this.replaceIDs(GET_CONCEPT_DESCRIPTION.getRoute());
 	}
 }

@@ -12,9 +12,14 @@ import requests.RestService;
 import templates.Contact;
 import templates.Definition;
 import templates.Property;
+import templates.Request;
+import templates.Response;
+import templates.Route;
 import templates.ExternalDocs;
 import templates.Info;
 import templates.License;
+import templates.Parameter;
+import templates.Path;
 import templates.Tag;
 import utils.Checks;
 import utils.Routes;
@@ -61,6 +66,30 @@ public class Data {
 			tags[i] = tag;
 		}
 		return tags;
+	}
+	
+	public static Path[] generatePaths(RestService restService, Routes routes) {
+		Path[] paths = new Path[Routes.getRoutes().length];
+		int i = 0;
+		for(Route route : Routes.getRoutes()) {
+			String[] consumes;
+			String[] produces;
+			if(route.getType().equals("get")) {
+				consumes = new String[] {};
+				produces = new String[] {"application/json"};
+			} else {
+				consumes = new String[] {"application/json"};
+				produces = new String[] {"text/plain"};
+			}
+			//TODO: generate parameters
+			Parameter[] parameters = new Parameter[] {};
+			//TODO: generate responses
+			Response[] responses = new Response[] {};
+			Request request = new Request(route.getTag(), new String[] {route.getTag()}, route.getSummary(), "", null, consumes, produces, parameters, responses, "false");
+			paths[i] = new Path(route.getRoute(), request);
+			i++;
+		}
+		return null;
 	}
 	
 	@SuppressWarnings("rawtypes")

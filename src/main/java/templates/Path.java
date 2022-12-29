@@ -11,11 +11,11 @@ import org.json.simple.JSONObject;
  */
 public class Path {
 	private String path;
-	private Request[] requests;
+	private Request request;
 	
-	public Path(String path, Request[] requests) {
+	public Path(String path, Request request) {
 		this.path = path;
-		this.requests = requests;
+		this.request = request;
 	}
 	
 	public String getPath() {
@@ -25,9 +25,7 @@ public class Path {
     @SuppressWarnings("unchecked")
 	public String asJson() {
     	JSONObject container = new JSONObject();
-    	for(Request request : requests) {
-    		container.put(request.getRequestType(), request.asJson());
-    	}
+    	container.put(request.getRequestType(), request.asJson());
     	return container.toJSONString();
 	}
 }
