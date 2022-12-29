@@ -22,9 +22,7 @@ public class SwaggerService {
 	public void generateDocumentation() {
 		Data.generateInfo(restService, routes);
 		Data.generateTags();
-		for(String[] route : Routes.getRoutes()) {
-			//TODO: generate paths
-		}
+		Data.generatePaths(restService, routes);
 		Data.generateDefinitions(restService, routes);
 		Data.generateExternalDocs(restService, routes);
 	}

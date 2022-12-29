@@ -64,6 +64,7 @@ public class Data {
 		int i = 0;
 		for(Tag tag : tagList) {
 			tags[i] = tag;
+			i++;
 		}
 		return tags;
 	}
@@ -81,8 +82,7 @@ public class Data {
 				consumes = new String[] {"application/json"};
 				produces = new String[] {"text/plain"};
 			}
-			//TODO: generate parameters
-			Parameter[] parameters = new Parameter[] {};
+			Parameter[] parameters = routes.getParameters(route);
 			//TODO: generate responses
 			Response[] responses = new Response[] {};
 			Request request = new Request(route.getTag(), new String[] {route.getTag()}, route.getSummary(), "", null, consumes, produces, parameters, responses, "false");

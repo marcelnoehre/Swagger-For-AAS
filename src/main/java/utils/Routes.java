@@ -8,6 +8,8 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import requests.RestService;
+import templates.Items;
+import templates.Parameter;
 import templates.Route;
 
 public class Routes {
@@ -120,5 +122,42 @@ public class Routes {
 	
 	public String getConceptDescriptionRouteWithId() {
 		return this.replaceIDs(GET_CONCEPT_DESCRIPTION.getRoute());
+	}
+	
+	public Parameter[] getParameters(Route route) {
+		ArrayList<Parameter> parameterList = new ArrayList<Parameter>();
+		String[] possibleParameters = new String[] {"{aas.idShort}", "{submodel.idShort}", "{element.idShort}", "{cd.idShort}"};
+		for(String possibleParameter : possibleParameters) {
+			if(route.getRoute().contains(possibleParameter)) {
+				switch(possibleParameter.replace("{", "").replace("}", "")) {
+					case "aas.idShort":
+						parameterList.add(Constants.AAS_ID_SHORT);
+						break;
+					case "submodel.idShort":
+						parameterList.add(Constants.SUBMODEL_ID_SHORT);
+						break;
+					case "element.idShort":
+						parameterList.add(Constants.ELEMENT_ID_SHORT);
+						break;
+					case "cd.idShort":
+						parameterList.add(Constants.CD_ID_SHORT);
+						break;
+				}
+			}
+		}
+		if(route.getType().equals("put")) {
+			parameterList.add(new Parameter(route.getTag(), "body", "The new or updated " + route.getTag(), "true", "application/json", null, null, null, null, null, null));
+		} else if(route.getType().equals("get")) {
+			if(route.getExtraParameter() != null) {
+				parameterList.add(new Parameter("informationScope", "path", "Defines which information is displayed", "false", "array", null, null, null, new Items("string", route.getExtraParameter(), "", null), "single", null));
+			}
+		}
+		Parameter[] parameters = new Parameter[parameterList.size()];
+		int i = 0;
+		for(Parameter parameter : parameterList) {
+			parameters[i] = parameter;
+			i++;
+		}
+		return parameters;
 	}
 }
