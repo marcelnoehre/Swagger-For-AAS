@@ -15,5 +15,10 @@
 	    <artifactId>httpclient</artifactId>
 	    <version>4.3.4</version>
 	  </dependency>
+	  <dependency>
+	    <groupId>org.json</groupId>
+	    <artifactId>json</artifactId>
+	    <version>20211205</version>
+      </dependency>
 	</dependencies>
 </project>

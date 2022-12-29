@@ -19,9 +19,9 @@ public class Definition {
 	private String id;
 	private String type;
 	private String[] requiered;
-	private DefinitionProperty[] properties;
+	private Property[] properties;
 	
-	public Definition(String id, String type, String[] requiered, DefinitionProperty[] properties) {
+	public Definition(String id, String type, String[] requiered, Property[] properties) {
 		this.id = id;
 		this.type = type;
 		this.requiered = requiered;
@@ -30,7 +30,7 @@ public class Definition {
 	
 	private String[] getValueArray() {
 		ArrayList<String> propertyList = new ArrayList<String>();
-		for(DefinitionProperty property : properties) {
+		for(Property property : properties) {
 			propertyList.add(property.asJson());
 		}
 		return new String[] {this.type, Transform.arrayToJson(this.requiered), Transform.arrayToJson((String[]) propertyList.toArray())};
