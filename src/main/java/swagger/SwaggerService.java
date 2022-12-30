@@ -8,6 +8,7 @@ import templates.Path;
 import templates.Swagger;
 import templates.Tag;
 import utils.Routes;
+import utils.Transform;
 
 public class SwaggerService {
 	private RestService restService;
@@ -32,6 +33,6 @@ public class SwaggerService {
 		Definition[] definitions = Data.generateDefinitions(restService, routes);
 		ExternalDocs externalDocs = Data.generateExternalDocs(restService, routes);
 		Swagger swagger = new Swagger("2.0", info, host, basePath, tags, schemes, paths, definitions, externalDocs);
-		return swagger.asJson();
+		return Transform.adjustFinalJson(swagger.asJson());
 	}
 }

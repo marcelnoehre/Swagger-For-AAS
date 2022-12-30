@@ -48,4 +48,13 @@ public class Transform {
 		}
 		return container.toJSONString();
 	}
+	
+	public static String adjustFinalJson(String json) {
+		String tmp = "";
+		while(tmp != json) {
+			tmp = json;
+			json = json.replace("\\\\", "\\");
+		}
+		return json.replace("\\/", "/").replace("\\\"", "\"").replace("idShort}\"", "idShort}\"\"").replace("\"{","{").replace("}\"","}").replace("\"[","[").replace("]\"","]");
+	}
 }
