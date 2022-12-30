@@ -17,14 +17,130 @@ import templates.Response;
 import templates.Route;
 import templates.ExternalDocs;
 import templates.Info;
+import templates.Items;
 import templates.License;
 import templates.Parameter;
 import templates.Path;
 import templates.Tag;
 import utils.Checks;
+import utils.Constants;
 import utils.Routes;
 
 public class Data {
+	private static Parameter[] generateParameters(Route route) {
+		ArrayList<Parameter> parameterList = new ArrayList<Parameter>();
+		String[] possibleParameters = new String[] {"{aas.idShort}", "{submodel.idShort}", "{element.idShort}", "{cd.idShort}"};
+		for(String possibleParameter : possibleParameters) {
+			if(route.getRoute().contains(possibleParameter)) {
+				switch(possibleParameter.replace("{", "").replace("}", "")) {
+					case "aas.idShort":
+						parameterList.add(Constants.AAS_ID_SHORT);
+						break;
+					case "submodel.idShort":
+						parameterList.add(Constants.SUBMODEL_ID_SHORT);
+						break;
+					case "element.idShort":
+						parameterList.add(Constants.ELEMENT_ID_SHORT);
+						break;
+					case "cd.idShort":
+						parameterList.add(Constants.CD_ID_SHORT);
+						break;
+				}
+			}
+		}
+		if(route.getType().equals("put")) {
+			parameterList.add(new Parameter(route.getTag(), "body", "The new or updated " + route.getTag(), "true", "application/json", null, null, null, null, null, null));
+		} else if(route.getType().equals("get")) {
+			if(route.getExtraParameter() != null) {
+				parameterList.add(new Parameter("informationScope", "path", "Defines which information is displayed", "false", "array", null, null, null, new Items("string", route.getExtraParameter(), "", null), "single", null));
+			}
+		}
+		Parameter[] parameters = new Parameter[parameterList.size()];
+		int i = 0;
+		for(Parameter parameter : parameterList) {
+			parameters[i] = parameter;
+			i++;
+		}
+		return parameters;
+	}
+	
+	private static Response[] generateResponses(RestService restService, Routes routes, Route route) {
+		String[] good = null;
+		String[] repeat = null;
+		String[] bad = null;
+		String[] empty = null;
+		String path = "";
+		String pathPut = "";
+		String goodExample = "{\"idShort\":\"example\",\"id\":\"example\"}";
+		String badExample = "{\"idShort\"}";
+		switch(route.getType()) {
+		case "get":
+			good = restService.httpGet(routes.getBaseUrl()+routes.replaceIDs(route.getRoute()));
+			bad = restService.httpGet(routes.getBaseUrl()+routes.replaceIDs(route.getRoute()));
+			return new Response[] {
+					new Response(good[0], "successful operation", Constants.API_RESPONSE, null),
+					new Response(bad[0], bad[1], Constants.API_RESPONSE, null)
+			};
+		case "delete":
+			switch(route.getTag()) {
+			case "AAS":
+				path = Constants.DELETE_EXAMPLE_AAS;
+				break;
+			case "Submodel":
+				path = Constants.DELETE_EXAMPLE_SUBMODEL;
+				break;
+			case "Submodelelement":
+				path = Constants.DELETE_EXAMPLE_ELEMENT;
+				goodExample = "{\"idShort\":\"example\",\"modelType\":{\"name\":\"Property\"}}";
+				break;
+			case "Concept Description":
+				path = Constants.DELETE_EXAMPLE_CD;
+				break;
+			}
+			restService.httpPut(routes.getBaseUrl()+routes.replaceIDs(route.getRoute()), goodExample);
+			good = restService.httpDelete(routes.getBaseUrl()+routes.replaceIDs(path));
+			bad = restService.httpDelete(routes.getBaseUrl()+routes.replaceIDs(path));
+			return new Response[] {
+					new Response(good[0], good[1], Constants.API_RESPONSE, null),
+					new Response(bad[0], bad[1], Constants.API_RESPONSE, null)
+			};
+		case "put":
+			path = "";
+			switch(route.getTag()) {
+			case "AAS":
+				path = routes.getBaseUrl()+routes.replaceIDs(Constants.DELETE_EXAMPLE_AAS);
+				pathPut = routes.getBaseUrl()+routes.replaceIDs(Constants.PUT_AAS.getRoute());
+				break;
+			case "Submodel":
+				path = routes.getBaseUrl()+routes.replaceIDs(Constants.DELETE_EXAMPLE_SUBMODEL);
+				pathPut = routes.getBaseUrl()+routes.replaceIDs(Constants.PUT_SUBMODEL.getRoute());
+				break;
+			case "Submodelelement":
+				path = routes.getBaseUrl()+routes.replaceIDs(Constants.DELETE_EXAMPLE_ELEMENT);
+				pathPut = routes.getBaseUrl()+routes.replaceIDs(Constants.PUT_ELEMENT.getRoute());
+				goodExample = "{\"idShort\":\"example\",\"modelType\":{\"name\":\"Property\"}}";
+				break;
+			case "Concept Description":
+				path = routes.getBaseUrl()+routes.replaceIDs(Constants.DELETE_EXAMPLE_CD);
+				pathPut = routes.getBaseUrl()+routes.replaceIDs(Constants.PUT_CONCEPT_DESCRIPTION.getRoute());
+				break;
+			}
+			restService.httpDelete(path);
+			good = restService.httpPut(pathPut, goodExample);
+			repeat = restService.httpPut(pathPut, goodExample);
+			bad = restService.httpPut(pathPut, badExample);
+			empty = restService.httpPut(pathPut, "");
+			restService.httpDelete(path);
+			return new Response[] {
+					new Response(good[0], good[1], Constants.API_RESPONSE, null),
+					new Response(repeat[0], repeat[1], Constants.API_RESPONSE, null),
+					new Response(bad[0], bad[1], Constants.API_RESPONSE, null),
+					new Response(empty[0], empty[1], Constants.API_RESPONSE, null)
+			};
+		}
+		return null;
+	}
+	
 	public static Info generateInfo(RestService restService, Routes routes) {
 		try {
 			JSONParser parser = new JSONParser();
@@ -82,14 +198,11 @@ public class Data {
 				consumes = new String[] {"application/json"};
 				produces = new String[] {"text/plain"};
 			}
-			Parameter[] parameters = routes.getParameters(route);
-			//TODO: generate responses
-			Response[] responses = new Response[] {};
-			Request request = new Request(route.getTag(), new String[] {route.getTag()}, route.getSummary(), "", null, consumes, produces, parameters, responses, "false");
+			Request request = new Request(route.getTag(), new String[] {route.getTag()}, route.getSummary(), "", null, consumes, produces, generateParameters(route), generateResponses(restService, routes, route), "false");
 			paths[i] = new Path(route.getRoute(), request);
 			i++;
 		}
-		return null;
+		return paths;
 	}
 	
 	@SuppressWarnings("rawtypes")
