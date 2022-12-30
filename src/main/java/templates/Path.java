@@ -24,8 +24,12 @@ public class Path {
     
     @SuppressWarnings("unchecked")
 	public String asJson() {
-    	JSONObject container = new JSONObject();
-    	container.put(request.getRequestType(), request.asJson());
-    	return container.toJSONString();
+    	if(request == null) {
+    		return null;
+    	} else {
+        	JSONObject container = new JSONObject();
+        	container.put(request.getRequestType(), request.asJson());
+        	return container.toJSONString();
+    	}
 	}
 }

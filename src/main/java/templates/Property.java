@@ -37,7 +37,13 @@ public class Property {
 	}
 	
 	private String[] getValueArray() {
-		return new String[] {this.type, this.format, this.description, Transform.arrayToJson(enums), this.example, Transform.arrayToJson(exampleArray), items.asJson(), this.$ref};
+		String items;
+		try {
+			items = this.items.asJson();
+		} catch(NullPointerException itemsNull) {
+			items = null;
+		}
+		return new String[] {this.type, this.format, this.description, Transform.arrayToJson(this.enums), this.example, Transform.arrayToJson(this.exampleArray), items, this.$ref};
 	}
     
     @SuppressWarnings("unchecked")

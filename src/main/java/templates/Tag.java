@@ -22,7 +22,13 @@ public class Tag {
 	}
 	
 	private String[] getValueArray() {
-		return new String[] {this.name, this.description, this.externalDocs.asJson()};
+		String externalDocs;
+		try {
+			externalDocs = this.externalDocs.asJson();
+		} catch(NullPointerException externalDocsNull) {
+			externalDocs = null;
+		}
+		return new String[] {this.name, this.description, externalDocs};
 	}
     
     public String asJson() {

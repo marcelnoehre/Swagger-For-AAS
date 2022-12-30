@@ -9,7 +9,7 @@ import org.json.JSONObject;
 
 public class Checks {
 	public static boolean valueIsEmpty(String value) {
-		return (value.trim().equals("") || value.equals(null));
+		return (value == null) || value.trim().equals("");
 	}
 	
 	public static String[] filterArray(String[] array) {

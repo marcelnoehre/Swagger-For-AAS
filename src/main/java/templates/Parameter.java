@@ -38,7 +38,19 @@ public class Parameter {
 	}
 	
 	private String[] getValueArray() {
-		return new String[] {this.name, this.in, this.description, this.requiered, this.type, this.format, this.minimum, this.maximum, this.items.asJson(), this.collectionFormat, this.schema.asJson()};
+		String items;
+		try {
+			items = this.items.asJson();
+		} catch(NullPointerException itemsNull) {
+			items = null;
+		}
+		String schema;
+		try {
+			schema = this.schema.asJson();
+		} catch(NullPointerException schemaNull) {
+			schema = null;
+		}
+		return new String[] {this.name, this.in, this.description, this.requiered, this.type, this.format, this.minimum, this.maximum, items, this.collectionFormat, schema};
 	}
     
     public String asJson() {

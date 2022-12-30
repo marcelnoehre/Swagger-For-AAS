@@ -1,6 +1,12 @@
 package swagger;
 
 import requests.RestService;
+import templates.Definition;
+import templates.ExternalDocs;
+import templates.Info;
+import templates.Path;
+import templates.Swagger;
+import templates.Tag;
 import utils.Routes;
 
 public class SwaggerService {
@@ -20,10 +26,16 @@ public class SwaggerService {
 	
 	
 	public void generateDocumentation() {
-		Data.generateInfo(restService, routes);
-		Data.generateTags();
-		Data.generatePaths(restService, routes);
-		Data.generateDefinitions(restService, routes);
-		Data.generateExternalDocs(restService, routes);
+		Info info = Data.generateInfo(restService, routes);
+		Tag[] tags = Data.generateTags();
+		Path[] paths = Data.generatePaths(restService, routes);
+		Definition[] definitions = Data.generateDefinitions(restService, routes);
+		ExternalDocs externalDocs = Data.generateExternalDocs(restService, routes);
+		Swagger swagger = new Swagger("2.0", info, host, basePath, tags, schemes, paths, definitions, externalDocs);
+		//TODO: fix classCastException
+			//Swagger.java
+			//Transform.arrayToJson((String[]) tagList.toArray())
+			//problem: array cast?
+		System.out.println(swagger.asJson().toString());
 	}
 }

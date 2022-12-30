@@ -31,9 +31,27 @@ public class Response {
 	private String[] getValueArray() {
 		ArrayList<String> headerList = new ArrayList<String>();
 		for(Header header : headers) {
-			headerList.add(header.asJson());
+			String headerCheck;
+			try {
+				headerCheck = header.asJson();
+			} catch(NullPointerException itemsNull) {
+				headerCheck = null;
+			}
+			headerList.add(headerCheck);
 		}
-		return new String[] {this.description, this.schema.asJson(), Transform.arrayToJson((String[]) headerList.toArray())};
+		String[] headerArr = new String[headerList.size()];
+		int i = 0;
+		for(String header : headerList) {
+			headerArr[i] = header;
+			i++;
+		}
+		String schema;
+		try {
+			schema = this.schema.asJson();
+		} catch(NullPointerException schemaNull) {
+			schema = null;
+		}
+		return new String[] {this.description, schema, Transform.arrayToJson(headerArr)};
 	}
     
     @SuppressWarnings("unchecked")

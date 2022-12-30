@@ -8,13 +8,17 @@ import templates.Path;
 public class Transform {
 	@SuppressWarnings("unchecked")
 	public static String arrayToJson(String[] array) {
-		if(array.length >= 1) {
-			JSONArray jsonArray = new JSONArray();
-			for(String element : array) {
-				jsonArray.add(element);
+		try {
+			if(array.length >= 1) {
+				JSONArray jsonArray = new JSONArray();
+				for(String element : array) {
+					jsonArray.add(element);
+				}
+				return jsonArray.toJSONString();
+			} else {
+				return null;
 			}
-			return jsonArray.toJSONString();
-		} else {
+		} catch(NullPointerException arrayNull) {
 			return null;
 		}
 	}

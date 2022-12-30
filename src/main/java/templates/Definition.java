@@ -33,7 +33,13 @@ public class Definition {
 		for(Property property : properties) {
 			propertyList.add(property.asJson());
 		}
-		return new String[] {this.type, Transform.arrayToJson(this.requiered), Transform.arrayToJson((String[]) propertyList.toArray())};
+		String[] propertyArr = new String[propertyList.size()];
+		int i = 0;
+		for(String property : propertyList) {
+			propertyArr[i] = property;
+			i++;
+		}
+		return new String[] {this.type, Transform.arrayToJson(this.requiered), Transform.arrayToJson(propertyArr)};
 	}
     
     @SuppressWarnings("unchecked")

@@ -38,15 +38,37 @@ public class Request {
 	}
 	
 	private String[] getValueArray() {
-		ArrayList<String> parameterList = new ArrayList<String>();
-		for(Parameter parameter: parameters) {
-			parameterList.add(parameter.asJson());
+		String[] parameterArr;
+		String[] responseArr;
+		try {
+			ArrayList<String> parameterList = new ArrayList<String>();
+			for(Parameter parameter: parameters) {
+				parameterList.add(parameter.asJson());
+			}
+			parameterArr = new String[parameterList.size()];
+			int i = 0;
+			for(String parameter : parameterList) {
+				parameterArr[i] = parameter;
+				i++;
+			}
+		} catch(NullPointerException parameterNull) {
+			parameterArr = null;
 		}
-		ArrayList<String> responseList = new ArrayList<String>();
-		for(Response response: responses) {
-			responseList.add(response.asJson());
+		try {
+			ArrayList<String> responseList = new ArrayList<String>();
+			for(Response response: responses) {
+				responseList.add(response.asJson());
+			}
+			responseArr = new String[responseList.size()];
+			int i = 0;
+			for(String response : responseList) {
+				responseArr[i] = response;
+				i++;
+			}
+		} catch(NullPointerException responseNull) {
+			responseArr = null;
 		}
-		return new String[] {Transform.arrayToJson(this.tags), this.summary, this.description, this.operationID, Transform.arrayToJson(this.consumes), Transform.arrayToJson(this.produces), Transform.arrayToJson((String[]) parameterList.toArray()), Transform.arrayToJson((String[]) responseList.toArray()), this.deprecated};
+		return new String[] {Transform.arrayToJson(this.tags), this.summary, this.description, this.operationID, Transform.arrayToJson(this.consumes), Transform.arrayToJson(this.produces), Transform.arrayToJson(parameterArr), Transform.arrayToJson(responseArr), this.deprecated};
 	}
 	
 	public String getRequestType() {

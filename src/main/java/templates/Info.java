@@ -28,7 +28,19 @@ public class Info {
 	}
 	
 	private String[] getValueArray() {
-		return new String[] {this.description, this.version, this.title, this.termsOfService, this.contact.asJson(), this.license.asJson()};
+		String contact;
+		try {
+			contact = this.contact.asJson();
+		} catch(NullPointerException contactNull) {
+			contact = null;
+		}
+		String license;
+		try {
+			license = this.license.asJson();
+		} catch(NullPointerException licenseNull) {
+			license = null;
+		}
+		return new String[] {this.description, this.version, this.title, this.termsOfService, contact, license};
 	}
     
     public String asJson() {

@@ -24,7 +24,19 @@ public class Schema {
 	}
 	
 	private String[] getValueArray() {
-		return new String[] {this.type, this.items.asJson(), this.additionalProperties.asJson(), this.$ref};
+		String items;
+		try {
+			items = this.items.asJson();
+		} catch(NullPointerException itemsNull) {
+			items = null;
+		}
+		String additionalProperties;
+		try {
+			additionalProperties = this.additionalProperties.asJson();
+		} catch(NullPointerException additionalPropertiesNull) {
+			additionalProperties = null;
+		}
+		return new String[] {this.type, items, additionalProperties, this.$ref};
 	}
     
     public String asJson() {
