@@ -8,6 +8,6 @@ public class SwaggerServiceTest {
 	
 	public static void main(String args[]) {
 		SwaggerService swagger = new SwaggerService(SCHEMES, HOST, BASEPATH, "Festo_3S7PM0CP4BD");
-		swagger.generateDocumentation();
+		System.out.println(swagger.generateDocumentation());
 	}
 }
