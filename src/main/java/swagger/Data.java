@@ -9,7 +9,6 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import requests.RestService;
-import templates.Contact;
 import templates.Definition;
 import templates.Property;
 import templates.Request;
@@ -18,7 +17,6 @@ import templates.Route;
 import templates.ExternalDocs;
 import templates.Info;
 import templates.Items;
-import templates.License;
 import templates.Parameter;
 import templates.Path;
 import templates.Tag;
@@ -69,6 +67,7 @@ public class Data {
 		String[] repeat = null;
 		String[] bad = null;
 		String[] empty = null;
+		String[][] parameter = new String[][] {new String[] {"idShort", "example"}, new String[] {"id", "example"}};
 		String path = "";
 		String pathPut = "";
 		String goodExample = "{\"idShort\":\"example\",\"id\":\"example\"}";
@@ -92,12 +91,13 @@ public class Data {
 			case "Submodelelement":
 				path = Constants.DELETE_EXAMPLE_ELEMENT;
 				goodExample = "{\"idShort\":\"example\",\"modelType\":{\"name\":\"Property\"}}";
+				parameter = new String[][] {new String[] {"idShort", "example"}, new String[] {"id", "example"}, new String[] {"modelType", "{\"name\":\"Property\"}"}};
 				break;
 			case "Concept Description":
 				path = Constants.DELETE_EXAMPLE_CD;
 				break;
 			}
-			restService.httpPut(routes.getBaseUrl()+routes.replaceIDs(route.getRoute()), goodExample);
+			restService.httpPut(routes.getBaseUrl()+routes.replaceIDs(route.getRoute()), goodExample, parameter);
 			good = restService.httpDelete(routes.getBaseUrl()+routes.replaceIDs(path));
 			bad = restService.httpDelete(routes.getBaseUrl()+routes.replaceIDs(path));
 			return new Response[] {
@@ -105,12 +105,13 @@ public class Data {
 					new Response(bad[0], bad[1], Constants.API_RESPONSE, null)
 			};
 		case "put":
-			path = "";
 			switch(route.getTag()) {
 			case "AAS":
 				path = routes.getBaseUrl()+routes.replaceIDs(Constants.DELETE_EXAMPLE_AAS);
 				pathPut = routes.getBaseUrl()+routes.replaceIDs(Constants.PUT_AAS.getRoute());
 				break;
+			case "Asset":
+				return Constants.PUT_ASSET_EXAMPLE_RESPONSE;
 			case "Submodel":
 				path = routes.getBaseUrl()+routes.replaceIDs(Constants.DELETE_EXAMPLE_SUBMODEL);
 				pathPut = routes.getBaseUrl()+routes.replaceIDs(Constants.PUT_SUBMODEL.getRoute());
@@ -119,6 +120,7 @@ public class Data {
 				path = routes.getBaseUrl()+routes.replaceIDs(Constants.DELETE_EXAMPLE_ELEMENT);
 				pathPut = routes.getBaseUrl()+routes.replaceIDs(Constants.PUT_ELEMENT.getRoute());
 				goodExample = "{\"idShort\":\"example\",\"modelType\":{\"name\":\"Property\"}}";
+				parameter = new String[][] {new String[] {"idShort", "example"}, new String[] {"id", "example"}, new String[] {"modelType", "{\"name\":\"Property\"}"}};
 				break;
 			case "Concept Description":
 				path = routes.getBaseUrl()+routes.replaceIDs(Constants.DELETE_EXAMPLE_CD);
@@ -126,10 +128,10 @@ public class Data {
 				break;
 			}
 			restService.httpDelete(path);
-			good = restService.httpPut(pathPut, goodExample);
-			repeat = restService.httpPut(pathPut, goodExample);
-			bad = restService.httpPut(pathPut, badExample);
-			empty = restService.httpPut(pathPut, "");
+			good = restService.httpPut(pathPut, goodExample, parameter);
+			repeat = restService.httpPut(pathPut, goodExample, parameter);
+			bad = restService.httpPut(pathPut, badExample, parameter);
+			empty = restService.httpPut(pathPut, "", parameter);
 			restService.httpDelete(path);
 			return new Response[] {
 					new Response(good[0], good[1], Constants.API_RESPONSE, null),
@@ -146,11 +148,7 @@ public class Data {
 			JSONParser parser = new JSONParser();
 			JSONObject json = (JSONObject) parser.parse(restService.httpGet(routes.getBaseUrl()+routes.getAASRouteWithId())[1]);
 			String description = "";
-			String version = null;
 			String title = "Asset Adminstration Shell: " + routes.getAASId();
-			String termsOfService = null;
-			Contact contact = null;
-			License license = null;
 			try {
 				JSONArray descriptions = (JSONArray) ((JSONObject) parser.parse(json.get("Asset").toString())).get("descriptions");
 				int i = 0; 
@@ -164,7 +162,7 @@ public class Data {
 			} catch(NullPointerException desc) {
 				description = "REST server for access to the Asset Administration Shell: " + routes.getAASId();
 			}
-			return new Info(description, version, title, termsOfService, contact, license);
+			return new Info(description, "1.0", title, null, null, null);
 		} catch (ParseException parse) {
 			return null;
 		}
@@ -198,7 +196,7 @@ public class Data {
 				consumes = new String[] {"application/json"};
 				produces = new String[] {"text/plain"};
 			}
-			Request request = new Request(route.getTag(), new String[] {route.getTag()}, route.getSummary(), "", null, consumes, produces, generateParameters(route), generateResponses(restService, routes, route), "false");
+			Request request = new Request(route.getType(), new String[] {route.getTag()}, route.getSummary(), "", null, consumes, produces, generateParameters(route), generateResponses(restService, routes, route), "false");
 			paths[i] = new Path(route.getRoute(), request);
 			i++;
 		}

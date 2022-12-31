@@ -1,12 +1,14 @@
 package requests;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
+import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.conn.HttpClientConnectionManager;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -58,12 +60,21 @@ public class RestService {
 		return new String[] {Integer.toString(resultCode), response};
     }
     
-    public String[] httpPut(String url, String input) {
+    public String[] httpPut(String path, String input, String[][] parameter) {
     	int resultCode = -1;
     	String response = "";
     	try {
     		HttpPut put = new HttpPut();
     		StringEntity entity = new StringEntity(input);
+			try {
+	    		URIBuilder builder = new URIBuilder()
+					    .setScheme("http")
+					    .setHost("localhost:1111");
+	    		
+				put.setURI(builder.build());
+			} catch (URISyntaxException e) {
+			}
+			put.setHeader("Content-type", "application/json");
     		put.setEntity(entity);
     		this.httpResponse = client.execute(put);
     		response = EntityUtils.toString(this.httpResponse.getEntity());

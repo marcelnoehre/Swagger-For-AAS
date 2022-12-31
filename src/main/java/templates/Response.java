@@ -30,20 +30,22 @@ public class Response {
 	
 	private String[] getValueArray() {
 		ArrayList<String> headerList = new ArrayList<String>();
-		for(Header header : headers) {
-			String headerCheck;
-			try {
-				headerCheck = header.asJson();
-			} catch(NullPointerException itemsNull) {
-				headerCheck = null;
-			}
-			headerList.add(headerCheck);
-		}
 		String[] headerArr = new String[headerList.size()];
-		int i = 0;
-		for(String header : headerList) {
-			headerArr[i] = header;
-			i++;
+		if(this.headers != null) {
+			for (Header header : headers) {
+				String headerCheck;
+				try {
+					headerCheck = header.asJson();
+				} catch(NullPointerException itemsNull) {
+					headerCheck = null;
+				}
+				headerList.add(headerCheck);
+			}
+			int i = 0;
+			for(String header : headerList) {
+				headerArr[i] = header;
+				i++;
+			}
 		}
 		String schema;
 		try {
