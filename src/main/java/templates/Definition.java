@@ -2,9 +2,6 @@ package templates;
 
 import java.util.ArrayList;
 
-import org.json.simple.JSONObject;
-
-import utils.Checks;
 import utils.Transform;
 
 /**
@@ -28,6 +25,10 @@ public class Definition {
 		this.properties = properties;
 	}
 	
+	public String getId() {
+		return this.id;
+	}
+	
 	private String[] getValueArray() {
 		ArrayList<String> propertyList = new ArrayList<String>();
 		for(Property property : properties) {
@@ -42,15 +43,7 @@ public class Definition {
 		return new String[] {this.type, Transform.arrayToJson(this.requiered), Transform.arrayToJson(propertyArr)};
 	}
     
-    @SuppressWarnings("unchecked")
 	public String asJson() {
-    	String definition = Transform.instanceToJson(keys, this.getValueArray());
-    	if(Checks.valueIsEmpty(definition)) {
-    		return null;
-    	} else {
-    		JSONObject container = new JSONObject();
-    		container.put(id, definition);
-    		return container.toJSONString();
-    	}	
+    	return Transform.instanceToJson(keys, this.getValueArray());
 	}
 }

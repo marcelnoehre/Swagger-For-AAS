@@ -74,27 +74,43 @@ public class Data {
 		String badExample = "{\"idShort\"}";
 		switch(route.getType()) {
 		case "get":
+			switch(route.getTag()) {
+			case "Asset Administration Shell":
+				path = route.getRoute().equals("/aas/{aas.idShort}/")? Constants.EXAMPLE_AAS : Constants.EXAMPLE_SUBMODEL_LIST;
+				break;
+			case "Submodel":
+				path = route.getRoute().equals("/aas/{aas.idShort}/submodels/{submodel.idShort}/")? Constants.EXAMPLE_SUBMODEL : Constants.EXAMPLE_ELEMENT_LIST;
+				break;
+			case "Submodelelement":
+				path = Constants.EXAMPLE_ELEMENT;
+				goodExample = "{\"idShort\":\"example\",\"modelType\":{\"name\":\"Property\"}}";
+				parameter = new String[][] {new String[] {"idShort", "example"}, new String[] {"id", "example"}, new String[] {"modelType", "{\"name\":\"Property\"}"}};
+				break;
+			case "Concept Description":
+				path = route.getRoute().equals("/aas/{aas.idShort}/cds")? Constants.EXAMPLE_CD : Constants.EXAMPLE_CD_LIST;
+				break;
+			}
 			good = restService.httpGet(routes.getBaseUrl()+routes.replaceIDs(route.getRoute()));
-			bad = restService.httpGet(routes.getBaseUrl()+routes.replaceIDs(route.getRoute()));
+			bad = restService.httpGet(routes.getBaseUrl()+routes.replaceIDs(path));
 			return new Response[] {
 					new Response(good[0], "successful operation", Constants.API_RESPONSE, null),
 					new Response(bad[0], bad[1], Constants.API_RESPONSE, null)
 			};
 		case "delete":
 			switch(route.getTag()) {
-			case "AAS":
-				path = Constants.DELETE_EXAMPLE_AAS;
+			case "Asset Administration Shell":
+				path = Constants.EXAMPLE_AAS;
 				break;
 			case "Submodel":
-				path = Constants.DELETE_EXAMPLE_SUBMODEL;
+				path = Constants.EXAMPLE_SUBMODEL;
 				break;
 			case "Submodelelement":
-				path = Constants.DELETE_EXAMPLE_ELEMENT;
+				path = Constants.EXAMPLE_ELEMENT;
 				goodExample = "{\"idShort\":\"example\",\"modelType\":{\"name\":\"Property\"}}";
 				parameter = new String[][] {new String[] {"idShort", "example"}, new String[] {"id", "example"}, new String[] {"modelType", "{\"name\":\"Property\"}"}};
 				break;
 			case "Concept Description":
-				path = Constants.DELETE_EXAMPLE_CD;
+				path = Constants.EXAMPLE_CD;
 				break;
 			}
 			restService.httpPut(routes.getBaseUrl()+routes.replaceIDs(route.getRoute()), goodExample, parameter);
@@ -106,24 +122,24 @@ public class Data {
 			};
 		case "put":
 			switch(route.getTag()) {
-			case "AAS":
-				path = routes.getBaseUrl()+routes.replaceIDs(Constants.DELETE_EXAMPLE_AAS);
+			case "Asset Administration Shell":
+				path = routes.getBaseUrl()+routes.replaceIDs(Constants.EXAMPLE_AAS);
 				pathPut = routes.getBaseUrl()+routes.replaceIDs(Constants.PUT_AAS.getRoute());
 				break;
 			case "Asset":
 				return Constants.PUT_ASSET_EXAMPLE_RESPONSE;
 			case "Submodel":
-				path = routes.getBaseUrl()+routes.replaceIDs(Constants.DELETE_EXAMPLE_SUBMODEL);
+				path = routes.getBaseUrl()+routes.replaceIDs(Constants.EXAMPLE_SUBMODEL);
 				pathPut = routes.getBaseUrl()+routes.replaceIDs(Constants.PUT_SUBMODEL.getRoute());
 				break;
 			case "Submodelelement":
-				path = routes.getBaseUrl()+routes.replaceIDs(Constants.DELETE_EXAMPLE_ELEMENT);
+				path = routes.getBaseUrl()+routes.replaceIDs(Constants.EXAMPLE_ELEMENT);
 				pathPut = routes.getBaseUrl()+routes.replaceIDs(Constants.PUT_ELEMENT.getRoute());
 				goodExample = "{\"idShort\":\"example\",\"modelType\":{\"name\":\"Property\"}}";
 				parameter = new String[][] {new String[] {"idShort", "example"}, new String[] {"id", "example"}, new String[] {"modelType", "{\"name\":\"Property\"}"}};
 				break;
 			case "Concept Description":
-				path = routes.getBaseUrl()+routes.replaceIDs(Constants.DELETE_EXAMPLE_CD);
+				path = routes.getBaseUrl()+routes.replaceIDs(Constants.EXAMPLE_CD);
 				pathPut = routes.getBaseUrl()+routes.replaceIDs(Constants.PUT_CONCEPT_DESCRIPTION.getRoute());
 				break;
 			}

@@ -6,10 +6,10 @@ import templates.Route;
 import templates.Schema;
 
 public class Constants {
-	public static final Route GET_AAS = new Route("AAS", "Information about the Asset Administration Shell", "get", "/aas/{aas.idShort}/", new String[] {"core", "complete", "thumbnail", "aasenv"});
-	public static final Route GET_SUBMODEL_LIST = new Route("AAS", "A list of all submodels of an AAS", "get", "/aas/{aas.idShort}/submodels/", new String[] {"core", "deep", "complete"});
-	public static final Route PUT_AAS = new Route("AAS", "Add or update a Asset Administration Shell", "put", "/aas/", null);
-	public static final Route DELETE_AAS = new Route("AAS", "Delete a Asset Adminstration Shell","delete", "/aas/{aas.idShort}", null);
+	public static final Route GET_AAS = new Route("Asset Administration Shell", "Information about the Asset Administration Shell", "get", "/aas/{aas.idShort}/", new String[] {"core", "complete", "thumbnail", "aasenv"});
+	public static final Route GET_SUBMODEL_LIST = new Route("Asset Administration Shell", "A list of all submodels of an AAS", "get", "/aas/{aas.idShort}/submodels/", new String[] {"core", "deep", "complete"});
+	public static final Route PUT_AAS = new Route("Asset Administration Shell", "Add or update a Asset Administration Shell", "put", "/aas/", null);
+	public static final Route DELETE_AAS = new Route("Asset Administration Shell", "Delete a Asset Adminstration Shell","delete", "/aas/{aas.idShort}", null);
 	
 	public static final Route GET_ASSETS = new Route("Asset", "Information about the Asset", "get", "/assets/{aas.idShort}", null);
 	public static final Route PUT_ASSETS = new Route("Asset", "Add or update a Asset", "put", "/assets/", null);
@@ -28,10 +28,16 @@ public class Constants {
 	public static final Route PUT_CONCEPT_DESCRIPTION = new Route("Concept Description", "Add or update a concept description", "put", "/aas/{aas.idShort]/cds/", null);
 	public static final Route DELETE_CONCEPT_DESCRIPTION = new Route("Concept Description", "Delete a concept description", "delete", "/aas/{aas.idShort}/cds/{cd.idShort}", null);
 	
-	public static final String DELETE_EXAMPLE_AAS = "/aas/example";
-	public static final String DELETE_EXAMPLE_SUBMODEL = "/aas/{aas.idShort}/submodels/example";
-	public static final String DELETE_EXAMPLE_ELEMENT = "/aas/{aas.idShort}/submodels/{submodel.idShort}/elements/example";
-	public static final String DELETE_EXAMPLE_CD = "/aas/{aas.idShort}/cds/example";
+	
+	
+	public static final String EXAMPLE_AAS = "/aas/example";
+	public static final String EXAMPLE_SUBMODEL_LIST = "/aas/example/submodels/";
+	public static final String EXAMPLE_ASSETS = "/assets/example";
+	public static final String EXAMPLE_SUBMODEL = "/aas/{aas.idShort}/submodels/example";
+	public static final String EXAMPLE_ELEMENT_LIST = "/aas/{aas.idShort}/submodels/example/table";
+	public static final String EXAMPLE_ELEMENT = "/aas/{aas.idShort}/submodels/{submodel.idShort}/elements/example";
+	public static final String EXAMPLE_CD_LIST = "/aas/example/cds";
+	public static final String EXAMPLE_CD = "/aas/{aas.idShort}/cds/example";
 	
 	public static final Parameter AAS_ID_SHORT = new Parameter("aas.idShort", "path", "The unique ID of an AAS", "true", "string", null, null, null, null, null, null);
 	public static final Parameter SUBMODEL_ID_SHORT = new Parameter("submodel.idShort", "path", "The unique ID of an AAS", "true", "string", null, null, null, null, null, null);

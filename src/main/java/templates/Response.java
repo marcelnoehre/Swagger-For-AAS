@@ -2,9 +2,6 @@ package templates;
 
 import java.util.ArrayList;
 
-import org.json.simple.JSONObject;
-
-import utils.Checks;
 import utils.Transform;
 
 /**
@@ -26,6 +23,10 @@ public class Response {
 		this.description = description;
 		this.schema = schema;
 		this.headers = headers;
+	}
+	
+	public String getResultCode() {
+		return this.resultCode;
 	}
 	
 	private String[] getValueArray() {
@@ -56,15 +57,7 @@ public class Response {
 		return new String[] {this.description, schema, Transform.arrayToJson(headerArr)};
 	}
     
-    @SuppressWarnings("unchecked")
 	public String asJson() {
-    	String response = Transform.instanceToJson(keys, this.getValueArray());
-    	if(Checks.valueIsEmpty(response)) {
-    		return null;
-    	} else {
-    		JSONObject container = new JSONObject();
-    		container.put(this.resultCode, response);
-    		return container.toJSONString();
-    	}	
+    	return Transform.instanceToJson(keys, this.getValueArray());
 	}
 }

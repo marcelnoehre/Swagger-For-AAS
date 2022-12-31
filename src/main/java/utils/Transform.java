@@ -3,7 +3,9 @@ package utils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import templates.Definition;
 import templates.Path;
+import templates.Response;
 
 public class Transform {
 	@SuppressWarnings("unchecked")
@@ -45,6 +47,24 @@ public class Transform {
 		JSONObject container = new JSONObject();
 		for(Path path : paths) {
 			container.put(path.getPath(), path.asJson());
+		}
+		return container.toJSONString();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static String responsesToJson(Response[] responses) {
+		JSONObject container = new JSONObject();
+		for(Response response : responses) {
+			container.put(response.getResultCode(), response.asJson());
+		}
+		return container.toJSONString();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static String definitionsToJson(Definition[] definitions) {
+		JSONObject container = new JSONObject();
+		for(Definition definition : definitions) {
+			container.put(definition.getId(), definition.asJson());
 		}
 		return container.toJSONString();
 	}

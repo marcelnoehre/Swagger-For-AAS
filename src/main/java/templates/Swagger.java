@@ -52,22 +52,6 @@ public class Swagger {
 			tagArr[i] = tag;
 			i++;
 		}
-		ArrayList<String> definitionList = new ArrayList<String>();
-		for(Definition definition : definitions) {
-			String definitionCheck;
-			try {
-				definitionCheck = definition.asJson();
-			} catch(NullPointerException tagNull) {
-				definitionCheck = null;
-			}
-			definitionList.add(definitionCheck);
-		}
-		String[] definitionArr = new String[definitionList.size()];
-		i = 0;
-		for(String definition : definitionList) {
-			definitionArr[i] = definition;
-			i++;
-		}
 		String info;
 		try {
 			info = this.info.asJson();
@@ -80,7 +64,7 @@ public class Swagger {
 		} catch(NullPointerException externalDocsNull) {
 			externalDocs = null;
 		}
-		return new String[] {this.swagger, info, this.host, this.basePath, Transform.arrayToJson(tagArr), Transform.arrayToJson(this.schemes), Transform.pathsToJson(this.paths), Transform.arrayToJson(definitionArr), externalDocs};
+		return new String[] {this.swagger, info, this.host, this.basePath, Transform.arrayToJson(tagArr), Transform.arrayToJson(this.schemes), Transform.pathsToJson(this.paths), Transform.definitionsToJson(definitions), externalDocs};
 	}
     
     public String asJson() {
