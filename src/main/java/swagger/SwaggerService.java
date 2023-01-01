@@ -19,7 +19,7 @@ public class SwaggerService {
 	
 	public SwaggerService(String[] schemes, String host, String basePath, String aasIdShort) {
 		this.restService = new RestService();
-		this.routes = new Routes(restService, schemes[0]+"://"+host, aasIdShort);
+		this.routes = new Routes(restService, schemes[0]+"://"+host+basePath, aasIdShort);
 		this.schemes = schemes;
 		this.host = host;
 		this.basePath = basePath;

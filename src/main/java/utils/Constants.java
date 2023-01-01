@@ -20,12 +20,12 @@ public class Constants {
 	public static final Route DELETE_SUBMODEL = new Route("Submodel", "Delete a submodel", "delete", "/aas/{aas.idShort}/submodels/{submodel.idShort}", null);
 	
 	public static final Route GET_ELEMENT = new Route("Submodelelement", "Information about the submodelelement", "get", "/aas/{aas.idShort}/submodels/{submodel.idShort}/elements/{element.idShort}/", new String[] {"core", "deep", "complete"});
-	public static final Route PUT_ELEMENT = new Route("Submodelelement", "Add or update a submodelelement", "put", "/aas/{aas.idShort}/submodels/{submodel.idShort}/elements/{element.idShort}/", null);
+	public static final Route PUT_ELEMENT = new Route("Submodelelement", "Add or update a submodelelement", "put", "/aas/{aas.idShort}/submodels/{submodel.idShort}/elements/", null);
 	public static final Route DELETE_ELEMENT = new Route("Submodelelement", "Delete a submodelelement", "delete", "/aas/{aas.idShort}/submodels/{submodel.idShort}/elements/{element.idShort}", null);
 
 	public static final Route GET_CONCEPT_DESCRIPTION_LIST = new Route("Concept Description", "A list of all concept descriptions of an AAS", "get", "/aas/{aas.idShort}/cds", null);
 	public static final Route GET_CONCEPT_DESCRIPTION = new Route("Concept Description", "Information about a concept description", "get", "/aas/{aas.idShort}/cds/{cd.idShort}",null);
-	public static final Route PUT_CONCEPT_DESCRIPTION = new Route("Concept Description", "Add or update a concept description", "put", "/aas/{aas.idShort]/cds/", null);
+	public static final Route PUT_CONCEPT_DESCRIPTION = new Route("Concept Description", "Add or update a concept description", "put", "/aas/{aas.idShort}/cds/", null);
 	public static final Route DELETE_CONCEPT_DESCRIPTION = new Route("Concept Description", "Delete a concept description", "delete", "/aas/{aas.idShort}/cds/{cd.idShort}", null);
 	
 	
@@ -46,9 +46,7 @@ public class Constants {
 	
 	public static final Schema API_RESPONSE = new Schema(null, null, null, "#/definitions/ApiResponse");
 	public static final Response[] PUT_ASSET_EXAMPLE_RESPONSE = new Response[] {
-			new Response("200", "OK (new)", API_RESPONSE, null),
 			new Response("200", "OK (updated)", API_RESPONSE, null),
-			new Response("400", "Cannot deserialize payload: Invalid character after parsing property name. Expected ':' but got: }. Path '', line 3, position 0..", API_RESPONSE, null),
 			new Response("400", "No payload or content type is not JSON.", API_RESPONSE, null)
 	};
 }

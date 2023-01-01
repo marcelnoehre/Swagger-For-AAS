@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
@@ -49,8 +48,7 @@ public class RestService {
     	String response = "";
     	try {
     		HttpPost post = new HttpPost();
-    		StringEntity entity = new StringEntity(input);
-    		post.setEntity(entity);
+    		post.setEntity(new StringEntity(input));
     		this.httpResponse = client.execute(post);
     		response = EntityUtils.toString(this.httpResponse.getEntity());
     		resultCode = this.httpResponse.getStatusLine().getStatusCode();
@@ -60,22 +58,24 @@ public class RestService {
 		return new String[] {Integer.toString(resultCode), response};
     }
     
-    public String[] httpPut(String path, String input, String[][] parameter) {
+    public String[] httpPut(String path, String input, String[][] parameters) {
     	int resultCode = -1;
     	String response = "";
     	try {
     		HttpPut put = new HttpPut();
-    		StringEntity entity = new StringEntity(input);
 			try {
 	    		URIBuilder builder = new URIBuilder()
 					    .setScheme("http")
-					    .setHost("localhost:1111");
-	    		
+					    .setHost("localhost:1111") 
+					    .setPath(path);
+	    		for(String[] parameter: parameters) {
+	    			builder.addParameter(parameter[0], parameter[1]);
+	    		}
 				put.setURI(builder.build());
 			} catch (URISyntaxException e) {
 			}
 			put.setHeader("Content-type", "application/json");
-    		put.setEntity(entity);
+    		put.setEntity(new StringEntity(input));
     		this.httpResponse = client.execute(put);
     		response = EntityUtils.toString(this.httpResponse.getEntity());
     		resultCode = this.httpResponse.getStatusLine().getStatusCode();
@@ -85,11 +85,13 @@ public class RestService {
 		return new String[] {Integer.toString(resultCode), response};
     }
     
-    public String[] httpDelete(String url) {
+    public String[] httpDelete(String url, String input) {
     	int resultCode = -1;
     	String response = "";
 		try {
-			HttpDelete delete = new HttpDelete(url);
+			HttpDeleteWithBody delete = new HttpDeleteWithBody(url);
+			delete.setHeader("Content-type", "application/json");
+			delete.setEntity(new StringEntity(input));
 			this.httpResponse = this.client.execute(delete);
 			response = EntityUtils.toString(this.httpResponse.getEntity());
 			resultCode = this.httpResponse.getStatusLine().getStatusCode();

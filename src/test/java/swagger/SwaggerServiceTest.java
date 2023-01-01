@@ -3,7 +3,7 @@ package swagger;
 public class SwaggerServiceTest {	
 	private static final String[] SCHEMES = new String[] {"http"};
 	private static final String HOST = "localhost:1111";
-	private static final String BASEPATH = "/aas";
+	private static final String BASEPATH = "";
 	
 	
 	public static void main(String args[]) {
