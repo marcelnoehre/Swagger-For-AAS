@@ -32,7 +32,7 @@ public class SwaggerService {
 		Path[] paths = Data.generatePaths(restService, routes);
 		Definition[] definitions = Data.generateDefinitions(restService, routes);
 		ExternalDocs externalDocs = Data.generateExternalDocs(restService, routes);
-		Swagger swagger = new Swagger("2.0", info, host, basePath, tags, schemes, paths, definitions, externalDocs);
+		Swagger swagger = new Swagger("2.0", info, host, basePath, tags, schemes, paths, null, definitions, externalDocs);
 		return Transform.adjustFinalJson(swagger.asJson());
 	}
 }

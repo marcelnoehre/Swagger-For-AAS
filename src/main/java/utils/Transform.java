@@ -7,6 +7,8 @@ import templates.Definition;
 import templates.Path;
 import templates.Property;
 import templates.Response;
+import templates.Scope;
+import templates.SecurityDefinition;
 
 public class Transform {
 	@SuppressWarnings("unchecked")
@@ -45,38 +47,82 @@ public class Transform {
 	
 	@SuppressWarnings("unchecked")
 	public static String pathsToJson(Path[] paths) {
-		JSONObject container = new JSONObject();
-		for(Path path : paths) {
-			container.put(path.getPath(), path.asJson());
+		try {
+			JSONObject container = new JSONObject();
+			for(Path path : paths) {
+				container.put(path.getPath(), path.asJson());
+			}
+			return container.toJSONString();
+		} catch(NullPointerException nullPointer) {
+			return "{}";
 		}
-		return container.toJSONString();
 	}
 	
 	@SuppressWarnings("unchecked")
 	public static String responsesToJson(Response[] responses) {
-		JSONObject container = new JSONObject();
-		for(Response response : responses) {
-			container.put(response.getResultCode(), response.asJson());
+		try {
+			JSONObject container = new JSONObject();
+			for(Response response : responses) {
+				container.put(response.getResultCode(), response.asJson());
+			}
+			return container.toJSONString();
+		} catch(NullPointerException nullPointer) {
+			return "{}";
 		}
-		return container.toJSONString();
 	}
 	
 	@SuppressWarnings("unchecked")
 	public static String definitionsToJson(Definition[] definitions) {
-		JSONObject container = new JSONObject();
-		for(Definition definition : definitions) {
-			container.put(definition.getId(), definition.asJson());
+		try {
+			JSONObject container = new JSONObject();
+			for(Definition definition : definitions) {
+				container.put(definition.getId(), definition.asJson());
+			}
+			return container.toJSONString();
+		} catch(NullPointerException nullPointer) {
+			return "{}";
 		}
-		return container.toJSONString();
 	}
 	
 	@SuppressWarnings("unchecked")
 	public static String propertiesToJson(Property[] properties) {
-		JSONObject container = new JSONObject();
-		for(Property property: properties) {
-			container.put(property.getId(), property.asJson());
+		try {
+			JSONObject container = new JSONObject();
+			for(Property property: properties) {
+				container.put(property.getId(), property.asJson());
+			}
+			return container.toJSONString();
+		} catch(NullPointerException nullPointer) {
+			return "{}";
 		}
-		return container.toJSONString();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static String securityDefinitionsToJson(SecurityDefinition[] securityDefinitions) {
+		try {
+			JSONObject container = new JSONObject();
+			for(SecurityDefinition securityDefinition : securityDefinitions) {
+				System.out.println(securityDefinition.asJson());
+				container.put(securityDefinition.getId(), securityDefinition.asJson());
+			}
+			return container.toJSONString();
+		} catch(NullPointerException nullPointer) {
+			return "{}";
+		}
+
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static String scopesToJson(Scope[] scopes) {
+		try {
+			JSONObject container = new JSONObject();
+			for(Scope scope: scopes) {
+				container.put(scope.getId(), scope.getInfo());
+			}
+			return container.toJSONString();
+		} catch(NullPointerException nullPointer) {
+			return "{}";
+		}
 	}
 	
 	public static String adjustFinalJson(String json) {
