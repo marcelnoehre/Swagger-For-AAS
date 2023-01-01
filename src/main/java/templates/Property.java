@@ -1,8 +1,5 @@
 package templates;
 
-import org.json.simple.JSONObject;
-
-import utils.Checks;
 import utils.Transform;
 
 /**
@@ -45,16 +42,12 @@ public class Property {
 		}
 		return new String[] {this.type, this.format, this.description, Transform.arrayToJson(this.enums), this.example, Transform.arrayToJson(this.exampleArray), items, this.$ref};
 	}
+	
+	public String getId() {
+		return this.id;
+	}
     
-    @SuppressWarnings("unchecked")
 	public String asJson() {
-    	String property = Transform.instanceToJson(keys, this.getValueArray());
-    	if(Checks.valueIsEmpty(property)) {
-    		return null;
-    	} else {
-    		JSONObject container = new JSONObject();
-    		container.put(id, property);
-    		return container.toJSONString();
-    	}		
+    	return Transform.instanceToJson(keys, this.getValueArray());	
 	}
 }

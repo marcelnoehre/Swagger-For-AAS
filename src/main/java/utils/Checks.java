@@ -20,11 +20,11 @@ public class Checks {
 	    try {
 	        new JSONObject(variable);
 	        return "object";
-	    } catch (JSONException e) {
+	    } catch (JSONException jsonObject) {
 	        try {
 	            new JSONArray(variable);
 	            return "array";
-	        } catch (JSONException ne) {
+	        } catch (JSONException jsonArray) {
 	    		if(Pattern.compile("^\\d+$").matcher(variable).matches()) {
 	    			return "integer";
 	    		} else {

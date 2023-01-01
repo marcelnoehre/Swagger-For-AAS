@@ -92,8 +92,8 @@ public class Data {
 			good = restService.httpGet(routes.getBaseUrl()+routes.replaceIDs(route.getRoute()));
 			bad = restService.httpGet(routes.getBaseUrl()+routes.replaceIDs(path));
 			return new Response[] {
-					new Response(bad[0], bad[1], Constants.API_RESPONSE, null),
-					new Response(good[0], "successful operation", Constants.API_RESPONSE, null)
+					new Response(bad[0], bad[1], null, null),
+					new Response(good[0], "successful operation", null, null)
 			};
 		case "delete":
 			switch(route.getTag()) {
@@ -222,7 +222,7 @@ public class Data {
 			Property[] apiResponseProperties = new Property[] {
 					new Property("resultCode", "integer", "int32", null, null, "200", null, null, null),
 					new Property("type", "string", null, null, null, "application/json", null, null, null),
-					new Property("message", "string", null, null, null, response.toString(), null, null, null)
+					new Property("message", "string", null, null, null, "OK (updated)", null, null, null)
 			};
 			definitions[0] = new Definition("ApiResponse", "object", new String[] {"resultCode", "type", "message"}, apiResponseProperties);
 			String[] definitionNames = new String[] {"AssetAdministrationShell", "Asset", "Submodel", "SubmodelElement", "ConceptDescription"};
@@ -249,7 +249,7 @@ public class Data {
 			        		format = type.equals("integer")?"int64":null;
 			        	} catch(NullPointerException nullPointer) {
 			        		value = null;
-			        		type = null;
+			        		type = "string";
 			        		format = null;
 			        	}
 			        	properties[j] = new Property(key, type, format, null, null, value, null, null, null);

@@ -5,6 +5,7 @@ import org.json.simple.JSONObject;
 
 import templates.Definition;
 import templates.Path;
+import templates.Property;
 import templates.Response;
 
 public class Transform {
@@ -65,6 +66,15 @@ public class Transform {
 		JSONObject container = new JSONObject();
 		for(Definition definition : definitions) {
 			container.put(definition.getId(), definition.asJson());
+		}
+		return container.toJSONString();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static String propertiesToJson(Property[] properties) {
+		JSONObject container = new JSONObject();
+		for(Property property: properties) {
+			container.put(property.getId(), property.asJson());
 		}
 		return container.toJSONString();
 	}
