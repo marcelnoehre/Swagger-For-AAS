@@ -24,7 +24,20 @@ import utils.Checks;
 import utils.Constants;
 import utils.Routes;
 
-public class Data {
+/**
+ * 
+ * Service to fill templates with generated information.
+ *
+ * @author Marcel N&oumlhre
+ *
+ */
+public class DataGenerationService {
+	/**
+	 * Fill the parameter template with information.
+	 * 
+	 * @param route The route to generate the parameters for
+	 * @return The list of filled parameter templates
+	 */
 	private static Parameter[] generateParameters(Route route) {
 		ArrayList<Parameter> parameterList = new ArrayList<Parameter>();
 		String[] possibleParameters = new String[] {"{aas.idShort}", "{submodel.idShort}", "{element.idShort}", "{cd.idShort}"};
@@ -62,6 +75,14 @@ public class Data {
 		return parameters;
 	}
 	
+	/**
+	 * Fill the response template with information.
+	 * 
+	 * @param restService The service to handle REST requests
+	 * @param routes The service to handle routes
+	 * @param route The route to generate the responses for
+	 * @return The list of filled response templates
+	 */
 	private static Response[] generateResponses(RestService restService, Routes routes, Route route) {
 		String[] good = null;
 		String[] bad = null;
@@ -153,6 +174,13 @@ public class Data {
 		return null;
 	}
 	
+	/**
+	 * Fill the info template with information.
+	 * 
+	 * @param restService The service to handle REST requests
+	 * @param routes The service to handle routes
+	 * @return THe filled info template
+	 */
 	public static Info generateInfo(RestService restService, Routes routes) {
 		try {
 			JSONParser parser = new JSONParser();
@@ -178,6 +206,11 @@ public class Data {
 		}
 	}
 	
+	/**
+	 * Fill the tag template with information.
+	 * 
+	 * @return The list of filled tag templates
+	 */
 	public static Tag[] generateTags() {
 		String[] tagNames = new String[] {"Asset Administration Shell", "Asset", "Submodel", "Submodelelement", "Concept Description"};
 		ArrayList<Tag> tagList = new ArrayList<Tag>();
@@ -193,6 +226,13 @@ public class Data {
 		return tags;
 	}
 	
+	/**
+	 * Fill the Path template with information.
+	 * 
+	 * @param restService The service to handle REST requests
+	 * @param routes The service to handle routes
+	 * @return The list of filled path templates
+	 */
 	public static Path[] generatePaths(RestService restService, Routes routes) {
 		Path[] paths = new Path[Routes.getRoutes().length];
 		int i = 0;
@@ -213,6 +253,13 @@ public class Data {
 		return paths;
 	}
 	
+	/**
+	 * Fill the definition template with information.
+	 * 
+	 * @param restService The service to handle REST requests
+	 * @param routes The service to handle routes
+	 * @return The list of filled definition templates
+	 */
 	@SuppressWarnings("rawtypes")
 	public static Definition[] generateDefinitions(RestService restService, Routes routes) {
 		try {
@@ -266,6 +313,13 @@ public class Data {
 		}
 	}
 	
+	/**
+	 * Fill the external documnets template with information.
+	 * 
+	 * @param restService The service to handle REST requests
+	 * @param routes The service to handle routes
+	 * @return The filled external documents template
+	 */
 	public static ExternalDocs generateExternalDocs(RestService restService, Routes routes) {
 		try {
 			JSONParser parser = new JSONParser();

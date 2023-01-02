@@ -15,20 +15,38 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.util.EntityUtils;
 
+/**
+ * 
+ * Service to handle REST requests.
+ *
+ * @author Marcel N&oumlhre
+ *
+ */
 public class RestService {
     private CloseableHttpClient client;
 	private CloseableHttpResponse httpResponse;
-    
+	
+	/**
+	 * Sets up the RestService.
+	 */
     public RestService() {
     	setupConnectionManager();
     }
 	
-	
+	/**
+	 * Sets up the connection pool.
+	 */
     private void setupConnectionManager() {
         HttpClientConnectionManager poolingConnectionManager = new PoolingHttpClientConnectionManager();
         this.client = HttpClients.custom().setConnectionManager(poolingConnectionManager).build();
     }
-    
+
+    /**
+     * Http get request to the given url.
+     *
+     * @param url The url to send the request to
+     * @return 0) resultCode 1) response
+     */
     public String[] httpGet(String url) {
     	int resultCode = -1;
     	String response = "";
@@ -42,7 +60,14 @@ public class RestService {
 		}
 		return new String[] {Integer.toString(resultCode), response};
     }
-    
+
+    /**
+     * Http post request to the given url with the given input as a body.
+     *
+     * @param url The url to send the request to.
+     * @param input The request body
+     * @return 0) resultCode 1) response
+     */
     public String[] httpPost(String url, String input) {
     	int resultCode = -1;
     	String response = "";
@@ -58,6 +83,14 @@ public class RestService {
 		return new String[] {Integer.toString(resultCode), response};
     }
     
+    /**
+     * Http put request to the given url with input as body and uri parameters.
+     * 
+     * @param path The uri path to send the request to
+     * @param input The request body
+     * @param parameters The uri parameters
+     * @return 0) resultCode 1) response
+     */
     public String[] httpPut(String path, String input, String[][] parameters) {
     	int resultCode = -1;
     	String response = "";
@@ -85,6 +118,13 @@ public class RestService {
 		return new String[] {Integer.toString(resultCode), response};
     }
     
+    /**
+     * Http delete request to send the request to.
+     * 
+     * @param url The url to send the request to
+     * @param input The request body
+     * @return 0) resultCode 1) response
+     */
     public String[] httpDelete(String url, String input) {
     	int resultCode = -1;
     	String response = "";

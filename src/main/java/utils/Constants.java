@@ -5,6 +5,13 @@ import templates.Response;
 import templates.Route;
 import templates.Schema;
 
+/**
+ *
+ * Collection of constants.
+ * 
+ * @author Marcel N&oumlhre
+ *
+ */
 public class Constants {
 	public static final Route GET_AAS = new Route("Asset Administration Shell", "Information about the Asset Administration Shell", "get", "/aas/{aas.idShort}/", new String[] {"core", "complete", "thumbnail", "aasenv"});
 	public static final Route GET_SUBMODEL_LIST = new Route("Asset Administration Shell", "A list of all submodels of an AAS", "get", "/aas/{aas.idShort}/submodels/", new String[] {"core", "deep", "complete"});
@@ -27,8 +34,6 @@ public class Constants {
 	public static final Route GET_CONCEPT_DESCRIPTION = new Route("Concept Description", "Information about a concept description", "get", "/aas/{aas.idShort}/cds/{cd.idShort}",null);
 	public static final Route PUT_CONCEPT_DESCRIPTION = new Route("Concept Description", "Add or update a concept description", "put", "/aas/{aas.idShort}/cds/", null);
 	public static final Route DELETE_CONCEPT_DESCRIPTION = new Route("Concept Description", "Delete a concept description", "delete", "/aas/{aas.idShort}/cds/{cd.idShort}", null);
-	
-	
 	
 	public static final String EXAMPLE_AAS = "/aas/example";
 	public static final String EXAMPLE_SUBMODEL_LIST = "/aas/example/submodels/";

@@ -10,7 +10,20 @@ import templates.Response;
 import templates.Scope;
 import templates.SecurityDefinition;
 
+/**
+ * 
+ * Collection of transform functionalities.
+ * 
+ * @author Marcel N&oumlhre
+ *
+ */
 public class Transform {
+	/**
+	 * Transforms the array to a JSON String.
+	 * 
+	 * @param array The array to get transformed
+	 * @return The transformed arary as a JSON String
+	 */
 	@SuppressWarnings("unchecked")
 	public static String arrayToJson(String[] array) {
 		try {
@@ -28,6 +41,13 @@ public class Transform {
 		}
 	}
 	
+	/**
+	 * Transforms the instance of a template to a JSON String.
+	 * 
+	 * @param keys The list of keys that belongs to the instance
+	 * @param values The list of values that belongs to the instance
+	 * @return The transformed instance as a JSON String
+	 */
 	@SuppressWarnings("unchecked")
 	public static String instanceToJson(String[] keys, String[] values) {
 		JSONObject container = new JSONObject();
@@ -45,6 +65,12 @@ public class Transform {
 		}
 	}
 	
+	/**
+	 * Transform a list of path instaces to a JSON String.
+	 * 
+	 * @param paths The list of path instances
+	 * @return The transformed list as JSON String
+	 */
 	@SuppressWarnings("unchecked")
 	public static String pathsToJson(Path[] paths) {
 		try {
@@ -58,6 +84,12 @@ public class Transform {
 		}
 	}
 	
+	/**
+	 * Transform a list of response instaces to a JSON String.
+	 * 
+	 * @param responses The list of response instances
+	 * @return The transformed list as JSON String
+	 */
 	@SuppressWarnings("unchecked")
 	public static String responsesToJson(Response[] responses) {
 		try {
@@ -71,6 +103,12 @@ public class Transform {
 		}
 	}
 	
+	/**
+	 * Transform a list of definition instaces to a JSON String.
+	 * 
+	 * @param definitions The list of definition instances
+	 * @return The transformed list as JSON String
+	 */
 	@SuppressWarnings("unchecked")
 	public static String definitionsToJson(Definition[] definitions) {
 		try {
@@ -84,6 +122,12 @@ public class Transform {
 		}
 	}
 	
+	/**
+	 * Transform a list of property instaces to a JSON String.
+	 * 
+	 * @param properties The list of property instances
+	 * @return The transformed list as JSON String
+	 */
 	@SuppressWarnings("unchecked")
 	public static String propertiesToJson(Property[] properties) {
 		try {
@@ -97,6 +141,12 @@ public class Transform {
 		}
 	}
 	
+	/**
+	 * Transform a list of security definition instaces to a JSON String.
+	 * 
+	 * @param securityDefinitions The list of security definition instances
+	 * @return The transformed list as JSON String
+	 */
 	@SuppressWarnings("unchecked")
 	public static String securityDefinitionsToJson(SecurityDefinition[] securityDefinitions) {
 		try {
@@ -112,6 +162,12 @@ public class Transform {
 
 	}
 	
+	/**
+	 * Transform a list of scope instaces to a JSON String.
+	 * 
+	 * @param scopes The list of scope instances
+	 * @return The transformed list as JSON String
+	 */
 	@SuppressWarnings("unchecked")
 	public static String scopesToJson(Scope[] scopes) {
 		try {
@@ -125,7 +181,13 @@ public class Transform {
 		}
 	}
 	
-	public static String adjustFinalJson(String json) {
+	/**
+	 * Adjust the JSON String to remove stacked backslashes.
+	 * 
+	 * @param json The JSON String to get adjusted
+	 * @return The adjusted JSON String
+	 */
+	public static String adjustJson(String json) {
 		String tmp = "";
 		while(tmp != json) {
 			tmp = json;
