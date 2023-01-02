@@ -24,6 +24,20 @@ public class Request {
 	private Response[] responses;
 	private String deprecated;
 	
+	/**
+	 * Create a request instance.
+	 * 
+	 * @param requestType the type of the request
+	 * @param tags the tags that categorise the request
+	 * @param summary the summary of the request
+	 * @param description the description of the request
+	 * @param operationID the unique operationID of the request
+	 * @param consumes the data type consumed by the request
+	 * @param produces the data type produced by the request
+	 * @param parameters the parameters for sending the request
+	 * @param responses the possible responses of the request
+	 * @param deprecated whether the corresponding endpoint is deprecated
+	 */
 	public Request(String requestType, String[] tags, String summary, String description, String operationID, String[] consumes, String[] produces, Parameter[] parameters, Response[] responses, String deprecated) {
 		this.requestType = requestType;
 		this.tags = tags;
@@ -37,6 +51,20 @@ public class Request {
 		this.deprecated = deprecated == "true" ? "true" : null;
 	}
 	
+	/**
+	 * Get the type of the request.
+	 * 
+	 * @return the type of the request
+	 */
+	public String getRequestType() {
+		return this.requestType;
+	}
+
+	/**
+	 * Get a array of all template values.
+	 * 
+	 * @return array of all template values
+	 */
 	private String[] getValueArray() {
 		String[] parameterArr;
 		try {
@@ -55,11 +83,12 @@ public class Request {
 		}
 		return new String[] {Transform.arrayToJson(this.tags), this.summary, this.description, this.operationID, Transform.arrayToJson(this.consumes), Transform.arrayToJson(this.produces), Transform.arrayToJson(parameterArr), Transform.responsesToJson(responses), this.deprecated};
 	}
-	
-	public String getRequestType() {
-		return this.requestType;
-	}
-    
+	    
+	/**
+	 * Get the instance as JSON string.
+	 * 
+	 * @return json string of the instance
+	 */
 	public String asJson() {
 		return Transform.instanceToJson(keys, this.getValueArray());
 	}

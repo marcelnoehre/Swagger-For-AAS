@@ -18,6 +18,16 @@ public class Info {
 	private Contact contact;
 	private License license;
 	
+	/**
+	 * Create a info instance.
+	 * 
+	 * @param description the description of the aas
+	 * @param version the version of the documentation
+	 * @param title the title of the documentation
+	 * @param termsOfService the terms of service
+	 * @param contact the contact options
+	 * @param license the license information
+	 */
 	public Info(String description, String version, String title, String termsOfService, Contact contact, License license) {
 		this.description = description;
 		this.version = version;
@@ -27,6 +37,11 @@ public class Info {
 		this.license = license;
 	}
 	
+	/**
+	 * Get a array of all template values.
+	 * 
+	 * @return array of all template values
+	 */
 	private String[] getValueArray() {
 		String contact;
 		try {
@@ -43,6 +58,11 @@ public class Info {
 		return new String[] {this.description, this.version, this.title, this.termsOfService, contact, license};
 	}
     
+	/**
+	 * Get the instance as JSON string.
+	 * 
+	 * @return json string of the instance
+	 */
     public String asJson() {
 		return Transform.instanceToJson(keys, this.getValueArray());
 	}

@@ -16,13 +16,26 @@ public class Schema {
 	private AdditionalProperties additionalProperties;
 	private String $ref;
 	
+	/**
+	 * Create a schema instance.
+	 * 
+	 * @param type the type of the schema 
+	 * @param items the items that belong to the schema
+	 * @param additionalProperties the additional properties
+	 * @param $ref the reference to a existing schema
+	 */
 	public Schema(String type, Items items, AdditionalProperties additionalProperties, String $ref) {
 		this.type = type;
 		this.items = items;
 		this.additionalProperties = additionalProperties;
 		this.$ref = $ref;
 	}
-	
+		
+	/**
+	 * Get a array of all template values.
+	 * 
+	 * @return array of all template values
+	 */
 	private String[] getValueArray() {
 		String items;
 		try {
@@ -38,7 +51,12 @@ public class Schema {
 		}
 		return new String[] {this.type, items, additionalProperties, this.$ref};
 	}
-    
+        
+	/**
+	 * Get the instance as JSON string.
+	 * 
+	 * @return json string of the instance
+	 */
     public String asJson() {
 		return Transform.instanceToJson(keys, this.getValueArray());
 	}

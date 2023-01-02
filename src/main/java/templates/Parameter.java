@@ -23,6 +23,21 @@ public class Parameter {
 	private String collectionFormat;
 	private Schema schema;
 	
+	/**
+	 * Create a parameter instance.
+	 * 
+	 * @param name the name of the parameter
+	 * @param in the input variable
+	 * @param description the description of the parameter
+	 * @param requiered wheteher the parameter is requiered
+	 * @param type the type of the parameter
+	 * @param format the format associated with the type
+	 * @param minimum the minimal numerical value 
+	 * @param maximum the maximal numerical value 
+	 * @param items the items of the parameter array
+	 * @param collectionFormat the collection format of the parameter array
+	 * @param schema the schema of the parameter
+	 */
 	public Parameter(String name, String in, String description, String requiered, String type, String format, String minimum, String maximum, Items items, String collectionFormat, Schema schema) {
 		this.name = name;
 		this.in = in;
@@ -36,7 +51,12 @@ public class Parameter {
 		this.collectionFormat = collectionFormat;
 		this.schema = schema;
 	}
-	
+		
+	/**
+	 * Get a array of all template values.
+	 * 
+	 * @return array of all template values
+	 */
 	private String[] getValueArray() {
 		String items;
 		try {
@@ -52,7 +72,12 @@ public class Parameter {
 		}
 		return new String[] {this.name, this.in, this.description, this.requiered, this.type, this.format, this.minimum, this.maximum, items, this.collectionFormat, schema};
 	}
-    
+        
+	/**
+	 * Get the instance as JSON string.
+	 * 
+	 * @return json string of the instance
+	 */
     public String asJson() {
 		return Transform.instanceToJson(keys, this.getValueArray());
 	}

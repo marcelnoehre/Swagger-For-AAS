@@ -25,7 +25,7 @@ public class Routes {
 		try {
 			JSONParser parser = new JSONParser();
 			ArrayList<String> submodelIds = new ArrayList<String>();
-			JSONArray submodels = (JSONArray) parser.parse(restService.httpGet(baseUrl+this.replaceIDs(Constants.GET_SUBMODEL_LIST.getRoute()))[1]);
+			JSONArray submodels = (JSONArray) parser.parse(restService.httpGet(baseUrl+this.replaceIDs(Constants.GET_SUBMODEL_LIST.getPath()))[1]);
 			for(Object submodel : submodels) {
 				try {
 					submodelIds.add(((JSONObject) submodel).get("idShort").toString());	
@@ -33,7 +33,7 @@ public class Routes {
 			}
 			for(String submodelId : submodelIds) {
 				this.submodelIdShort = submodelId;	
-				JSONArray elements = (JSONArray) parser.parse(restService.httpGet(baseUrl+this.replaceIDs(Constants.GET_ELEMENT_LIST.getRoute()))[1]);
+				JSONArray elements = (JSONArray) parser.parse(restService.httpGet(baseUrl+this.replaceIDs(Constants.GET_ELEMENT_LIST.getPath()))[1]);
 				for(Object element : elements) {
 					try {
 						this.elementIdShort = ((JSONObject) element).get("idShorts").toString();
@@ -42,7 +42,7 @@ public class Routes {
 				}
 				break;
 			}
-			JSONArray cds = (JSONArray) parser.parse(restService.httpGet(baseUrl+this.replaceIDs(Constants.GET_CONCEPT_DESCRIPTION_LIST.getRoute()))[1]);
+			JSONArray cds = (JSONArray) parser.parse(restService.httpGet(baseUrl+this.replaceIDs(Constants.GET_CONCEPT_DESCRIPTION_LIST.getPath()))[1]);
 			for(Object cd : cds) {
 				try {
 					this.cdIdShort = ((JSONObject) cd).get("idShort").toString();
@@ -77,23 +77,23 @@ public class Routes {
 	}
 	
 	public String getAASRouteWithId() {
-		return this.replaceIDs(Constants.GET_AAS.getRoute());
+		return this.replaceIDs(Constants.GET_AAS.getPath());
 	}
 	
 	public String getAssetRouteWithId() {
-		return this.replaceIDs(Constants.GET_ASSETS.getRoute());
+		return this.replaceIDs(Constants.GET_ASSETS.getPath());
 	}
 	
 	public String getSubmodelRouteWithId() {
-		return this.replaceIDs(Constants.GET_SUBMODEL.getRoute());
+		return this.replaceIDs(Constants.GET_SUBMODEL.getPath());
 	}
 	
 	public String getElementRouteWithId() {
-		return this.replaceIDs(Constants.GET_ELEMENT.getRoute());
+		return this.replaceIDs(Constants.GET_ELEMENT.getPath());
 	}
 	
 	public String getConceptDescriptionRouteWithId() {
-		return this.replaceIDs(Constants.GET_CONCEPT_DESCRIPTION.getRoute());
+		return this.replaceIDs(Constants.GET_CONCEPT_DESCRIPTION.getPath());
 	}
 	
 	public String replaceIDs(String route) {
