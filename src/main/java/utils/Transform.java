@@ -131,6 +131,14 @@ public class Transform {
 			tmp = json;
 			json = json.replace("\\\\", "\\");
 		}
-		return json.replace("\\/", "/").replace("\\\"", "\"").replace("idShort}\"", "idShort}\"\"").replace("\"{","{").replace("}\"","}").replace("\"[","[").replace("]\"","]");
+		return json.replace("\\/", "/")
+				.replace("\\\"", "\"")
+				.replace("idShort}\"", "idShort}\"\"")
+				.replace("\"{", "{")
+				.replace("}\"", "}")
+				.replace("\"[\"", "[\"")
+				.replace("\"]\"", "\"]")
+				.replace("\"[{", "[{")
+				.replace("}]\"", "}]");
 	}
 }
