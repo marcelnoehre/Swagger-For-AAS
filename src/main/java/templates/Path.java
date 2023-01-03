@@ -19,7 +19,7 @@ public class Path {
 	 * @param path the path of a request
 	 * @param request the request that belongs to the path
 	 */
-	public Path(final String path, final Request request) {
+	public Path(String path, Request request) {
 		this.path = path;
 		this.request = request;
 	}

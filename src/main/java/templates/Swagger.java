@@ -43,16 +43,16 @@ public class Swagger {
 	 * @param externalDocs the list of external documents
 	 */
 	public Swagger(
-	        final String swagger,
-	        final Info info,
-	        final String host,
-	        final String basePath,
-	        final Tag[] tags,
-	        final String[] schemes,
-	        final Path[] paths,
-	        final SecurityDefinition[] securityDefinitions,
-	        final Definition[] definitions,
-	        final ExternalDocs externalDocs) {
+	        String swagger,
+	        Info info,
+	        String host,
+	        String basePath,
+	        Tag[] tags,
+	        String[] schemes,
+	        Path[] paths,
+	        SecurityDefinition[] securityDefinitions,
+	        Definition[] definitions,
+	        ExternalDocs externalDocs) {
 		this.swagger = swagger;
 		this.info = info;
 		this.host = host;

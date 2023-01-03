@@ -36,12 +36,12 @@ public class Info {
 	 * @param license the license information
 	 */
 	public Info(
-	        final String description,
-	        final String version,
-	        final String title,
-	        final String termsOfService,
-	        final Contact contact,
-	        final License license) {
+	        String description,
+	        String version,
+	        String title,
+	        String termsOfService,
+	        Contact contact,
+	        License license) {
 		this.description = description;
 		this.version = version;
 		this.title = title;

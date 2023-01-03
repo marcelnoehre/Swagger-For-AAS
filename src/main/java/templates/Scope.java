@@ -17,7 +17,7 @@ public class Scope {
 	 * @param id the unique id of the scope
 	 * @param info the information about the scope
 	 */
-	public Scope(final String id, final String info) {
+	public Scope(String id, String info) {
 		this.id = id;
 		this.info = info;
 	}

@@ -29,10 +29,10 @@ public class Header {
 	 * @param description the description of the header
 	 */
 	public Header(
-	        final String id,
-	        final String type,
-	        final String format,
-	        final String description) {
+	        String id,
+	        String type,
+	        String format,
+	        String description) {
 		this.id = id;
 		this.type = type;
 		this.format = format;

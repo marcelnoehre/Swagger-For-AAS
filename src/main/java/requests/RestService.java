@@ -49,7 +49,7 @@ public class RestService {
      * @param url The url to send the request to
      * @return 0) resultCode 1) response
      */
-    public String[] httpGet(final String url) {
+    public String[] httpGet(String url) {
     	int resultCode = -1;
     	String response = "";
 		try {
@@ -72,7 +72,7 @@ public class RestService {
      * @param input The request body
      * @return 0) resultCode 1) response
      */
-    public String[] httpPost(final String url, final String input) {
+    public String[] httpPost(String url, String input) {
     	int resultCode = -1;
     	String response = "";
     	try {
@@ -96,9 +96,9 @@ public class RestService {
      * @return 0) resultCode 1) response
      */
     public String[] httpPut(
-            final String path,
-            final String input,
-            final String[][] parameters) {
+            String path,
+            String input,
+            String[][] parameters) {
     	int resultCode = -1;
     	String response = "";
     	try {
@@ -134,7 +134,7 @@ public class RestService {
      * @param input The request body
      * @return 0) resultCode 1) response
      */
-    public String[] httpDelete(final String url, final String input) {
+    public String[] httpDelete(String url, String input) {
     	int resultCode = -1;
     	String response = "";
 		try {

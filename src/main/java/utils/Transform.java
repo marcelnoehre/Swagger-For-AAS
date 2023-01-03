@@ -25,7 +25,7 @@ public class Transform {
      * @return The transformed arary as a JSON String
      */
     @SuppressWarnings("unchecked")
-    public static String arrayToJson(final String[] array) {
+    public static String arrayToJson(String[] array) {
         try {
             if (array.length >= 1) {
                 JSONArray jsonArray = new JSONArray();
@@ -50,8 +50,8 @@ public class Transform {
      */
     @SuppressWarnings("unchecked")
     public static String instanceToJson(
-            final String[] keys,
-            final String[] values) {
+            String[] keys,
+            String[] values) {
         JSONObject container = new JSONObject();
         boolean filled = false;
         for (int i = 0; i < keys.length; i++) {
@@ -74,7 +74,7 @@ public class Transform {
      * @return The transformed list as JSON String
      */
     @SuppressWarnings("unchecked")
-    public static String pathsToJson(final Path[] paths) {
+    public static String pathsToJson(Path[] paths) {
         try {
             JSONObject container = new JSONObject();
             for (Path path : paths) {
@@ -93,7 +93,7 @@ public class Transform {
      * @return The transformed list as JSON String
      */
     @SuppressWarnings("unchecked")
-    public static String responsesToJson(final Response[] responses) {
+    public static String responsesToJson(Response[] responses) {
         try {
             JSONObject container = new JSONObject();
             for (Response response : responses) {
@@ -112,7 +112,7 @@ public class Transform {
      * @return The transformed list as JSON String
      */
     @SuppressWarnings("unchecked")
-    public static String definitionsToJson(final Definition[] definitions) {
+    public static String definitionsToJson(Definition[] definitions) {
         try {
             JSONObject container = new JSONObject();
             for (Definition definition : definitions) {
@@ -131,7 +131,7 @@ public class Transform {
      * @return The transformed list as JSON String
      */
     @SuppressWarnings("unchecked")
-    public static String propertiesToJson(final Property[] properties) {
+    public static String propertiesToJson(Property[] properties) {
         try {
             JSONObject container = new JSONObject();
             for (Property property: properties) {
@@ -151,7 +151,7 @@ public class Transform {
      */
     @SuppressWarnings("unchecked")
     public static String securityDefinitionsToJson(
-            final SecurityDefinition[] securityDefinitions) {
+            SecurityDefinition[] securityDefinitions) {
         try {
             JSONObject container = new JSONObject();
             for (SecurityDefinition securityDefinition : securityDefinitions) {
@@ -173,7 +173,7 @@ public class Transform {
      * @return The transformed list as JSON String
      */
     @SuppressWarnings("unchecked")
-    public static String scopesToJson(final Scope[] scopes) {
+    public static String scopesToJson(Scope[] scopes) {
         try {
             JSONObject container = new JSONObject();
             for (Scope scope: scopes) {

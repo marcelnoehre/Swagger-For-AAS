@@ -21,7 +21,7 @@ public class Checks {
      * @param value The value to get checked
      * @return Whether the value is empty or not
      */
-    public static boolean valueIsEmpty(final String value) {
+    public static boolean valueIsEmpty(String value) {
         return (value == null) || value.trim().equals("");
     }
 
@@ -31,7 +31,7 @@ public class Checks {
      * @param array The array to get filtered
      * @return The filtered array without empty elements
      */
-    public static String[] filterArray(final String[] array) {
+    public static String[] filterArray(String[] array) {
         return Arrays.stream(array).filter(
                 value -> !value.trim().equals("")
                 && !value.equals(null)).toArray(size -> new String[size]);
@@ -43,7 +43,7 @@ public class Checks {
      * @param variable The variable to get checked
      * @return The type of the variable
      */
-    public static String variableType(final String variable) {
+    public static String variableType(String variable) {
         try {
             new JSONObject(variable);
             return "object";

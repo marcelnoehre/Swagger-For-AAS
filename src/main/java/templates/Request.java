@@ -48,16 +48,16 @@ public class Request {
 	 * @param deprecated whether the corresponding endpoint is deprecated
 	 */
 	public Request(
-	        final String requestType,
-	        final String[] tags,
-	        final String summary,
-	        final String description,
-	        final String operationID,
-	        final String[] consumes,
-	        final String[] produces,
-	        final Parameter[] parameters,
-	        final Response[] responses,
-	        final String deprecated) {
+	        String requestType,
+	        String[] tags,
+	        String summary,
+	        String description,
+	        String operationID,
+	        String[] consumes,
+	        String[] produces,
+	        Parameter[] parameters,
+	        Response[] responses,
+	        String deprecated) {
 		this.requestType = requestType;
 		this.tags = tags;
 		this.summary = summary;

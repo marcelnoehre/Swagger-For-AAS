@@ -50,9 +50,9 @@ public class Routes {
      * @param aasIdShort The id to get the aas
      */
     public Routes(
-            final RestService restService,
-            final String baseUrl,
-            final String aasIdShort) {
+            RestService restService,
+            String baseUrl,
+            String aasIdShort) {
         this.baseUrl = baseUrl;
         this.aasIdShort = aasIdShort;
         try {
@@ -201,7 +201,7 @@ public class Routes {
      * @param route The route with variables to replace
      * @return The route with replaced variables
      */
-    public String replaceIDs(final String route) {
+    public String replaceIDs(String route) {
         return route.replace(
                 "{aas.idShort}",
                 this.aasIdShort).replace("{submodel.idShort}",

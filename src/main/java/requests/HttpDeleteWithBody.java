@@ -29,7 +29,7 @@ class HttpDeleteWithBody extends HttpEntityEnclosingRequestBase {
      *
      * @param uri The requested URI
      */
-    HttpDeleteWithBody(final String uri) {
+    HttpDeleteWithBody(String uri) {
         super();
         setURI(URI.create(uri));
     }

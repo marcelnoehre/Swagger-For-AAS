@@ -17,11 +17,11 @@ public class Route {
 	 * @param extraParameter possible extra parameters
 	 */
 	public Route(
-	        final String tag,
-	        final String summary,
-	        final String type,
-	        final String path,
-	        final String[] extraParameter) {
+	        String tag,
+	        String summary,
+	        String type,
+	        String path,
+	        String[] extraParameter) {
 		this.tag = tag;
 		this.summary = summary;
 		this.type = type;

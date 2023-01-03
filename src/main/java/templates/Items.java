@@ -26,10 +26,10 @@ public class Items {
 	 * @param $ref the refernece to existing items
 	 */
 	public Items(
-	        final String type,
-	        final String[] enums,
-	        final String defaultValue,
-	        final String $ref) {
+	        String type,
+	        String[] enums,
+	        String defaultValue,
+	        String $ref) {
 		this.type = type;
 		this.enums = enums;
 		this.defaultValue = defaultValue;

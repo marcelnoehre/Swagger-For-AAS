@@ -38,7 +38,7 @@ public class DataGenerationService {
      * @param route The route to generate the parameters for
      * @return The list of filled parameter templates
      */
-    private static Parameter[] generateParameters(final Route route) {
+    private static Parameter[] generateParameters(Route route) {
         ArrayList<Parameter> parameterList = new ArrayList<Parameter>();
         String[] possibleParameters = new String[] {"{aas.idShort}",
                 "{submodel.idShort}", "{element.idShort}", "{cd.idShort}"};
@@ -96,9 +96,9 @@ public class DataGenerationService {
      * @return The list of filled response templates
      */
     private static Response[] generateResponses(
-            final RestService restService,
-            final Routes routes,
-            final Route route) {
+            RestService restService,
+            Routes routes,
+            Route route) {
         String[] good = null;
         String[] bad = null;
         String[][] parameter = new String[][] {
@@ -226,8 +226,8 @@ public class DataGenerationService {
      * @return THe filled info template
      */
     public static Info generateInfo(
-            final RestService restService,
-            final Routes routes) {
+            RestService restService,
+            Routes routes) {
         try {
             JSONParser parser = new JSONParser();
             JSONObject json = (JSONObject) parser.parse(restService.httpGet(
@@ -294,8 +294,8 @@ public class DataGenerationService {
      * @return The list of filled path templates
      */
     public static Path[] generatePaths(
-            final RestService restService,
-            final Routes routes) {
+            RestService restService,
+            Routes routes) {
         Path[] paths = new Path[Routes.getRoutes().length];
         int i = 0;
         for (Route route : Routes.getRoutes()) {
@@ -328,8 +328,8 @@ public class DataGenerationService {
      */
     @SuppressWarnings("rawtypes")
     public static Definition[] generateDefinitions(
-            final RestService restService,
-            final Routes routes) {
+            RestService restService,
+            Routes routes) {
         try {
             JSONParser parser = new JSONParser();
             Definition[] definitions = new Definition[6];
@@ -410,8 +410,8 @@ public class DataGenerationService {
      * @return The filled external documents template
      */
     public static ExternalDocs generateExternalDocs(
-            final RestService restService,
-            final Routes routes) {
+            RestService restService,
+            Routes routes) {
         try {
             JSONParser parser = new JSONParser();
             JSONObject json = (JSONObject) parser.parse(

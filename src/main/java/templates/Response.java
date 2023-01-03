@@ -28,10 +28,10 @@ public class Response {
 	 * @param headers the lsit of header of the response
 	 */
 	public Response(
-	        final String resultCode,
-	        final String description,
-	        final Schema schema,
-	        final Header[] headers) {
+	        String resultCode,
+	        String description,
+	        Schema schema,
+	        Header[] headers) {
 		this.resultCode = resultCode;
 		this.description = description;
 		this.schema = schema;

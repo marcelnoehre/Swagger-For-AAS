@@ -34,10 +34,10 @@ public class SwaggerService {
 	 * @param aasIdShort The id to get the aas
 	 */
 	public SwaggerService(
-	        final String[] schemes,
-	        final String host,
-	        final String basePath,
-	        final String aasIdShort) {
+	        String[] schemes,
+	        String host,
+	        String basePath,
+	        String aasIdShort) {
 		this.restService = new RestService();
 		this.routes = new Routes(
 		        restService, schemes[0] + "://" + host + basePath,

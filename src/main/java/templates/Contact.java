@@ -18,7 +18,7 @@ public class Contact {
 	 *
 	 * @param email the email
 	 */
-	public Contact(final String email) {
+	public Contact(String email) {
 		this.email = email;
 	}
 

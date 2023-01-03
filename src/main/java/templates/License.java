@@ -20,7 +20,7 @@ public class License {
 	 * @param name the name of the license
 	 * @param url the url to the license
 	 */
-	public License(final String name, final String url) {
+	public License(String name, String url) {
 		this.name = name;
 		this.url = url;
 	}

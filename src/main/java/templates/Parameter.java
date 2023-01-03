@@ -42,17 +42,17 @@ public class Parameter {
 	 * @param schema the schema of the parameter
 	 */
 	public Parameter(
-	        final String name,
-	        final String in,
-	        final String description,
-	        final String requiered,
-	        final String type,
-	        final String format,
-	        final String minimum,
-	        final String maximum,
-	        final Items items,
-	        final String collectionFormat,
-	        final Schema schema) {
+	        String name,
+	        String in,
+	        String description,
+	        String requiered,
+	        String type,
+	        String format,
+	        String minimum,
+	        String maximum,
+	        Items items,
+	        String collectionFormat,
+	        Schema schema) {
 		this.name = name;
 		this.in = in;
 		this.description = description;

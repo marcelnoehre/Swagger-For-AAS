@@ -20,7 +20,7 @@ public class ExternalDocs {
 	 * @param description the description of the external documents
 	 * @param url the url to the external documents
 	 */
-	public ExternalDocs(final String description, final String url) {
+	public ExternalDocs(String description, String url) {
 		this.description = description;
 		this.url = url;
 	}

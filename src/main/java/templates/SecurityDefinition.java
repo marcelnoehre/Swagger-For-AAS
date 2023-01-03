@@ -33,13 +33,13 @@ public class SecurityDefinition {
 	 * @param scopes the list of scopes of the security definition
 	 */
 	public SecurityDefinition(
-	        final String id,
-	        final String type,
-	        final String name,
-	        final String in,
-	        final String authorizationUrl,
-	        final String flow,
-	        final Scope[] scopes) {
+	        String id,
+	        String type,
+	        String name,
+	        String in,
+	        String authorizationUrl,
+	        String flow,
+	        Scope[] scopes) {
 		this.id = id;
 		this.type = type;
 		this.name = name;

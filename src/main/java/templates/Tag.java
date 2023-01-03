@@ -23,9 +23,9 @@ public class Tag {
 	 * @param externalDocs the external documents that belong to the tag
 	 */
 	public Tag(
-	        final String name,
-	        final String description,
-	        final ExternalDocs externalDocs) {
+	        String name,
+	        String description,
+	        ExternalDocs externalDocs) {
 		this.name = name;
 		this.description = description;
 		this.externalDocs = externalDocs;

@@ -20,7 +20,7 @@ public class AdditionalProperties {
 	 * @param type the type of the property
 	 * @param format the format associated with the type
 	 */
-	public AdditionalProperties(final String type, final String format) {
+	public AdditionalProperties(String type, String format) {
 		this.type = type;
 		this.format = format;
 	}

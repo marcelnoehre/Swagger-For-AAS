@@ -26,10 +26,10 @@ public class Schema {
 	 * @param $ref the reference to a existing schema
 	 */
 	public Schema(
-	        final String type,
-	        final Items items,
-	        final AdditionalProperties additionalProperties,
-	        final String $ref) {
+	        String type,
+	        Items items,
+	        AdditionalProperties additionalProperties,
+	        String $ref) {
 		this.type = type;
 		this.items = items;
 		this.additionalProperties = additionalProperties;

@@ -43,15 +43,15 @@ public class Property {
 	 * @param $ref the reference to a existing property
 	 */
 	public Property(
-	        final String id,
-	        final String type,
-	        final String format,
-	        final String description,
-	        final String[] enums,
-	        final String example,
-	        final String[] exampleArray,
-	        final Items items,
-	        final String $ref) {
+	        String id,
+	        String type,
+	        String format,
+	        String description,
+	        String[] enums,
+	        String example,
+	        String[] exampleArray,
+	        Items items,
+	        String $ref) {
 		this.id = id;
 		this.type = type;
 		this.format = format;

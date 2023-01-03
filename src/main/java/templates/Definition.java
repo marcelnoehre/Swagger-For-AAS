@@ -28,10 +28,10 @@ public class Definition {
 	 * @param properties the list of properties
 	 */
 	public Definition(
-	        final String id,
-	        final String type,
-	        final String[] requiered,
-	        final Property[] properties) {
+	        String id,
+	        String type,
+	        String[] requiered,
+	        Property[] properties) {
 		this.id = id;
 		this.type = type;
 		this.requiered = requiered;
