@@ -16,7 +16,7 @@ import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.util.EntityUtils;
 
 /**
- * 
+ *
  * Service to handle REST requests.
  *
  * @author Marcel N&oumlhre
@@ -25,20 +25,22 @@ import org.apache.http.util.EntityUtils;
 public class RestService {
     private CloseableHttpClient client;
 	private CloseableHttpResponse httpResponse;
-	
+
 	/**
 	 * Sets up the RestService.
 	 */
     public RestService() {
     	setupConnectionManager();
     }
-	
+
 	/**
 	 * Sets up the connection pool.
 	 */
     private void setupConnectionManager() {
-        HttpClientConnectionManager poolingConnectionManager = new PoolingHttpClientConnectionManager();
-        this.client = HttpClients.custom().setConnectionManager(poolingConnectionManager).build();
+        HttpClientConnectionManager poolingConnectionManager =
+                new PoolingHttpClientConnectionManager();
+        this.client = HttpClients.custom()
+                .setConnectionManager(poolingConnectionManager).build();
     }
 
     /**
@@ -47,14 +49,16 @@ public class RestService {
      * @param url The url to send the request to
      * @return 0) resultCode 1) response
      */
-    public String[] httpGet(String url) {
+    public String[] httpGet(final String url) {
     	int resultCode = -1;
     	String response = "";
 		try {
 			HttpGet get = new HttpGet(url);
 			this.httpResponse = this.client.execute(get);
-			response = EntityUtils.toString(this.httpResponse.getEntity());
-			resultCode = this.httpResponse.getStatusLine().getStatusCode();
+			response = EntityUtils
+			        .toString(this.httpResponse.getEntity());
+			resultCode = this.httpResponse
+			        .getStatusLine().getStatusCode();
 		} catch (IOException io) {
 			io.printStackTrace();
 		}
@@ -68,7 +72,7 @@ public class RestService {
      * @param input The request body
      * @return 0) resultCode 1) response
      */
-    public String[] httpPost(String url, String input) {
+    public String[] httpPost(final String url, final String input) {
     	int resultCode = -1;
     	String response = "";
     	try {
@@ -77,21 +81,24 @@ public class RestService {
     		this.httpResponse = client.execute(post);
     		response = EntityUtils.toString(this.httpResponse.getEntity());
     		resultCode = this.httpResponse.getStatusLine().getStatusCode();
-    	} catch(IOException io) {
+    	} catch (IOException io) {
     		io.printStackTrace();
     	}
 		return new String[] {Integer.toString(resultCode), response};
     }
-    
+
     /**
      * Http put request to the given url with input as body and uri parameters.
-     * 
+     *
      * @param path The uri path to send the request to
      * @param input The request body
      * @param parameters The uri parameters
      * @return 0) resultCode 1) response
      */
-    public String[] httpPut(String path, String input, String[][] parameters) {
+    public String[] httpPut(
+            final String path,
+            final String input,
+            final String[][] parameters) {
     	int resultCode = -1;
     	String response = "";
     	try {
@@ -99,10 +106,12 @@ public class RestService {
 			try {
 	    		URIBuilder builder = new URIBuilder()
 					    .setScheme("http")
-					    .setHost("localhost:1111") 
+					    .setHost("localhost:1111")
 					    .setPath(path);
-	    		for(String[] parameter: parameters) {
-	    			builder.addParameter(parameter[0], parameter[1]);
+	    		for (String[] parameter: parameters) {
+	    			builder.addParameter(
+	    			        parameter[0],
+	    			        parameter[1]);
 	    		}
 				put.setURI(builder.build());
 			} catch (URISyntaxException e) {
@@ -112,20 +121,20 @@ public class RestService {
     		this.httpResponse = client.execute(put);
     		response = EntityUtils.toString(this.httpResponse.getEntity());
     		resultCode = this.httpResponse.getStatusLine().getStatusCode();
-    	} catch(IOException io) {
+    	} catch (IOException io) {
     		io.printStackTrace();
     	}
 		return new String[] {Integer.toString(resultCode), response};
     }
-    
+
     /**
      * Http delete request to send the request to.
-     * 
+     *
      * @param url The url to send the request to
      * @param input The request body
      * @return 0) resultCode 1) response
      */
-    public String[] httpDelete(String url, String input) {
+    public String[] httpDelete(final String url, final String input) {
     	int resultCode = -1;
     	String response = "";
 		try {
@@ -133,8 +142,10 @@ public class RestService {
 			delete.setHeader("Content-type", "application/json");
 			delete.setEntity(new StringEntity(input));
 			this.httpResponse = this.client.execute(delete);
-			response = EntityUtils.toString(this.httpResponse.getEntity());
-			resultCode = this.httpResponse.getStatusLine().getStatusCode();
+			response = EntityUtils
+			        .toString(this.httpResponse.getEntity());
+			resultCode = this.httpResponse
+			        .getStatusLine().getStatusCode();
 		} catch (IOException io) {
 			io.printStackTrace();
 		}
