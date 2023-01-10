@@ -34,7 +34,7 @@
                 "responses": {
                     "200": {
                         "schema": {
-                            "$ref": "#definitions/SubmodelElement"
+                            "$ref": "#/definitions/SubmodelElement"
                         },
                         "description": "successful operation"
                     },
@@ -153,7 +153,7 @@
                 "responses": {
                     "200": {
                         "schema": {
-                            "$ref": "#definitions/AssetAdministrationShell"
+                            "$ref": "#/definitions/AssetAdministrationShell"
                         },
                         "description": "successful operation"
                     },
@@ -221,7 +221,7 @@
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#definitions/SubmodelelementlistItem"
+                                "$ref": "#/definitions/SubmodelelementlistItem"
                             }
                         },
                         "description": "successful operation"
@@ -371,7 +371,7 @@
                 "responses": {
                     "200": {
                         "schema": {
-                            "$ref": "#definitions/Asset"
+                            "$ref": "#/definitions/Asset"
                         },
                         "description": "successful operation"
                     }
@@ -430,7 +430,7 @@
                 "responses": {
                     "200": {
                         "schema": {
-                            "$ref": "#definitions/Submodel"
+                            "$ref": "#/definitions/Submodel"
                         },
                         "description": "successful operation"
                     },

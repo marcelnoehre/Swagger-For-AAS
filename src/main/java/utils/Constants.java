@@ -224,45 +224,45 @@ public class Constants {
      * Schema definition for a aas.
      */
     public static final Schema AAS_SCHEMA = new Schema(
-    		null, null, null, "#definitions/AssetAdministrationShell");
+    		null, null, null, "#/definitions/AssetAdministrationShell");
     
     /**
      * Schema definition for a asset.
      */
     public static final Schema ASSET_SCHEMA = new Schema(
-    		null, null, null, "#definitions/Asset");
+    		null, null, null, "#/definitions/Asset");
     
     /**
      * Schema definition for a item in a submodellist.
      */
     public static final Schema SUBMODEL_LIST_SCHEMA = new Schema(
     		"array", new Items(null, null, null,
-    				"#definitions/SubmodellistItem"), null, null);
+    				"#/definitions/SubmodellistItem"), null, null);
     		
     /**
      * Schema definition for a submodel.
      */
     public static final Schema SUBMODEL_SCHEMA = new Schema(
-    		null, null, null, "#definitions/Submodel");
+    		null, null, null, "#/definitions/Submodel");
 
     /**
      * Schema definition for a item in a submodelelementlist.
      */
     public static final Schema ELEMENT_LIST_SCHEMA = new Schema(
     		"array", new Items(null, null, null,
-    				"#definitions/SubmodelelementlistItem"), null, null);
+    				"#/definitions/SubmodelelementlistItem"), null, null);
     
     /**
      * Schema definition for a submodelelement.
      */
     public static final Schema ELEMENT_SCHEMA = new Schema(
-    		null, null, null, "#definitions/SubmodelElement");
+    		null, null, null, "#/definitions/SubmodelElement");
     
     /**
      * Schema definition for a concept description.
      */
     public static final Schema CD_SCHEMA = new Schema(
-    		null, null, null, "#definitions/ConceptDescription");
+    		null, null, null, "#/definitions/ConceptDescription");
     
     /**
      * Example response for a http put request to add/update a asset.
