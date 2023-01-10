@@ -6,9 +6,6 @@
                 "produces": ["text/plain"],
                 "responses": {
                     "200": {
-                        "schema": {
-                            "$ref": "#/definitions/ApiResponse"
-                        },
                         "description": "OK (SubmodelRef deleted) (Submodel deleted)"
                     }
                 },
@@ -22,7 +19,7 @@
                         "requiered": "true",
                         "in": "path",
                         "name": "submodel.idShort",
-                        "description": "The unique ID of an AAS",
+                        "description": "The unique ID of an Submodel",
                         "type": "string"
                     }
                 ],
@@ -36,6 +33,9 @@
                 "produces": ["application/json"],
                 "responses": {
                     "200": {
+                        "schema": {
+                            "$ref": "#definitions/SubmodelElement"
+                        },
                         "description": "successful operation"
                     },
                     "404": {
@@ -52,13 +52,13 @@
                         "requiered": "true",
                         "in": "path",
                         "name": "submodel.idShort",
-                        "description": "The unique ID of an AAS",
+                        "description": "The unique ID of an Submodel",
                         "type": "string"
                     }, {
                         "requiered": "true",
                         "in": "path",
                         "name": "element.idShort",
-                        "description": "The unique ID of an AAS",
+                        "description": "The unique ID of an Element",
                         "type": "string"
                     }, {
                         "requiered": "false",
@@ -82,15 +82,9 @@
                 "produces": ["text/plain"],
                 "responses": {
                     "200": {
-                        "schema": {
-                            "$ref": "#/definitions/ApiResponse"
-                        },
                         "description": "OK"
                     },
                     "404": {
-                        "schema": {
-                            "$ref": "#/definitions/ApiResponse"
-                        },
                         "description": "No AAS with idShort 'example' found."
                     }
                 },
@@ -112,15 +106,9 @@
                 "produces": ["text/plain"],
                 "responses": {
                     "200": {
-                        "schema": {
-                            "$ref": "#/definitions/ApiResponse"
-                        },
                         "description": "OK (new)"
                     },
                     "400": {
-                        "schema": {
-                            "$ref": "#/definitions/ApiResponse"
-                        },
                         "description": "Cannot deserialize payload: Unexpected character encountered while parsing value: e. Path '', line 0, position 0.."
                     }
                 },
@@ -141,15 +129,9 @@
                 "produces": ["text/plain"],
                 "responses": {
                     "200": {
-                        "schema": {
-                            "$ref": "#/definitions/ApiResponse"
-                        },
                         "description": "OK (updated)"
                     },
                     "400": {
-                        "schema": {
-                            "$ref": "#/definitions/ApiResponse"
-                        },
                         "description": "No payload or content type is not JSON."
                     }
                 },
@@ -170,6 +152,9 @@
                 "produces": ["application/json"],
                 "responses": {
                     "200": {
+                        "schema": {
+                            "$ref": "#definitions/AssetAdministrationShell"
+                        },
                         "description": "successful operation"
                     },
                     "404": {
@@ -204,15 +189,9 @@
                 "produces": ["text/plain"],
                 "responses": {
                     "200": {
-                        "schema": {
-                            "$ref": "#/definitions/ApiResponse"
-                        },
                         "description": "OK (new)"
                     },
                     "400": {
-                        "schema": {
-                            "$ref": "#/definitions/ApiResponse"
-                        },
                         "description": "Cannot deserialize payload: Unexpected character encountered while parsing value: e. Path '', line 0, position 0.."
                     }
                 },
@@ -239,6 +218,12 @@
                 "produces": ["application/json"],
                 "responses": {
                     "200": {
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#definitions/SubmodelelementlistItem"
+                            }
+                        },
                         "description": "successful operation"
                     },
                     "404": {
@@ -255,7 +240,7 @@
                         "requiered": "true",
                         "in": "path",
                         "name": "submodel.idShort",
-                        "description": "The unique ID of an AAS",
+                        "description": "The unique ID of an Submodel",
                         "type": "string"
                     }
                 ],
@@ -268,15 +253,9 @@
                 "produces": ["text/plain"],
                 "responses": {
                     "200": {
-                        "schema": {
-                            "$ref": "#/definitions/ApiResponse"
-                        },
                         "description": "OK"
                     },
                     "400": {
-                        "schema": {
-                            "$ref": "#/definitions/ApiResponse"
-                        },
                         "description": "Cannot deserialize payload: Unexpected character encountered while parsing value: e. Path '', line 0, position 0.."
                     }
                 },
@@ -290,7 +269,7 @@
                         "requiered": "true",
                         "in": "path",
                         "name": "submodel.idShort",
-                        "description": "The unique ID of an AAS",
+                        "description": "The unique ID of an Submodel",
                         "type": "string"
                     }, {
                         "requiered": "true",
@@ -309,15 +288,9 @@
                 "produces": ["text/plain"],
                 "responses": {
                     "200": {
-                        "schema": {
-                            "$ref": "#/definitions/ApiResponse"
-                        },
                         "description": "OK (new)"
                     },
                     "400": {
-                        "schema": {
-                            "$ref": "#/definitions/ApiResponse"
-                        },
                         "description": "Cannot deserialize payload: Unexpected character encountered while parsing value: e. Path '', line 0, position 0.."
                     }
                 },
@@ -347,7 +320,7 @@
                         "description": "successful operation"
                     },
                     "404": {
-                        "description": "No AAS 'Festo_3S7PM0CP4BD' or no ConceptDescription with id 'example' found."
+                        "description": "No AAS with idShort 'example' found."
                     }
                 },
                 "parameters": [{
@@ -367,15 +340,9 @@
                 "produces": ["text/plain"],
                 "responses": {
                     "200": {
-                        "schema": {
-                            "$ref": "#/definitions/ApiResponse"
-                        },
                         "description": "OK"
                     },
                     "404": {
-                        "schema": {
-                            "$ref": "#/definitions/ApiResponse"
-                        },
                         "description": "No AAS 'Festo_3S7PM0CP4BD' or no ConceptDescription with id 'example' found."
                     }
                 },
@@ -389,7 +356,7 @@
                         "requiered": "true",
                         "in": "path",
                         "name": "cd.idShort",
-                        "description": "The unique ID of an AAS",
+                        "description": "The unique ID of a CD",
                         "type": "string"
                     }
                 ],
@@ -403,10 +370,10 @@
                 "produces": ["application/json"],
                 "responses": {
                     "200": {
+                        "schema": {
+                            "$ref": "#definitions/Asset"
+                        },
                         "description": "successful operation"
-                    },
-                    "404": {
-                        "description": "No AAS 'Festo_3S7PM0CP4BD' or no Submodel with idShort 'example' found."
                     }
                 },
                 "parameters": [{
@@ -426,15 +393,9 @@
                 "produces": ["text/plain"],
                 "responses": {
                     "200": {
-                        "schema": {
-                            "$ref": "#/definitions/ApiResponse"
-                        },
                         "description": "OK"
                     },
                     "404": {
-                        "schema": {
-                            "$ref": "#/definitions/ApiResponse"
-                        },
                         "description": "No matching element in Submodel found."
                     }
                 },
@@ -448,13 +409,13 @@
                         "requiered": "true",
                         "in": "path",
                         "name": "submodel.idShort",
-                        "description": "The unique ID of an AAS",
+                        "description": "The unique ID of an Submodel",
                         "type": "string"
                     }, {
                         "requiered": "true",
                         "in": "path",
                         "name": "element.idShort",
-                        "description": "The unique ID of an AAS",
+                        "description": "The unique ID of an Element",
                         "type": "string"
                     }
                 ],
@@ -468,6 +429,9 @@
                 "produces": ["application/json"],
                 "responses": {
                     "200": {
+                        "schema": {
+                            "$ref": "#definitions/Submodel"
+                        },
                         "description": "successful operation"
                     },
                     "404": {
@@ -484,7 +448,7 @@
                         "requiered": "true",
                         "in": "path",
                         "name": "submodel.idShort",
-                        "description": "The unique ID of an AAS",
+                        "description": "The unique ID of an Submodel",
                         "type": "string"
                     }, {
                         "requiered": "false",
@@ -668,6 +632,60 @@
                             ]
                         }
                     ]
+                }
+            }
+        },
+        "SubmodellistItem": {
+            "requiered": ["idShort"],
+            "type": "object",
+            "properties": {
+                "idShort": {
+                    "type": "string",
+                    "example": "Nameplate"
+                },
+                "kind": {
+                    "type": "string",
+                    "example": "Instance"
+                },
+                "id": {
+                    "type": "object",
+                    "example": {
+                        "idType": "IRI",
+                        "id": "www.company.com/ids/sm/4343_5072_7091_3242"
+                    }
+                }
+            }
+        },
+        "SubmodelelementlistItem": {
+            "requiered": ["idShort"],
+            "type": "object",
+            "properties": {
+                "semId": {
+                    "type": "string",
+                    "example": "0173-1#02-AAO677#002"
+                },
+                "unit": {
+                    "type": "string"
+                },
+                "semIdType": {
+                    "type": "string",
+                    "example": "IRDI"
+                },
+                "idShorts": {
+                    "type": "string",
+                    "example": "ManufactName"
+                },
+                "typeName": {
+                    "type": "string",
+                    "example": "Property"
+                },
+                "shortName": {
+                    "type": "string",
+                    "example": "Manufacturer Name"
+                },
+                "value": {
+                    "type": "string",
+                    "example": "kl_777"
                 }
             }
         },

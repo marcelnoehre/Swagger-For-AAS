@@ -14,6 +14,7 @@ import templates.Property;
 import templates.Request;
 import templates.Response;
 import templates.Route;
+import templates.Schema;
 import templates.ExternalDocs;
 import templates.Info;
 import templates.Items;
@@ -107,6 +108,7 @@ public class DataGenerationService {
         String path = "";
         String pathPut = "";
         String goodExample = "{\"idShort\":\"example\",\"id\":\"example\"}";
+        Schema schema = null;
         switch (route.getType()) {
         case "get":
             switch (route.getTag()) {
@@ -114,17 +116,27 @@ public class DataGenerationService {
                 path = route.getPath().equals("/aas/{aas.idShort}/")
                         ? Constants.EXAMPLE_AAS
                         : Constants.EXAMPLE_SUBMODEL_LIST;
+                schema = route.getPath().equals("/aas/{aas.idShort}/")
+                		? Constants.AAS_SCHEMA
+                		: Constants.SUBMODEL_LIST_SCHEMA;
                 break;
             case "Asset":
                 path = Constants.EXAMPLE_ASSETS;
+                schema = Constants.ASSET_SCHEMA;
+                break;
             case "Submodel":
                 path = route.getPath().equals(
                         "/aas/{aas.idShort}/submodels/{submodel.idShort}/")
                                 ? Constants.EXAMPLE_SUBMODEL
                                 : Constants.EXAMPLE_ELEMENT_LIST;
+                schema = route.getPath().equals(
+                        "/aas/{aas.idShort}/submodels/{submodel.idShort}/")
+                				? Constants.SUBMODEL_SCHEMA
+                				: Constants.ELEMENT_LIST_SCHEMA;
                 break;
             case "Submodelelement":
                 path = Constants.EXAMPLE_ELEMENT;
+                schema = Constants.ELEMENT_SCHEMA;
                 goodExample = "{\"idShort\":\"example\",\"modelType\""
                         + ":{\"name\":\"Property\"}}";
                 parameter = new String[][] {new String[] {"idShort", "example"},
@@ -133,7 +145,7 @@ public class DataGenerationService {
                 break;
             case "Concept Description":
                 path = route.getPath().equals("/aas/{aas.idShort}/cds")
-                        ? Constants.EXAMPLE_CD : Constants.EXAMPLE_CD_LIST;
+                        ? Constants.EXAMPLE_CD_LIST : Constants.EXAMPLE_CD;
                 break;
             default:
                 break;
@@ -144,7 +156,7 @@ public class DataGenerationService {
                     + routes.replaceIDs(path));
             return new Response[] {
                     new Response(bad[0], bad[1], null, null),
-                    new Response(good[0], "successful operation", null, null)
+                    new Response(good[0], "successful operation", schema, null)
             };
         case "delete":
             switch (route.getTag()) {
@@ -175,8 +187,8 @@ public class DataGenerationService {
             bad = restService.httpDelete(routes.getBaseUrl()
                     + routes.replaceIDs(path), goodExample);
             return new Response[] {
-                    new Response(bad[0], bad[1], Constants.API_RESPONSE, null),
-                    new Response(good[0], good[1], Constants.API_RESPONSE, null)
+                    new Response(bad[0], bad[1], schema, null),
+                    new Response(good[0], good[1], schema, null)
             };
         case "put":
             switch (route.getTag()) {
@@ -209,8 +221,8 @@ public class DataGenerationService {
             bad = restService.httpPut(pathPut, "example", new String[][] {});
             restService.httpDelete(routes.getBaseUrl() + path, goodExample);
             return new Response[] {
-                    new Response(bad[0], bad[1], Constants.API_RESPONSE, null),
-                    new Response(good[0], good[1], Constants.API_RESPONSE, null)
+                    new Response(bad[0], bad[1], schema, null),
+                    new Response(good[0], good[1], schema, null)
             };
         default:
             break;
@@ -223,7 +235,7 @@ public class DataGenerationService {
      *
      * @param restService The service to handle REST requests
      * @param routes The service to handle routes
-     * @return THe filled info template
+     * @return The filled info template
      */
     public static Info generateInfo(
             RestService restService,
@@ -332,10 +344,30 @@ public class DataGenerationService {
             Routes routes) {
         try {
             JSONParser parser = new JSONParser();
-            Definition[] definitions = new Definition[6];
-            JSONObject response = (JSONObject)
+            Definition[] definitions = new Definition[8];
+            JSONObject aas = (JSONObject)
                     parser.parse(restService.httpGet(routes.getBaseUrl()
                             + routes.getAASRouteWithId())[1]);
+            JSONArray submodelList = (JSONArray)
+            		parser.parse(restService.httpGet(routes.getBaseUrl()
+            				+ routes.getSubmodelListRouteWithId())[1]);
+            JSONObject submodelListItem = null;
+            for (Object submodelListObject : submodelList) {
+                try {
+                	submodelListItem = (JSONObject) submodelListObject;
+                    break;
+                } catch (NullPointerException submodelListException) { }
+            }
+            JSONArray elementList = (JSONArray)
+            		parser.parse(restService.httpGet(routes.getBaseUrl()
+            				+ routes.getElementListRouteWithId())[1]);
+            JSONObject elementListItem = null;
+            for (Object elementListObject : elementList) {
+                try {
+                	elementListItem = (JSONObject) elementListObject;
+                    break;
+                } catch (NullPointerException elementListException) { }
+            }
             Property[] apiResponseProperties = new Property[] {
                     new Property("resultCode", "integer", "int32",
                             null, null, "200", null, null, null),
@@ -348,15 +380,18 @@ public class DataGenerationService {
                     new String[] {"resultCode", "type", "message"},
                     apiResponseProperties);
             String[] definitionNames = new String[] {
-                    "AssetAdministrationShell", "Asset", "Submodel",
-                    "SubmodelElement", "ConceptDescription"};
+                    "AssetAdministrationShell", "Asset", "SubmodellistItem", 
+                    "Submodel", "SubmodelelementlistItem", "SubmodelElement",
+                    "ConceptDescription"};
             JSONObject[] definitionExamples = new JSONObject[] {
                     (JSONObject) parser.parse(
-                            response.get("AAS").toString()),
-                    (JSONObject) parser.parse(response.get("Asset").toString()),
+                    		aas.get("AAS").toString()),
+                    (JSONObject) parser.parse(aas.get("Asset").toString()),
+                    submodelListItem,
                     (JSONObject) parser.parse(restService.httpGet(
                             routes.getBaseUrl()
                             + routes.getSubmodelRouteWithId())[1]),
+                    elementListItem,
                     (JSONObject) parser.parse(restService.httpGet(
                             routes.getBaseUrl()
                             + routes.getElementRouteWithId())[1]),

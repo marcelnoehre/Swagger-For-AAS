@@ -1,5 +1,6 @@
 package utils;
 
+import templates.Items;
 import templates.Parameter;
 import templates.Response;
 import templates.Route;
@@ -28,8 +29,7 @@ public class Constants {
     public static final Route GET_SUBMODEL_LIST = new Route(
             "Asset Administration Shell",
             "A list of all submodels of an AAS", "get",
-            "/aas/{aas.idShort}/submodels/",
-            new String[] {"core", "deep", "complete"});
+            "/aas/{aas.idShort}/submodels/", null);
 
     /**
      * Template for a http put request to add/update a AAS.
@@ -197,21 +197,21 @@ public class Constants {
      * Parameter definition of the submodel short id.
      */
     public static final Parameter SUBMODEL_ID_SHORT = new Parameter(
-            "submodel.idShort", "path", "The unique ID of an AAS", "true",
+            "submodel.idShort", "path", "The unique ID of an Submodel", "true",
             "string", null, null, null, null, null, null);
 
     /**
      * Parameter definition of the element short id.
      */
     public static final Parameter ELEMENT_ID_SHORT = new Parameter(
-            "element.idShort", "path", "The unique ID of an AAS", "true",
+            "element.idShort", "path", "The unique ID of an Element", "true",
             "string", null, null, null, null, null, null);
 
     /**
      * Parameter definition of the concept description short id.
      */
     public static final Parameter CD_ID_SHORT = new Parameter(
-            "cd.idShort", "path", "The unique ID of an AAS", "true", "string",
+            "cd.idShort", "path", "The unique ID of a CD", "true", "string",
             null, null, null, null, null, null);
 
     /**
@@ -219,13 +219,57 @@ public class Constants {
      */
     public static final Schema API_RESPONSE = new Schema(
             null, null, null, "#/definitions/ApiResponse");
+    
+    /**
+     * Schema definition for a aas.
+     */
+    public static final Schema AAS_SCHEMA = new Schema(
+    		null, null, null, "#definitions/AssetAdministrationShell");
+    
+    /**
+     * Schema definition for a asset.
+     */
+    public static final Schema ASSET_SCHEMA = new Schema(
+    		null, null, null, "#definitions/Asset");
+    
+    /**
+     * Schema definition for a item in a submodellist.
+     */
+    public static final Schema SUBMODEL_LIST_SCHEMA = new Schema(
+    		"array", new Items(null, null, null,
+    				"#definitions/SubmodellistItem"), null, null);
+    		
+    /**
+     * Schema definition for a submodel.
+     */
+    public static final Schema SUBMODEL_SCHEMA = new Schema(
+    		null, null, null, "#definitions/Submodel");
 
+    /**
+     * Schema definition for a item in a submodelelementlist.
+     */
+    public static final Schema ELEMENT_LIST_SCHEMA = new Schema(
+    		"array", new Items(null, null, null,
+    				"#definitions/SubmodelelementlistItem"), null, null);
+    
+    /**
+     * Schema definition for a submodelelement.
+     */
+    public static final Schema ELEMENT_SCHEMA = new Schema(
+    		null, null, null, "#definitions/SubmodelElement");
+    
+    /**
+     * Schema definition for a concept description.
+     */
+    public static final Schema CD_SCHEMA = new Schema(
+    		null, null, null, "#definitions/ConceptDescription");
+    
     /**
      * Example response for a http put request to add/update a asset.
      */
     public static final Response[] PUT_ASSET_EXAMPLE_RESPONSE = new Response[] {
-            new Response("200", "OK (updated)", API_RESPONSE, null),
+            new Response("200", "OK (updated)", null, null),
             new Response("400", "No payload or content type is not JSON.",
-                    API_RESPONSE, null)
+                    null, null)
     };
 }

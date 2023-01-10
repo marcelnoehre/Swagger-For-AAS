@@ -169,12 +169,30 @@ public class Routes {
     }
 
     /**
+     * Get the route to a submodellist with filled ids.
+     * 
+     * @return The route to a submodellist with filled ids
+     */
+    public String getSubmodelListRouteWithId() {
+    	return this.replaceIDs(Constants.GET_SUBMODEL_LIST.getPath());
+    }
+    
+    /**
      * Get the route to a submodel with filled ids.
      *
      * @return The route to a submodel with filled ids
      */
     public String getSubmodelRouteWithId() {
         return this.replaceIDs(Constants.GET_SUBMODEL.getPath());
+    }
+    
+    /**
+     * Get the route to a elementlist with filled ids.
+     * 
+     * @return The route to a elementlist with filled ids
+     */
+    public String getElementListRouteWithId() {
+    	return this.replaceIDs(Constants.GET_ELEMENT_LIST.getPath());
     }
 
     /**
