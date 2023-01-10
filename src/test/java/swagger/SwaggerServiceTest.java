@@ -1,5 +1,8 @@
 package swagger;
 
+import java.io.FileWriter;
+import java.io.IOException;
+
 /**
  *
  * Service to test the Swagger service.
@@ -22,6 +25,15 @@ public class SwaggerServiceTest {
 	public static void main(String[] args) {
 		SwaggerService swagger =
 		        new SwaggerService(SCHEMES, HOST, BASEPATH, AAS_ID);
-		System.out.println(swagger.generateDocumentation());
+		FileWriter file;
+		try {
+			file = new FileWriter("./src/test/resources/aas.json");
+			file.write(swagger.generateDocumentation());
+			file.close();
+			System.out.println("Swagger generation completed!");
+		} catch (IOException e) {
+			System.err.println("Swagger generation failed!");
+		}
+
 	}
 }
