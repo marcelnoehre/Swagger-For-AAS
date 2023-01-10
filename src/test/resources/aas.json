@@ -1,0 +1,944 @@
+{
+    "paths": {
+        "/aas/{aas.idShort}/submodels/{submodel.idShort}": {
+            "delete": {
+                "summary": "Delete a submodel",
+                "produces": ["text/plain"],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/ApiResponse"
+                        },
+                        "description": "OK (SubmodelRef deleted) (Submodel deleted)"
+                    }
+                },
+                "parameters": [{
+                        "requiered": "true",
+                        "in": "path",
+                        "name": "aas.idShort",
+                        "description": "The unique ID of an AAS",
+                        "type": "string"
+                    }, {
+                        "requiered": "true",
+                        "in": "path",
+                        "name": "submodel.idShort",
+                        "description": "The unique ID of an AAS",
+                        "type": "string"
+                    }
+                ],
+                "tags": ["Submodel"],
+                "consumes": ["application/json"]
+            }
+        },
+        "/aas/{aas.idShort}/submodels/{submodel.idShort}/elements/{element.idShort}/": {
+            "get": {
+                "summary": "Information about the submodelelement",
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "404": {
+                        "description": "No matching element in Submodel found."
+                    }
+                },
+                "parameters": [{
+                        "requiered": "true",
+                        "in": "path",
+                        "name": "aas.idShort",
+                        "description": "The unique ID of an AAS",
+                        "type": "string"
+                    }, {
+                        "requiered": "true",
+                        "in": "path",
+                        "name": "submodel.idShort",
+                        "description": "The unique ID of an AAS",
+                        "type": "string"
+                    }, {
+                        "requiered": "true",
+                        "in": "path",
+                        "name": "element.idShort",
+                        "description": "The unique ID of an AAS",
+                        "type": "string"
+                    }, {
+                        "requiered": "false",
+                        "in": "path",
+                        "name": "informationScope",
+                        "description": "Defines which information is displayed",
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "enum": ["core", "deep", "complete"]
+                        },
+                        "collectionFormat": "single"
+                    }
+                ],
+                "tags": ["Submodelelement"]
+            }
+        },
+        "/aas/{aas.idShort}": {
+            "delete": {
+                "summary": "Delete a Asset Adminstration Shell",
+                "produces": ["text/plain"],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/ApiResponse"
+                        },
+                        "description": "OK"
+                    },
+                    "404": {
+                        "schema": {
+                            "$ref": "#/definitions/ApiResponse"
+                        },
+                        "description": "No AAS with idShort 'example' found."
+                    }
+                },
+                "parameters": [{
+                        "requiered": "true",
+                        "in": "path",
+                        "name": "aas.idShort",
+                        "description": "The unique ID of an AAS",
+                        "type": "string"
+                    }
+                ],
+                "tags": ["Asset Administration Shell"],
+                "consumes": ["application/json"]
+            }
+        },
+        "/aas/": {
+            "put": {
+                "summary": "Add or update a Asset Administration Shell",
+                "produces": ["text/plain"],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/ApiResponse"
+                        },
+                        "description": "OK (new)"
+                    },
+                    "400": {
+                        "schema": {
+                            "$ref": "#/definitions/ApiResponse"
+                        },
+                        "description": "Cannot deserialize payload: Unexpected character encountered while parsing value: e. Path '', line 0, position 0.."
+                    }
+                },
+                "parameters": [{
+                        "requiered": "true",
+                        "in": "body",
+                        "name": "Asset Administration Shell",
+                        "description": "The new or updated Asset Administration Shell"
+                    }
+                ],
+                "tags": ["Asset Administration Shell"],
+                "consumes": ["application/json"]
+            }
+        },
+        "/assets/": {
+            "put": {
+                "summary": "Add or update a Asset",
+                "produces": ["text/plain"],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/ApiResponse"
+                        },
+                        "description": "OK (updated)"
+                    },
+                    "400": {
+                        "schema": {
+                            "$ref": "#/definitions/ApiResponse"
+                        },
+                        "description": "No payload or content type is not JSON."
+                    }
+                },
+                "parameters": [{
+                        "requiered": "true",
+                        "in": "body",
+                        "name": "Asset",
+                        "description": "The new or updated Asset"
+                    }
+                ],
+                "tags": ["Asset"],
+                "consumes": ["application/json"]
+            }
+        },
+        "/aas/{aas.idShort}/": {
+            "get": {
+                "summary": "Information about the Asset Administration Shell",
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "404": {
+                        "description": "No AAS with id 'example' found."
+                    }
+                },
+                "parameters": [{
+                        "requiered": "true",
+                        "in": "path",
+                        "name": "aas.idShort",
+                        "description": "The unique ID of an AAS",
+                        "type": "string"
+                    }, {
+                        "requiered": "false",
+                        "in": "path",
+                        "name": "informationScope",
+                        "description": "Defines which information is displayed",
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "enum": ["core", "complete", "thumbnail", "aasenv"]
+                        },
+                        "collectionFormat": "single"
+                    }
+                ],
+                "tags": ["Asset Administration Shell"]
+            }
+        },
+        "/aas/{aas.idShort}/submodels/": {
+            "put": {
+                "summary": "Add or update asubmodel",
+                "produces": ["text/plain"],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/ApiResponse"
+                        },
+                        "description": "OK (new)"
+                    },
+                    "400": {
+                        "schema": {
+                            "$ref": "#/definitions/ApiResponse"
+                        },
+                        "description": "Cannot deserialize payload: Unexpected character encountered while parsing value: e. Path '', line 0, position 0.."
+                    }
+                },
+                "parameters": [{
+                        "requiered": "true",
+                        "in": "path",
+                        "name": "aas.idShort",
+                        "description": "The unique ID of an AAS",
+                        "type": "string"
+                    }, {
+                        "requiered": "true",
+                        "in": "body",
+                        "name": "Submodel",
+                        "description": "The new or updated Submodel"
+                    }
+                ],
+                "tags": ["Submodel"],
+                "consumes": ["application/json"]
+            }
+        },
+        "/aas/{aas.idShort}/submodels/{submodel.idShort}/table": {
+            "get": {
+                "summary": "A list of all elements of an submodel",
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "404": {
+                        "description": "No AAS 'Festo_3S7PM0CP4BD' or no Submodel with idShort 'example' found."
+                    }
+                },
+                "parameters": [{
+                        "requiered": "true",
+                        "in": "path",
+                        "name": "aas.idShort",
+                        "description": "The unique ID of an AAS",
+                        "type": "string"
+                    }, {
+                        "requiered": "true",
+                        "in": "path",
+                        "name": "submodel.idShort",
+                        "description": "The unique ID of an AAS",
+                        "type": "string"
+                    }
+                ],
+                "tags": ["Submodel"]
+            }
+        },
+        "/aas/{aas.idShort}/submodels/{submodel.idShort}/elements/": {
+            "put": {
+                "summary": "Add or update a submodelelement",
+                "produces": ["text/plain"],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/ApiResponse"
+                        },
+                        "description": "OK"
+                    },
+                    "400": {
+                        "schema": {
+                            "$ref": "#/definitions/ApiResponse"
+                        },
+                        "description": "Cannot deserialize payload: Unexpected character encountered while parsing value: e. Path '', line 0, position 0.."
+                    }
+                },
+                "parameters": [{
+                        "requiered": "true",
+                        "in": "path",
+                        "name": "aas.idShort",
+                        "description": "The unique ID of an AAS",
+                        "type": "string"
+                    }, {
+                        "requiered": "true",
+                        "in": "path",
+                        "name": "submodel.idShort",
+                        "description": "The unique ID of an AAS",
+                        "type": "string"
+                    }, {
+                        "requiered": "true",
+                        "in": "body",
+                        "name": "Submodelelement",
+                        "description": "The new or updated Submodelelement"
+                    }
+                ],
+                "tags": ["Submodelelement"],
+                "consumes": ["application/json"]
+            }
+        },
+        "/aas/{aas.idShort}/cds/": {
+            "put": {
+                "summary": "Add or update a concept description",
+                "produces": ["text/plain"],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/ApiResponse"
+                        },
+                        "description": "OK (new)"
+                    },
+                    "400": {
+                        "schema": {
+                            "$ref": "#/definitions/ApiResponse"
+                        },
+                        "description": "Cannot deserialize payload: Unexpected character encountered while parsing value: e. Path '', line 0, position 0.."
+                    }
+                },
+                "parameters": [{
+                        "requiered": "true",
+                        "in": "path",
+                        "name": "aas.idShort",
+                        "description": "The unique ID of an AAS",
+                        "type": "string"
+                    }, {
+                        "requiered": "true",
+                        "in": "body",
+                        "name": "Concept Description",
+                        "description": "The new or updated Concept Description"
+                    }
+                ],
+                "tags": ["Concept Description"],
+                "consumes": ["application/json"]
+            }
+        },
+        "/aas/{aas.idShort}/cds": {
+            "get": {
+                "summary": "A list of all concept descriptions of an AAS",
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "404": {
+                        "description": "No AAS 'Festo_3S7PM0CP4BD' or no ConceptDescription with id 'example' found."
+                    }
+                },
+                "parameters": [{
+                        "requiered": "true",
+                        "in": "path",
+                        "name": "aas.idShort",
+                        "description": "The unique ID of an AAS",
+                        "type": "string"
+                    }
+                ],
+                "tags": ["Concept Description"]
+            }
+        },
+        "/aas/{aas.idShort}/cds/{cd.idShort}": {
+            "delete": {
+                "summary": "Delete a concept description",
+                "produces": ["text/plain"],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/ApiResponse"
+                        },
+                        "description": "OK"
+                    },
+                    "404": {
+                        "schema": {
+                            "$ref": "#/definitions/ApiResponse"
+                        },
+                        "description": "No AAS 'Festo_3S7PM0CP4BD' or no ConceptDescription with id 'example' found."
+                    }
+                },
+                "parameters": [{
+                        "requiered": "true",
+                        "in": "path",
+                        "name": "aas.idShort",
+                        "description": "The unique ID of an AAS",
+                        "type": "string"
+                    }, {
+                        "requiered": "true",
+                        "in": "path",
+                        "name": "cd.idShort",
+                        "description": "The unique ID of an AAS",
+                        "type": "string"
+                    }
+                ],
+                "tags": ["Concept Description"],
+                "consumes": ["application/json"]
+            }
+        },
+        "/assets/{aas.idShort}": {
+            "get": {
+                "summary": "Information about the Asset",
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "404": {
+                        "description": "No AAS 'Festo_3S7PM0CP4BD' or no Submodel with idShort 'example' found."
+                    }
+                },
+                "parameters": [{
+                        "requiered": "true",
+                        "in": "path",
+                        "name": "aas.idShort",
+                        "description": "The unique ID of an AAS",
+                        "type": "string"
+                    }
+                ],
+                "tags": ["Asset"]
+            }
+        },
+        "/aas/{aas.idShort}/submodels/{submodel.idShort}/elements/{element.idShort}": {
+            "delete": {
+                "summary": "Delete a submodelelement",
+                "produces": ["text/plain"],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/ApiResponse"
+                        },
+                        "description": "OK"
+                    },
+                    "404": {
+                        "schema": {
+                            "$ref": "#/definitions/ApiResponse"
+                        },
+                        "description": "No matching element in Submodel found."
+                    }
+                },
+                "parameters": [{
+                        "requiered": "true",
+                        "in": "path",
+                        "name": "aas.idShort",
+                        "description": "The unique ID of an AAS",
+                        "type": "string"
+                    }, {
+                        "requiered": "true",
+                        "in": "path",
+                        "name": "submodel.idShort",
+                        "description": "The unique ID of an AAS",
+                        "type": "string"
+                    }, {
+                        "requiered": "true",
+                        "in": "path",
+                        "name": "element.idShort",
+                        "description": "The unique ID of an AAS",
+                        "type": "string"
+                    }
+                ],
+                "tags": ["Submodelelement"],
+                "consumes": ["application/json"]
+            }
+        },
+        "/aas/{aas.idShort}/submodels/{submodel.idShort}/": {
+            "get": {
+                "summary": "Information about the submodel",
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "404": {
+                        "description": "No AAS 'Festo_3S7PM0CP4BD' or no Submodel with idShort 'example' found."
+                    }
+                },
+                "parameters": [{
+                        "requiered": "true",
+                        "in": "path",
+                        "name": "aas.idShort",
+                        "description": "The unique ID of an AAS",
+                        "type": "string"
+                    }, {
+                        "requiered": "true",
+                        "in": "path",
+                        "name": "submodel.idShort",
+                        "description": "The unique ID of an AAS",
+                        "type": "string"
+                    }, {
+                        "requiered": "false",
+                        "in": "path",
+                        "name": "informationScope",
+                        "description": "Defines which information is displayed",
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "enum": ["core", "deep", "complete"]
+                        },
+                        "collectionFormat": "single"
+                    }
+                ],
+                "tags": ["Submodel"]
+            }
+        }
+    },
+    "host": "localhost:1111",
+    "schemes": ["http"],
+    "securityDefinitions": {},
+    "definitions": {
+        "Submodel": {
+            "requiered": ["idShort"],
+            "type": "object",
+            "properties": {
+                "semanticId": {
+                    "type": "object",
+                    "example": {
+                        "keys": [{
+                                "idType": "IRI",
+                                "index": 0,
+                                "type": "GlobalReference",
+                                "value": "https://www.hsu-hh.de/aut/aas/nameplate",
+                                "local": false
+                            }
+                        ]
+                    }
+                },
+                "identification": {
+                    "type": "object",
+                    "example": {
+                        "idType": "IRI",
+                        "id": "www.company.com/ids/sm/4343_5072_7091_3242"
+                    }
+                },
+                "idShort": {
+                    "type": "string",
+                    "example": "Nameplate"
+                },
+                "hasDataSpecification": {
+                    "type": "array",
+                    "example": "[]"
+                },
+                "administration": {
+                    "type": "string"
+                },
+                "kind": {
+                    "type": "string",
+                    "example": "Instance"
+                },
+                "qualifiers": {
+                    "type": "array",
+                    "example": "[]"
+                },
+                "modelType": {
+                    "type": "object",
+                    "example": {
+                        "name": "Submodel"
+                    }
+                },
+                "category": {
+                    "type": "string"
+                },
+                "descriptions": {
+                    "type": "string"
+                }
+            }
+        },
+        "AssetAdministrationShell": {
+            "requiered": ["idShort"],
+            "type": "object",
+            "properties": {
+                "identification": {
+                    "type": "object",
+                    "example": {
+                        "idType": "IRI",
+                        "id": "smart.festo.com/demo/aas/1/1/454576463545648365874"
+                    }
+                },
+                "idShort": {
+                    "type": "string",
+                    "example": "Festo_3S7PM0CP4BD"
+                },
+                "conceptDictionaries": {
+                    "type": "array",
+                    "example": "[]"
+                },
+                "hasDataSpecification": {
+                    "type": "array",
+                    "example": "[]"
+                },
+                "administration": {
+                    "type": "string"
+                },
+                "derivedFrom": {
+                    "type": "string"
+                },
+                "modelType": {
+                    "type": "object",
+                    "example": {
+                        "name": "AssetAdministrationShell"
+                    }
+                },
+                "asset": {
+                    "type": "object",
+                    "example": {
+                        "keys": [{
+                                "idType": "IRI",
+                                "index": 0,
+                                "type": "Asset",
+                                "value": "HTTP://PK.FESTO.COM/3S7PM0CP4BD",
+                                "local": true
+                            }
+                        ]
+                    }
+                },
+                "category": {
+                    "type": "string",
+                    "example": "CONSTANT"
+                },
+                "descriptions": {
+                    "type": "string"
+                },
+                "submodels": {
+                    "type": "array",
+                    "example": [{
+                            "keys": [{
+                                    "idType": "IRI",
+                                    "index": 0,
+                                    "type": "Submodel",
+                                    "value": "www.company.com/ids/sm/4343_5072_7091_3242",
+                                    "local": true
+                                }
+                            ]
+                        }, {
+                            "keys": [{
+                                    "idType": "IRI",
+                                    "index": 0,
+                                    "type": "Submodel",
+                                    "value": "www.company.com/ids/sm/2543_5072_7091_2660",
+                                    "local": true
+                                }
+                            ]
+                        }, {
+                            "keys": [{
+                                    "idType": "IRI",
+                                    "index": 0,
+                                    "type": "Submodel",
+                                    "value": "www.company.com/ids/sm/6053_5072_7091_5102",
+                                    "local": true
+                                }
+                            ]
+                        }, {
+                            "keys": [{
+                                    "idType": "IRI",
+                                    "index": 0,
+                                    "type": "Submodel",
+                                    "value": "www.company.com/ids/sm/6563_5072_7091_4267",
+                                    "local": true
+                                }
+                            ]
+                        }, {
+                            "keys": [{
+                                    "idType": "IRI",
+                                    "index": 0,
+                                    "type": "Submodel",
+                                    "value": "smart.festo.com/demo/sm/instance/1/1/13B7CCD9BF7A3F24",
+                                    "local": true
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        },
+        "SubmodelElement": {
+            "requiered": ["idShort"],
+            "type": "object",
+            "properties": {
+                "elem": {
+                    "type": "object",
+                    "example": {
+                        "valueId": null,
+                        "semanticId": {
+                            "keys": [{
+                                    "idType": "IRDI",
+                                    "index": 0,
+                                    "type": "ConceptDescription",
+                                    "value": "0173-1#02-AAO677#002",
+                                    "local": true
+                                }
+                            ]
+                        },
+                        "idShort": "ManufactName",
+                        "hasDataSpecification": [],
+                        "kind": "Instance",
+                        "valueType": {
+                            "dataObjectType": {
+                                "name": "string"
+                            }
+                        },
+                        "modelType": {
+                            "name": "Property"
+                        },
+                        "category": "PARAMETER",
+                        "value": "kl_777",
+                        "constraints": [],
+                        "descriptions": null
+                    }
+                },
+                "parent": {
+                    "type": "object",
+                    "example": {
+                        "semanticId": {
+                            "keys": [{
+                                    "idType": "IRI",
+                                    "index": 0,
+                                    "type": "GlobalReference",
+                                    "value": "https://www.hsu-hh.de/aut/aas/nameplate",
+                                    "local": false
+                                }
+                            ]
+                        },
+                        "identification": {
+                            "idType": "IRI",
+                            "id": "www.company.com/ids/sm/4343_5072_7091_3242"
+                        },
+                        "idShort": "Nameplate",
+                        "hasDataSpecification": [],
+                        "administration": null,
+                        "kind": "Instance",
+                        "qualifiers": [],
+                        "modelType": {
+                            "name": "Submodel"
+                        },
+                        "category": null,
+                        "descriptions": null
+                    }
+                },
+                "wrapper": {
+                    "type": "object",
+                    "example": {
+                        "submodelElement": {
+                            "valueId": null,
+                            "semanticId": {
+                                "keys": [{
+                                        "idType": "IRDI",
+                                        "index": 0,
+                                        "type": "ConceptDescription",
+                                        "value": "0173-1#02-AAO677#002",
+                                        "local": true
+                                    }
+                                ]
+                            },
+                            "idShort": "ManufactName",
+                            "hasDataSpecification": [],
+                            "kind": "Instance",
+                            "valueType": {
+                                "dataObjectType": {
+                                    "name": "string"
+                                }
+                            },
+                            "modelType": {
+                                "name": "Property"
+                            },
+                            "category": "PARAMETER",
+                            "value": "kl_777",
+                            "constraints": [],
+                            "descriptions": null
+                        }
+                    }
+                }
+            }
+        },
+        "Asset": {
+            "requiered": ["idShort"],
+            "type": "object",
+            "properties": {
+                "identification": {
+                    "type": "object",
+                    "example": {
+                        "idType": "IRI",
+                        "id": "HTTP://PK.FESTO.COM/3S7PM0CP4BD"
+                    }
+                },
+                "idShort": {
+                    "type": "string",
+                    "example": "FPK_3s7plfdrs35"
+                },
+                "hasDataSpecification": {
+                    "type": "array",
+                    "example": "[]"
+                },
+                "administration": {
+                    "type": "string"
+                },
+                "kind": {
+                    "type": "string",
+                    "example": "Instance"
+                },
+                "billOfMaterialRef": {
+                    "type": "string"
+                },
+                "assetIdentificationModelRef": {
+                    "type": "string"
+                },
+                "modelType": {
+                    "type": "object",
+                    "example": {
+                        "name": "Asset"
+                    }
+                },
+                "category": {
+                    "type": "string"
+                },
+                "descriptions": {
+                    "type": "array",
+                    "example": [{
+                            "language": "EN",
+                            "text": "Festo OVEL Vacuum generator"
+                        }, {
+                            "language": "DE",
+                            "text": "Festo OVEL Vakuumsaugdüse"
+                        }
+                    ]
+                }
+            }
+        },
+        "ConceptDescription": {
+            "requiered": ["idShort"],
+            "type": "object",
+            "properties": {
+                "identification": {
+                    "type": "object",
+                    "example": {
+                        "idType": "IRDI",
+                        "id": "0173-1#02-AAO677#002"
+                    }
+                },
+                "idShort": {
+                    "type": "string",
+                    "example": "ManufacturerName"
+                },
+                "administration": {
+                    "type": "string"
+                },
+                "isCaseOf": {
+                    "type": "array",
+                    "example": "[]"
+                },
+                "modelType": {
+                    "type": "object",
+                    "example": {
+                        "name": "ConceptDescription"
+                    }
+                },
+                "category": {
+                    "type": "string"
+                },
+                "descriptions": {
+                    "type": "string"
+                },
+                "embeddedDataSpecifications": {
+                    "type": "array",
+                    "example": [{
+                            "dataSpecification": {
+                                "keys": []
+                            },
+                            "dataSpecificationContent": {
+                                "symbol": null,
+                                "unit": "",
+                                "sourceOfDefinition": null,
+                                "dataType": "",
+                                "valueFormat": null,
+                                "unitId": null,
+                                "definition": [{
+                                        "language": "DE",
+                                        "text": "Bezeichnung für eine natürliche oder juristische Person, die für die Auslegung, Herstellung und Verpackung sowie die Etikettierung eines Produkts im Hinblick auf das 'Inverkehrbringen' im eigenen Namen verantwortlich ist"
+                                    }, {
+                                        "language": "EN",
+                                        "text": "legally valid designation of the natural or judicial person which is directly responsible for the design, production, packaging and labeling of a product in respect to its being brought into circulation"
+                                    }
+                                ],
+                                "preferredName": [{
+                                        "language": "DE",
+                                        "text": "Herstellername"
+                                    }, {
+                                        "language": "EN",
+                                        "text": "Manufacturer Name"
+                                    }
+                                ],
+                                "shortName": [{
+                                        "language": "EN?",
+                                        "text": "Manufacturer Name"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            }
+        },
+        "ApiResponse": {
+            "requiered": ["resultCode", "type", "message"],
+            "type": "object",
+            "properties": {
+                "resultCode": {
+                    "format": "int32",
+                    "type": "integer",
+                    "example": "200"
+                },
+                "type": {
+                    "type": "string",
+                    "example": "application/json"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "OK (updated)"
+                }
+            }
+        }
+    },
+    "swagger": "2.0",
+    "info": {
+        "description": "REST server for access to the Asset Administration Shell: Festo_3S7PM0CP4BD. The AAS belongs to the asset: Festo OVEL Vacuum generator",
+        "title": "Asset Adminstration Shell: Festo_3S7PM0CP4BD",
+        "version": "1.0"
+    },
+    "tags": [{
+            "name": "Asset Administration Shell",
+            "description": "Operations that belong to Asset Administration Shells"
+        }, {
+            "name": "Asset",
+            "description": "Operations that belong to Assets"
+        }, {
+            "name": "Submodel",
+            "description": "Operations that belong to Submodels"
+        }, {
+            "name": "Submodelelement",
+            "description": "Operations that belong to Submodelelements"
+        }, {
+            "name": "Concept Description",
+            "description": "Operations that belong to Concept Descriptions"
+        }
+    ]
+}
