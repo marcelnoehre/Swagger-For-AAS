@@ -34,15 +34,12 @@
                 "responses": {
                     "200": {
                         "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/SubmodellistItem"
-                            }
+                            "$ref": "#/definitions/AssetAdministrationShell"
                         },
                         "description": "successful operation"
                     },
                     "404": {
-                        "description": "No AAS with idShort 'example' found."
+                        "description": "No AAS with id 'example' found."
                     }
                 },
                 "parameters": [{
@@ -55,11 +52,7 @@
                         "in": "path",
                         "name": "informationScope",
                         "description": "Defines which information is displayed",
-                        "type": "array",
-                        "items": {
-                            "type": "string",
-                            "enum": ["", "core", "complete", "thumbnail", "aasenv"]
-                        },
+                        "type": "string",
                         "required": true
                     }
                 ],
@@ -179,11 +172,7 @@
                         "in": "path",
                         "name": "informationScope",
                         "description": "Defines which information is displayed",
-                        "type": "array",
-                        "items": {
-                            "type": "string",
-                            "enum": ["", "core", "deep", "complete"]
-                        },
+                        "type": "string",
                         "required": true
                     }
                 ],
@@ -361,10 +350,7 @@
                 "responses": {
                     "200": {
                         "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/SubmodelelementlistItem"
-                            }
+                            "$ref": "#/definitions/Submodel"
                         },
                         "description": "successful operation"
                     },
@@ -388,11 +374,7 @@
                         "in": "path",
                         "name": "informationScope",
                         "description": "Defines which information is displayed",
-                        "type": "array",
-                        "items": {
-                            "type": "string",
-                            "enum": ["", "core", "deep", "complete"]
-                        },
+                        "type": "string",
                         "required": true
                     }
                 ],

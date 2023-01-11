@@ -8,7 +8,7 @@
 
 ## 2: Generate Swagger JSON
 - Run SwaggerServiceTest.java (update attributes if necessary)
-- Paste JSON into <a href="https://editor-next.swagger.io/">Swagger-Editor</a> to see the result
+- Paste JSON into <a href="https://editor.swagger.io/">Swagger-Editor</a> to see the result
 
 ## 3: Generate Swagger CodeGen
 - Run "mvn clean compile" in the root directory of this project

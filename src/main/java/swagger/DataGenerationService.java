@@ -75,9 +75,8 @@ public class DataGenerationService {
                 parameterList.add(new Parameter(
                         "informationScope", "path",
                         "Defines which information is displayed",
-                        "true", "array", null, null, null, new Items(
-                                "string", route.getExtraParameter(),
-                                "", null), null, null));
+                        "true", "string", null, null, null, null,
+                        null, null));
             }
         }
         Parameter[] parameters = new Parameter[parameterList.size()];
@@ -114,10 +113,10 @@ public class DataGenerationService {
         case "get":
             switch (route.getTag()) {
             case "Asset Administration Shell":
-                path = route.getPath().equals("/aas/{aas.idShort}/")
+                path = route.getPath().equals("/aas/{aas.idShort}/{informationScope}")
                         ? Constants.EXAMPLE_AAS
                         : Constants.EXAMPLE_SUBMODEL_LIST;
-                schema = route.getPath().equals("/aas/{aas.idShort}/")
+                schema = route.getPath().equals("/aas/{aas.idShort}/{informationScope}")
                 		? Constants.AAS_SCHEMA
                 		: Constants.SUBMODEL_LIST_SCHEMA;
                 break;
@@ -127,11 +126,11 @@ public class DataGenerationService {
                 break;
             case "Submodel":
                 path = route.getPath().equals(
-                        "/aas/{aas.idShort}/submodels/{submodel.idShort}/")
+                        "/aas/{aas.idShort}/submodels/{submodel.idShort}/{informationScope}")
                                 ? Constants.EXAMPLE_SUBMODEL
                                 : Constants.EXAMPLE_ELEMENT_LIST;
                 schema = route.getPath().equals(
-                        "/aas/{aas.idShort}/submodels/{submodel.idShort}/")
+                        "/aas/{aas.idShort}/submodels/{submodel.idShort}/{informationScope}")
                 				? Constants.SUBMODEL_SCHEMA
                 				: Constants.ELEMENT_LIST_SCHEMA;
                 break;
