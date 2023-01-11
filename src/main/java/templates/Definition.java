@@ -13,10 +13,10 @@ import utils.Transform;
  */
 public class Definition {
 	private final String[] keys =
-	        new String[] {"type", "requiered", "properties"};
+	        new String[] {"type", "required", "properties"};
 	private String id;
 	private String type;
-	private String[] requiered;
+	private String[] required;
 	private Property[] properties;
 
 	/**
@@ -24,17 +24,17 @@ public class Definition {
 	 *
 	 * @param id the unique id of the definition
 	 * @param type the type of the definition
-	 * @param requiered the requiered properties
+	 * @param required the required properties
 	 * @param properties the list of properties
 	 */
 	public Definition(
 	        String id,
 	        String type,
-	        String[] requiered,
+	        String[] required,
 	        Property[] properties) {
 		this.id = id;
 		this.type = type;
-		this.requiered = requiered;
+		this.required = required;
 		this.properties = properties;
 	}
 
@@ -58,7 +58,7 @@ public class Definition {
 			propertyList.add(property.asJson());
 		}
 		return new String[] {
-		        this.type, Transform.arrayToJson(this.requiered),
+		        this.type, Transform.arrayToJson(this.required),
 		        Transform.propertiesToJson(properties)};
 	}
 

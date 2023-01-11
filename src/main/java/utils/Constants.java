@@ -20,8 +20,8 @@ public class Constants {
     public static final Route GET_AAS = new Route(
             "Asset Administration Shell",
             "Information about the Asset Administration Shell",
-            "get", "/aas/{aas.idShort}/",
-            new String[] {"core", "complete", "thumbnail", "aasenv"});
+            "get", "/aas/{aas.idShort}/{informationScope}",
+            new String[] {"", "core", "complete", "thumbnail", "aasenv"});
 
     /**
      * Template for a http get request to get the submodel list.
@@ -65,8 +65,8 @@ public class Constants {
      */
     public static final Route GET_SUBMODEL = new Route(
             "Submodel", "Information about the submodel",
-            "get", "/aas/{aas.idShort}/submodels/{submodel.idShort}/",
-            new String[] {"core", "deep", "complete"});
+            "get", "/aas/{aas.idShort}/submodels/{submodel.idShort}/{informationScope}",
+            new String[] {"", "core", "deep", "complete"});
 
     /**
      * Template for a http get request to get the element list.
@@ -95,8 +95,8 @@ public class Constants {
     public static final Route GET_ELEMENT = new Route(
             "Submodelelement", "Information about the submodelelement", "get",
             "/aas/{aas.idShort}/submodels/{submodel.idShort}"
-            + "/elements/{element.idShort}/",
-            new String[] {"core", "deep", "complete"});
+            + "/elements/{element.idShort}/{informationScope}",
+            new String[] {"", "core", "deep", "complete"});
 
     /**
      * Template for a http put request to add/update a element.

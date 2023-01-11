@@ -57,7 +57,15 @@ public class Transform {
         for (int i = 0; i < keys.length; i++) {
             if (!Checks.valueIsEmpty(values[i])) {
                 filled = true;
-                container.put(keys[i], values[i]);
+                if (values[i].equals("true")) {
+                    container.put(keys[i], true);
+                } else if (values[i].equals("false")) {
+                    container.put(keys[i], false);
+                } else if (Checks.variableType(values[i]).equals("integer")) {
+                    container.put(keys[i], Integer.parseInt(values[i]));
+                } else {
+                    container.put(keys[i], values[i]);
+                }
             }
         }
         if (filled) {
@@ -200,6 +208,7 @@ public class Transform {
         return json.replace("\\/", "/")
                 .replace("\\\"", "\"")
                 .replace("idShort}\"", "idShort}\"\"")
+                .replace("{informationScope}\"", "{informationScope}\"\"")
                 .replace("\"{", "{")
                 .replace("}\"", "}")
                 .replace("\"[\"", "[\"")

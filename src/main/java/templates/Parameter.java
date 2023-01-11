@@ -11,13 +11,13 @@ import utils.Transform;
  */
 public class Parameter {
 	private final String[] keys = new String[] {
-	        "name", "in", "description", "requiered",
+	        "name", "in", "description", "required",
 	        "type", "format", "minimum", "maximum",
 	        "items", "collectionFormat", "schema"};
 	private String name;
 	private String in;
 	private String description;
-	private String requiered;
+	private String required;
 	private String type;
 	private String minimum;
 	private String maximum;
@@ -32,7 +32,7 @@ public class Parameter {
 	 * @param name the name of the parameter
 	 * @param in the input variable
 	 * @param description the description of the parameter
-	 * @param requiered wheteher the parameter is requiered
+	 * @param required wheteher the parameter is required
 	 * @param type the type of the parameter
 	 * @param format the format associated with the type
 	 * @param minimum the minimal numerical value
@@ -45,7 +45,7 @@ public class Parameter {
 	        String name,
 	        String in,
 	        String description,
-	        String requiered,
+	        String required,
 	        String type,
 	        String format,
 	        String minimum,
@@ -56,7 +56,7 @@ public class Parameter {
 		this.name = name;
 		this.in = in;
 		this.description = description;
-		this.requiered = requiered;
+		this.required = required;
 		this.type = type;
 		this.format = format;
 		this.minimum = minimum;
@@ -85,7 +85,7 @@ public class Parameter {
 			schema = null;
 		}
 		return new String[] {this.name, this.in,
-		        this.description, this.requiered,
+		        this.description, this.required,
 		        this.type, this.format, this.minimum,
 		        this.maximum, items,
 		        this.collectionFormat, schema};

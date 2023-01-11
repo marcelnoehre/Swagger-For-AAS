@@ -236,11 +236,10 @@ public class Routes {
      * @return The route with replaced variables
      */
     public String replaceIDs(String route) {
-        return route.replace(
-                "{aas.idShort}",
+        return route.replace("{aas.idShort}",
                 this.aasIdShort).replace("{submodel.idShort}",
                 this.submodelIdShort).replace("{element.idShort}",
                 this.elementIdShort).replace("{cd.idShort}",
-                this.cdIdShort);
+                this.cdIdShort).replace("{informationScope}", "");
     }
 }

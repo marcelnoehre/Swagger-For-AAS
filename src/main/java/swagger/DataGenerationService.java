@@ -68,15 +68,16 @@ public class DataGenerationService {
                     new Parameter(route.getTag(),
                             "body", "The new or updated "
                     + route.getTag(), "true", null, null,
-                    null, null, null, null, null));
+                    null, null, null, null,
+                    new Schema("object", null, null, null)));
         } else if (route.getType().equals("get")) {
             if (route.getExtraParameter() != null) {
                 parameterList.add(new Parameter(
                         "informationScope", "path",
                         "Defines which information is displayed",
-                        "false", "array", null, null, null, new Items(
+                        "true", "array", null, null, null, new Items(
                                 "string", route.getExtraParameter(),
-                                "", null), "single", null));
+                                "", null), null, null));
             }
         }
         Parameter[] parameters = new Parameter[parameterList.size()];
@@ -437,6 +438,7 @@ public class DataGenerationService {
                         String value;
                         String type;
                         String format;
+                        Items items = null;
                         try {
                             value = (String)
                                     definitionExamples[i].get(key).toString();
@@ -447,8 +449,17 @@ public class DataGenerationService {
                             type = "string";
                             format = null;
                         }
+                        if(type.equals("array")) {
+                        	items = new Items("object", null, null, null);
+                        	for(Object element : new org.json.JSONArray(value)) {
+                        		items = new Items(
+                        				Checks.variableType(element.toString()),
+                        				null, null, null);
+                        		break;
+                        	}
+                        }
                         properties[j] = new Property(key, type, format,
-                                null, null, value, null, null, null);
+                                null, null, value, null, items, null);
                         j++;
                     }
                 } else {
