@@ -11,17 +11,17 @@ import org.json.simple.JSONObject;
  */
 public class Path {
 	private String path;
-	private Request request;
+	private Request[] requests;
 
 	/**
 	 * Create a path instance.
 	 *
 	 * @param path the path of a request
-	 * @param request the request that belongs to the path
+	 * @param requests the request that belongs to the path
 	 */
-	public Path(String path, Request request) {
+	public Path(String path, Request[] requests) {
 		this.path = path;
-		this.request = request;
+		this.requests = requests;
 	}
 
 	/**
@@ -40,11 +40,13 @@ public class Path {
 	 */
     @SuppressWarnings("unchecked")
 	public String asJson() {
-    	if (request == null) {
+    	if (this.requests == null) {
     		return null;
     	} else {
         	JSONObject container = new JSONObject();
-        	container.put(request.getRequestType(), request.asJson());
+        	for(Request request : this.requests) {
+        		container.put(request.getRequestType(), request.asJson());
+        	}
         	return container.toJSONString();
     	}
 	}

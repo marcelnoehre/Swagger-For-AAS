@@ -184,6 +184,33 @@
             }
         },
         "/aas/{aas.idShort}/submodels/": {
+            "get": {
+                "summary": "A list of all submodels of an AAS",
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/SubmodellistItem"
+                            }
+                        },
+                        "description": "successful operation"
+                    },
+                    "404": {
+                        "description": "No AAS with idShort 'example' found."
+                    }
+                },
+                "parameters": [{
+                        "requiered": "true",
+                        "in": "path",
+                        "name": "aas.idShort",
+                        "description": "The unique ID of an AAS",
+                        "type": "string"
+                    }
+                ],
+                "tags": ["Asset Administration Shell"]
+            },
             "put": {
                 "summary": "Add or update asubmodel",
                 "produces": ["text/plain"],
@@ -335,6 +362,33 @@
             }
         },
         "/aas/{aas.idShort}/cds/{cd.idShort}": {
+            "get": {
+                "summary": "Information about a concept description",
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "404": {
+                        "description": "No AAS 'Festo_3S7PM0CP4BD' or no ConceptDescription with id 'example' found."
+                    }
+                },
+                "parameters": [{
+                        "requiered": "true",
+                        "in": "path",
+                        "name": "aas.idShort",
+                        "description": "The unique ID of an AAS",
+                        "type": "string"
+                    }, {
+                        "requiered": "true",
+                        "in": "path",
+                        "name": "cd.idShort",
+                        "description": "The unique ID of a CD",
+                        "type": "string"
+                    }
+                ],
+                "tags": ["Concept Description"]
+            },
             "delete": {
                 "summary": "Delete a concept description",
                 "produces": ["text/plain"],

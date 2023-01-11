@@ -308,8 +308,34 @@ public class DataGenerationService {
     public static Path[] generatePaths(
             RestService restService,
             Routes routes) {
-        Path[] paths = new Path[Routes.getRoutes().length];
+        Path[] paths = new Path[Routes.getRoutes().length
+                                + Routes.getMultiRoutes().length];
+        
         int i = 0;
+        for(Route[] routeList : Routes.getMultiRoutes()) {
+        	Request[] requestList = new Request[routeList.length];
+        	int j = 0;
+        	for(Route route : routeList) {
+                String[] consumes;
+                String[] produces;
+                if (route.getType().equals("get")) {
+                    consumes = new String[] {};
+                    produces = new String[] {"application/json"};
+                } else {
+                    consumes = new String[] {"application/json"};
+                    produces = new String[] {"text/plain"};
+                }
+                requestList[j] = new Request(route.getType(),
+                        new String[] {route.getTag()},
+                        route.getSummary(), "", null,
+                        consumes, produces, generateParameters(route),
+                        generateResponses(restService, routes, route),
+                        "false");
+                j++;
+        	}
+            paths[i] = new Path(routeList[0].getPath(), requestList);
+            i++;        	
+        }
         for (Route route : Routes.getRoutes()) {
             String[] consumes;
             String[] produces;
@@ -325,7 +351,7 @@ public class DataGenerationService {
                     route.getSummary(), "", null,
                     consumes, produces, generateParameters(route),
                     generateResponses(restService, routes, route), "false");
-            paths[i] = new Path(route.getPath(), request);
+            paths[i] = new Path(route.getPath(), new Request[] {request});
             i++;
         }
         return paths;

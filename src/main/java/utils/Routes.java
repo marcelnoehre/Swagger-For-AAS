@@ -25,22 +25,29 @@ public class Routes {
     private String cdIdShort = "";
     private static final Route[] ROUTES = new Route[] {
             Constants.GET_AAS,
-            Constants.GET_SUBMODEL_LIST,
             Constants.PUT_AAS,
             Constants.DELETE_AAS,
             Constants.GET_ASSETS,
             Constants.PUT_ASSETS,
             Constants.GET_SUBMODEL,
             Constants.GET_ELEMENT_LIST,
-            Constants.PUT_SUBMODEL,
             Constants.DELETE_SUBMODEL,
             Constants.GET_ELEMENT,
             Constants.PUT_ELEMENT,
             Constants.DELETE_ELEMENT,
             Constants.GET_CONCEPT_DESCRIPTION_LIST,
-            Constants.GET_CONCEPT_DESCRIPTION,
-            Constants.PUT_CONCEPT_DESCRIPTION,
-            Constants.DELETE_CONCEPT_DESCRIPTION};
+            Constants.PUT_CONCEPT_DESCRIPTION
+            };
+    private static final Route[][] MULTI_ROUTES = new Route[][] {
+    	new Route[] {
+    			Constants.GET_SUBMODEL_LIST,
+                Constants.PUT_SUBMODEL
+    	},
+    	new Route[] {
+    			Constants.GET_CONCEPT_DESCRIPTION,
+    			Constants.DELETE_CONCEPT_DESCRIPTION
+    	}
+    };
 
     /**
      * Sets up ids to fill routes.
@@ -103,6 +110,15 @@ public class Routes {
      */
     public String getBaseUrl() {
         return this.baseUrl;
+    }
+    
+    /**
+     * Get the list of multi routes.
+     * 
+     * @return The list of multi routes
+     */
+    public static Route[][] getMultiRoutes() {
+    	return MULTI_ROUTES;
     }
 
     /**
