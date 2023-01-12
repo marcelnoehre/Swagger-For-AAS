@@ -70,14 +70,6 @@ public class DataGenerationService {
                     + route.getTag(), "true", null, null,
                     null, null, null, null,
                     new Schema("object", null, null, null)));
-        } else if (route.getType().equals("get")) {
-            if (route.getExtraParameter() != null) {
-                parameterList.add(new Parameter(
-                        "informationScope", "path",
-                        "Defines which information is displayed",
-                        "true", "string", null, null, null, null,
-                        null, null));
-            }
         }
         Parameter[] parameters = new Parameter[parameterList.size()];
         int i = 0;
@@ -113,10 +105,10 @@ public class DataGenerationService {
         case "get":
             switch (route.getTag()) {
             case "Asset Administration Shell":
-                path = route.getPath().equals("/aas/{aas.idShort}/{informationScope}")
+                path = route.getPath().equals("/aas/{aas.idShort}")
                         ? Constants.EXAMPLE_AAS
                         : Constants.EXAMPLE_SUBMODEL_LIST;
-                schema = route.getPath().equals("/aas/{aas.idShort}/{informationScope}")
+                schema = route.getPath().equals("/aas/{aas.idShort}")
                 		? Constants.AAS_SCHEMA
                 		: Constants.SUBMODEL_LIST_SCHEMA;
                 break;
@@ -126,11 +118,11 @@ public class DataGenerationService {
                 break;
             case "Submodel":
                 path = route.getPath().equals(
-                        "/aas/{aas.idShort}/submodels/{submodel.idShort}/{informationScope}")
+                        "/aas/{aas.idShort}/submodels/{submodel.idShort}")
                                 ? Constants.EXAMPLE_SUBMODEL
                                 : Constants.EXAMPLE_ELEMENT_LIST;
                 schema = route.getPath().equals(
-                        "/aas/{aas.idShort}/submodels/{submodel.idShort}/{informationScope}")
+                        "/aas/{aas.idShort}/submodels/{submodel.idShort}")
                 				? Constants.SUBMODEL_SCHEMA
                 				: Constants.ELEMENT_LIST_SCHEMA;
                 break;

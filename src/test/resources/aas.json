@@ -1,6 +1,36 @@
 {
     "paths": {
         "/aas/{aas.idShort}/submodels/{submodel.idShort}": {
+            "get": {
+                "summary": "Information about the submodel",
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/Submodel"
+                        },
+                        "description": "successful operation"
+                    },
+                    "404": {
+                        "description": "No AAS 'Festo_3S7PM0CP4BD' or no Submodel with idShort 'example' found."
+                    }
+                },
+                "parameters": [{
+                        "in": "path",
+                        "name": "aas.idShort",
+                        "description": "The unique ID of an AAS",
+                        "type": "string",
+                        "required": true
+                    }, {
+                        "in": "path",
+                        "name": "submodel.idShort",
+                        "description": "The unique ID of an Submodel",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "tags": ["Submodel"]
+            },
             "delete": {
                 "summary": "Delete a submodel",
                 "produces": ["text/plain"],
@@ -30,7 +60,7 @@
                 "consumes": ["application/json"]
             }
         },
-        "/aas/{aas.idShort}/{informationScope}": {
+        "/aas/{aas.idShort}": {
             "get": {
                 "summary": "Information about the Asset Administration Shell",
                 "produces": ["application/json"],
@@ -51,18 +81,10 @@
                         "description": "The unique ID of an AAS",
                         "type": "string",
                         "required": true
-                    }, {
-                        "in": "path",
-                        "name": "informationScope",
-                        "description": "Defines which information is displayed",
-                        "type": "string",
-                        "required": true
                     }
                 ],
                 "tags": ["Asset Administration Shell"]
-            }
-        },
-        "/aas/{aas.idShort}": {
+            },
             "delete": {
                 "summary": "Delete a Asset Adminstration Shell",
                 "produces": ["text/plain"],
@@ -150,51 +172,7 @@
                 "consumes": ["application/json"]
             }
         },
-        "/aas/{aas.idShort}/submodels/{submodel.idShort}/elements/{element.idShort}/{informationScope}": {
-            "get": {
-                "summary": "Information about the submodelelement",
-                "produces": ["application/json"],
-                "responses": {
-                    "200": {
-                        "schema": {
-                            "$ref": "#/definitions/SubmodelElement"
-                        },
-                        "description": "successful operation"
-                    },
-                    "404": {
-                        "description": "No matching element in Submodel found."
-                    }
-                },
-                "parameters": [{
-                        "in": "path",
-                        "name": "aas.idShort",
-                        "description": "The unique ID of an AAS",
-                        "type": "string",
-                        "required": true
-                    }, {
-                        "in": "path",
-                        "name": "submodel.idShort",
-                        "description": "The unique ID of an Submodel",
-                        "type": "string",
-                        "required": true
-                    }, {
-                        "in": "path",
-                        "name": "element.idShort",
-                        "description": "The unique ID of an Element",
-                        "type": "string",
-                        "required": true
-                    }, {
-                        "in": "path",
-                        "name": "informationScope",
-                        "description": "Defines which information is displayed",
-                        "type": "string",
-                        "required": true
-                    }
-                ],
-                "tags": ["Submodelelement"]
-            }
-        },
-        "/aas/{aas.idShort}/submodels/": {
+        "/aas/{aas.idShort}/submodels": {
             "get": {
                 "summary": "A list of all submodels of an AAS",
                 "produces": ["application/json"],
@@ -221,7 +199,9 @@
                     }
                 ],
                 "tags": ["Asset Administration Shell"]
-            },
+            }
+        },
+        "/aas/{aas.idShort}/submodels/": {
             "put": {
                 "summary": "Add or update asubmodel",
                 "produces": ["text/plain"],
@@ -376,44 +356,6 @@
                 "consumes": ["application/json"]
             }
         },
-        "/aas/{aas.idShort}/submodels/{submodel.idShort}/{informationScope}": {
-            "get": {
-                "summary": "Information about the submodel",
-                "produces": ["application/json"],
-                "responses": {
-                    "200": {
-                        "schema": {
-                            "$ref": "#/definitions/Submodel"
-                        },
-                        "description": "successful operation"
-                    },
-                    "404": {
-                        "description": "No AAS 'Festo_3S7PM0CP4BD' or no Submodel with idShort 'example' found."
-                    }
-                },
-                "parameters": [{
-                        "in": "path",
-                        "name": "aas.idShort",
-                        "description": "The unique ID of an AAS",
-                        "type": "string",
-                        "required": true
-                    }, {
-                        "in": "path",
-                        "name": "submodel.idShort",
-                        "description": "The unique ID of an Submodel",
-                        "type": "string",
-                        "required": true
-                    }, {
-                        "in": "path",
-                        "name": "informationScope",
-                        "description": "Defines which information is displayed",
-                        "type": "string",
-                        "required": true
-                    }
-                ],
-                "tags": ["Submodel"]
-            }
-        },
         "/aas/{aas.idShort}/cds": {
             "get": {
                 "summary": "A list of all concept descriptions of an AAS",
@@ -530,6 +472,42 @@
             }
         },
         "/aas/{aas.idShort}/submodels/{submodel.idShort}/elements/{element.idShort}": {
+            "get": {
+                "summary": "Information about the submodelelement",
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/SubmodelElement"
+                        },
+                        "description": "successful operation"
+                    },
+                    "404": {
+                        "description": "No matching element in Submodel found."
+                    }
+                },
+                "parameters": [{
+                        "in": "path",
+                        "name": "aas.idShort",
+                        "description": "The unique ID of an AAS",
+                        "type": "string",
+                        "required": true
+                    }, {
+                        "in": "path",
+                        "name": "submodel.idShort",
+                        "description": "The unique ID of an Submodel",
+                        "type": "string",
+                        "required": true
+                    }, {
+                        "in": "path",
+                        "name": "element.idShort",
+                        "description": "The unique ID of an Element",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "tags": ["Submodelelement"]
+            },
             "delete": {
                 "summary": "Delete a submodelelement",
                 "produces": ["text/plain"],

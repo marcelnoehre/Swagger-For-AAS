@@ -208,7 +208,6 @@ public class Transform {
         return json.replace("\\/", "/")
                 .replace("\\\"", "\"")
                 .replace("idShort}\"", "idShort}\"\"")
-                .replace("{informationScope}\"", "{informationScope}\"\"")
                 .replace("\"{", "{")
                 .replace("}\"", "}")
                 .replace("\"[\"", "[\"")

@@ -24,24 +24,28 @@ public class Routes {
     private String elementIdShort = "";
     private String cdIdShort = "";
     private static final Route[] ROUTES = new Route[] {
-            Constants.GET_AAS,
             Constants.PUT_AAS,
-            Constants.DELETE_AAS,
             Constants.GET_ASSETS,
             Constants.PUT_ASSETS,
-            Constants.GET_SUBMODEL,
+			Constants.GET_SUBMODEL_LIST,
+            Constants.PUT_SUBMODEL,
             Constants.GET_ELEMENT_LIST,
-            Constants.DELETE_SUBMODEL,
-            Constants.GET_ELEMENT,
             Constants.PUT_ELEMENT,
-            Constants.DELETE_ELEMENT,
             Constants.GET_CONCEPT_DESCRIPTION_LIST,
             Constants.PUT_CONCEPT_DESCRIPTION
             };
     private static final Route[][] MULTI_ROUTES = new Route[][] {
     	new Route[] {
-    			Constants.GET_SUBMODEL_LIST,
-                Constants.PUT_SUBMODEL
+    			Constants.GET_AAS,
+    			Constants.DELETE_AAS
+    	},
+    	new Route[] {
+    			Constants.GET_SUBMODEL,
+    			Constants.DELETE_SUBMODEL
+    	},
+    	new Route[] {
+    			Constants.GET_ELEMENT,
+    			Constants.DELETE_ELEMENT
     	},
     	new Route[] {
     			Constants.GET_CONCEPT_DESCRIPTION,
@@ -249,6 +253,6 @@ public class Routes {
                 this.aasIdShort).replace("{submodel.idShort}",
                 this.submodelIdShort).replace("{element.idShort}",
                 this.elementIdShort).replace("{cd.idShort}",
-                this.cdIdShort).replace("{informationScope}", "");
+                this.cdIdShort);
     }
 }

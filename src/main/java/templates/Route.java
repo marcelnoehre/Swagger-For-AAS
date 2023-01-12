@@ -5,7 +5,6 @@ public class Route {
 	private String summary;
 	private String type;
 	private String path;
-	private String[] extraParameter;
 
 	/**
 	 * Create a route instance.
@@ -14,19 +13,16 @@ public class Route {
 	 * @param summary the summary of the route
 	 * @param type the type of the route endpoint
 	 * @param path the path of the route
-	 * @param extraParameter possible extra parameters
 	 */
 	public Route(
 	        String tag,
 	        String summary,
 	        String type,
-	        String path,
-	        String[] extraParameter) {
+	        String path) {
 		this.tag = tag;
 		this.summary = summary;
 		this.type = type;
 		this.path = path;
-		this.extraParameter = extraParameter;
 	}
 
 	/**
@@ -63,14 +59,5 @@ public class Route {
 	 */
 	public String getPath() {
 		return this.path;
-	}
-
-	/**
-	 * Get the possible extra parameters of the route.
-	 *
-	 * @return the possible extra parameters of the route
-	 */
-	public String[] getExtraParameter() {
-		return this.extraParameter;
 	}
 }

@@ -20,8 +20,7 @@ public class Constants {
     public static final Route GET_AAS = new Route(
             "Asset Administration Shell",
             "Information about the Asset Administration Shell",
-            "get", "/aas/{aas.idShort}/{informationScope}",
-            new String[] {"", "core", "complete", "thumbnail", "aasenv"});
+            "get", "/aas/{aas.idShort}");
 
     /**
      * Template for a http get request to get the submodel list.
@@ -29,7 +28,7 @@ public class Constants {
     public static final Route GET_SUBMODEL_LIST = new Route(
             "Asset Administration Shell",
             "A list of all submodels of an AAS", "get",
-            "/aas/{aas.idShort}/submodels/", null);
+            "/aas/{aas.idShort}/submodels");
 
     /**
      * Template for a http put request to add/update a AAS.
@@ -37,7 +36,7 @@ public class Constants {
     public static final Route PUT_AAS = new Route(
             "Asset Administration Shell",
             "Add or update a Asset Administration Shell",
-            "put", "/aas/", null);
+            "put", "/aas/");
 
     /**
      * Template for a http delete request to delete a AAS.
@@ -45,49 +44,48 @@ public class Constants {
     public static final Route DELETE_AAS = new Route(
             "Asset Administration Shell",
             "Delete a Asset Adminstration Shell",
-            "delete", "/aas/{aas.idShort}", null);
+            "delete", "/aas/{aas.idShort}");
 
     /**
      * Template for a http get request to get a asset.
      */
     public static final Route GET_ASSETS = new Route(
             "Asset", "Information about the Asset", "get",
-            "/assets/{aas.idShort}", null);
+            "/assets/{aas.idShort}");
 
     /**
      * Template for a http put request to add/update a asset.
      */
     public static final Route PUT_ASSETS = new Route(
-            "Asset", "Add or update a Asset", "put", "/assets/", null);
+            "Asset", "Add or update a Asset", "put", "/assets/");
 
     /**
      * Template for a http get request to get a submodel.
      */
     public static final Route GET_SUBMODEL = new Route(
             "Submodel", "Information about the submodel",
-            "get", "/aas/{aas.idShort}/submodels/{submodel.idShort}/{informationScope}",
-            new String[] {"", "core", "deep", "complete"});
+            "get", "/aas/{aas.idShort}/submodels/{submodel.idShort}");
 
     /**
      * Template for a http get request to get the element list.
      */
     public static final Route GET_ELEMENT_LIST = new Route(
             "Submodel", "A list of all elements of an submodel", "get",
-            "/aas/{aas.idShort}/submodels/{submodel.idShort}/table", null);
+            "/aas/{aas.idShort}/submodels/{submodel.idShort}/table");
 
     /**
      * Template for a http put request to add/update a submodel.
      */
     public static final Route PUT_SUBMODEL = new Route(
             "Submodel", "Add or update asubmodel", "put",
-            "/aas/{aas.idShort}/submodels/", null);
+            "/aas/{aas.idShort}/submodels/");
 
     /**
      * Template for a http delete request to delete a submodel.
      */
     public static final Route DELETE_SUBMODEL = new Route(
             "Submodel", "Delete a submodel", "delete",
-            "/aas/{aas.idShort}/submodels/{submodel.idShort}", null);
+            "/aas/{aas.idShort}/submodels/{submodel.idShort}");
 
     /**
      * Template for a http get request to get a element.
@@ -95,15 +93,14 @@ public class Constants {
     public static final Route GET_ELEMENT = new Route(
             "Submodelelement", "Information about the submodelelement", "get",
             "/aas/{aas.idShort}/submodels/{submodel.idShort}"
-            + "/elements/{element.idShort}/{informationScope}",
-            new String[] {"", "core", "deep", "complete"});
+            + "/elements/{element.idShort}");
 
     /**
      * Template for a http put request to add/update a element.
      */
     public static final Route PUT_ELEMENT = new Route(
             "Submodelelement", "Add or update a submodelelement", "put",
-            "/aas/{aas.idShort}/submodels/{submodel.idShort}/elements/", null);
+            "/aas/{aas.idShort}/submodels/{submodel.idShort}/elements/");
 
     /**
      * Template for a http delete request to delete a element.
@@ -111,7 +108,7 @@ public class Constants {
     public static final Route DELETE_ELEMENT = new Route(
             "Submodelelement", "Delete a submodelelement", "delete",
             "/aas/{aas.idShort}/submodels/{submodel.idShort}"
-            + "/elements/{element.idShort}", null);
+            + "/elements/{element.idShort}");
 
     /**
      * Template for a http get request to get a concept description.
@@ -119,28 +116,28 @@ public class Constants {
     public static final Route GET_CONCEPT_DESCRIPTION_LIST = new Route(
             "Concept Description",
             "A list of all concept descriptions of an AAS", "get",
-            "/aas/{aas.idShort}/cds", null);
+            "/aas/{aas.idShort}/cds");
 
     /**
      * Template for a http get request to get a concept description.
      */
     public static final Route GET_CONCEPT_DESCRIPTION = new Route(
             "Concept Description", "Information about a concept description",
-            "get", "/aas/{aas.idShort}/cds/{cd.idShort}", null);
+            "get", "/aas/{aas.idShort}/cds/{cd.idShort}");
 
     /**
      * Template for a http put request to add/update a concept description.
      */
     public static final Route PUT_CONCEPT_DESCRIPTION = new Route(
             "Concept Description", "Add or update a concept description", "put",
-            "/aas/{aas.idShort}/cds/", null);
+            "/aas/{aas.idShort}/cds/");
 
     /**
      * Template for a http delete request to delete a concept description.
      */
     public static final Route DELETE_CONCEPT_DESCRIPTION = new Route(
             "Concept Description", "Delete a concept description", "delete",
-            "/aas/{aas.idShort}/cds/{cd.idShort}", null);
+            "/aas/{aas.idShort}/cds/{cd.idShort}");
 
     /**
      * Route for a example AAS.
