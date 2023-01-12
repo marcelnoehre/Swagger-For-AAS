@@ -1,7 +1,9 @@
 package swagger;
 
-import java.io.FileWriter;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 
 /**
  *
@@ -25,11 +27,11 @@ public class SwaggerServiceTest {
 	public static void main(String[] args) {
 		SwaggerService swagger =
 		        new SwaggerService(SCHEMES, HOST, BASEPATH, AAS_ID);
-		FileWriter file;
 		try {
-			file = new FileWriter("./src/test/resources/aas.json");
-			file.write(swagger.generateDocumentation());
-			file.close();
+			File file = new File("./src/test/resources/aas.json");
+			OutputStreamWriter out =  new OutputStreamWriter(new FileOutputStream(file), "UTF-8");
+			out.write(swagger.generateDocumentation());
+			out.close();
 			System.out.println("Swagger generation completed!");
 		} catch (IOException e) {
 			System.err.println("Swagger generation failed!");

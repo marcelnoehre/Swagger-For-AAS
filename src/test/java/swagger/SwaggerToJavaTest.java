@@ -3,9 +3,7 @@ package swagger;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 import requests.RestService;
@@ -14,7 +12,6 @@ import swagger2java.api.AssetApi;
 import swagger2java.api.ConceptDescriptionApi;
 import swagger2java.api.SubmodelApi;
 import swagger2java.api.SubmodelelementApi;
-import swagger2java.model.SubmodelListItem;
 import utils.Routes;
 
 public class SwaggerToJavaTest {
@@ -31,13 +28,6 @@ public class SwaggerToJavaTest {
 			"DELETE_SUBMODEL", "GET_ELEMENT", "PUT_ELEMENT", "DELETE_ELEMENT",
 			"GET_CD_LIST", "GET_CD", "PUT_CD", "DELETE_CD"
 	};
-
-	public static void main(String[] args) {
-		List<SubmodelListItem> submodelList
-			= AAS.aasAasIdShortSubmodelsGet(routes.getAASId());
-		submodelList.forEach(System.out::print);
-		System.out.println(SUBMODEL.aasAasIdShortSubmodelsSubmodelIdShortGet(routes.getAASId(), routes.getSubmodelId()));
-	}
 	
 	@Test
 	public void testGeneratedApi() {
