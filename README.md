@@ -13,3 +13,5 @@
 ## 3: Generate Swagger CodeGen
 - Run "mvn clean compile" in the root directory of this project
 - The results can be found in "target/generated-sources/swagger/src/main/java/swagger2java"
+
+PS: Using Eclipse you need the maven plugin ("mvn eclipse:eclipse") to import classes from the target folder.

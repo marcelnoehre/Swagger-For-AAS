@@ -228,6 +228,15 @@ public class Routes {
     public String getConceptDescriptionRouteWithId() {
         return this.replaceIDs(Constants.GET_CONCEPT_DESCRIPTION.getPath());
     }
+    
+    /**
+     * Get the route to a concept description list with filled ids.
+     * 
+     * @return THe route to a concept description list with filled ids
+     */
+    public String getConceptDescriptionListRouteWithId() {
+    	return this.replaceIDs(Constants.GET_CONCEPT_DESCRIPTION_LIST.getPath());
+    }
 
     /**
      * Replace the id variables in a route.

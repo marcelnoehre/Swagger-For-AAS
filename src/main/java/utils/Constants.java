@@ -237,7 +237,7 @@ public class Constants {
      */
     public static final Schema SUBMODEL_LIST_SCHEMA = new Schema(
     		"array", new Items(null, null, null,
-    				"#/definitions/SubmodellistItem"), null, null);
+    				"#/definitions/SubmodelListItem"), null, null);
     		
     /**
      * Schema definition for a submodel.
@@ -250,7 +250,7 @@ public class Constants {
      */
     public static final Schema ELEMENT_LIST_SCHEMA = new Schema(
     		"array", new Items(null, null, null,
-    				"#/definitions/SubmodelelementlistItem"), null, null);
+    				"#/definitions/SubmodelelementListItem"), null, null);
     
     /**
      * Schema definition for a submodelelement.
@@ -263,6 +263,12 @@ public class Constants {
      */
     public static final Schema CD_SCHEMA = new Schema(
     		null, null, null, "#/definitions/ConceptDescription");
+
+    /**
+     * Schema definition for a concept description list
+     */
+    public static final Schema CD_LIST_SCHEMA = new Schema(
+                null, null, null, "#/definitions/ConceptDescriptionListItem");
     
     /**
      * Example response for a http put request to add/update a asset.

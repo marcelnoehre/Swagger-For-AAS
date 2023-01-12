@@ -6,6 +6,9 @@
                 "produces": ["text/plain"],
                 "responses": {
                     "200": {
+                        "schema": {
+                            "type": "string"
+                        },
                         "description": "OK (SubmodelRef deleted) (Submodel deleted)"
                     }
                 },
@@ -65,9 +68,15 @@
                 "produces": ["text/plain"],
                 "responses": {
                     "200": {
+                        "schema": {
+                            "type": "string"
+                        },
                         "description": "OK"
                     },
                     "404": {
+                        "schema": {
+                            "type": "string"
+                        },
                         "description": "No AAS with idShort 'example' found."
                     }
                 },
@@ -89,9 +98,15 @@
                 "produces": ["text/plain"],
                 "responses": {
                     "200": {
+                        "schema": {
+                            "type": "string"
+                        },
                         "description": "OK (new)"
                     },
                     "400": {
+                        "schema": {
+                            "type": "string"
+                        },
                         "description": "Cannot deserialize payload: Unexpected character encountered while parsing value: e. Path '', line 0, position 0.."
                     }
                 },
@@ -188,7 +203,7 @@
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/SubmodellistItem"
+                                "$ref": "#/definitions/SubmodelListItem"
                             }
                         },
                         "description": "successful operation"
@@ -212,9 +227,15 @@
                 "produces": ["text/plain"],
                 "responses": {
                     "200": {
+                        "schema": {
+                            "type": "string"
+                        },
                         "description": "OK (new)"
                     },
                     "400": {
+                        "schema": {
+                            "type": "string"
+                        },
                         "description": "Cannot deserialize payload: Unexpected character encountered while parsing value: e. Path '', line 0, position 0.."
                     }
                 },
@@ -247,7 +268,7 @@
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/SubmodelelementlistItem"
+                                "$ref": "#/definitions/SubmodelelementListItem"
                             }
                         },
                         "description": "successful operation"
@@ -279,9 +300,15 @@
                 "produces": ["text/plain"],
                 "responses": {
                     "200": {
+                        "schema": {
+                            "type": "string"
+                        },
                         "description": "OK"
                     },
                     "400": {
+                        "schema": {
+                            "type": "string"
+                        },
                         "description": "Cannot deserialize payload: Unexpected character encountered while parsing value: e. Path '', line 0, position 0.."
                     }
                 },
@@ -317,9 +344,15 @@
                 "produces": ["text/plain"],
                 "responses": {
                     "200": {
+                        "schema": {
+                            "type": "string"
+                        },
                         "description": "OK (new)"
                     },
                     "400": {
+                        "schema": {
+                            "type": "string"
+                        },
                         "description": "Cannot deserialize payload: Unexpected character encountered while parsing value: e. Path '', line 0, position 0.."
                     }
                 },
@@ -387,6 +420,9 @@
                 "produces": ["application/json"],
                 "responses": {
                     "200": {
+                        "schema": {
+                            "$ref": "#/definitions/ConceptDescriptionListItem"
+                        },
                         "description": "successful operation"
                     },
                     "404": {
@@ -410,6 +446,9 @@
                 "produces": ["application/json"],
                 "responses": {
                     "200": {
+                        "schema": {
+                            "$ref": "#/definitions/ConceptDescription"
+                        },
                         "description": "successful operation"
                     },
                     "404": {
@@ -437,9 +476,15 @@
                 "produces": ["text/plain"],
                 "responses": {
                     "200": {
+                        "schema": {
+                            "type": "string"
+                        },
                         "description": "OK"
                     },
                     "404": {
+                        "schema": {
+                            "type": "string"
+                        },
                         "description": "No AAS 'Festo_3S7PM0CP4BD' or no ConceptDescription with id 'example' found."
                     }
                 },
@@ -490,9 +535,15 @@
                 "produces": ["text/plain"],
                 "responses": {
                     "200": {
+                        "schema": {
+                            "type": "string"
+                        },
                         "description": "OK"
                     },
                     "404": {
+                        "schema": {
+                            "type": "string"
+                        },
                         "description": "No matching element in Submodel found."
                     }
                 },
@@ -592,169 +643,108 @@
             "type": "object",
             "required": ["idShort"],
             "properties": {
-                "identification": {
+                "AAS": {
                     "type": "object",
                     "example": {
-                        "idType": "IRI",
-                        "id": "smart.festo.com/demo/aas/1/1/454576463545648365874"
-                    }
-                },
-                "idShort": {
-                    "type": "string",
-                    "example": "Festo_3S7PM0CP4BD"
-                },
-                "conceptDictionaries": {
-                    "type": "array",
-                    "items": {
-                        "type": "object"
-                    },
-                    "example": "[]"
-                },
-                "hasDataSpecification": {
-                    "type": "array",
-                    "items": {
-                        "type": "object"
-                    },
-                    "example": "[]"
-                },
-                "administration": {
-                    "type": "string"
-                },
-                "derivedFrom": {
-                    "type": "string"
-                },
-                "modelType": {
-                    "type": "object",
-                    "example": {
-                        "name": "AssetAdministrationShell"
-                    }
-                },
-                "asset": {
-                    "type": "object",
-                    "example": {
-                        "keys": [{
-                                "idType": "IRI",
-                                "index": 0,
-                                "type": "Asset",
-                                "value": "HTTP://PK.FESTO.COM/3S7PM0CP4BD",
-                                "local": true
+                        "identification": {
+                            "idType": "IRI",
+                            "id": "smart.festo.com/demo/aas/1/1/454576463545648365874"
+                        },
+                        "idShort": "Festo_3S7PM0CP4BD",
+                        "conceptDictionaries": [],
+                        "hasDataSpecification": [],
+                        "administration": null,
+                        "derivedFrom": null,
+                        "modelType": {
+                            "name": "AssetAdministrationShell"
+                        },
+                        "asset": {
+                            "keys": [{
+                                    "idType": "IRI",
+                                    "index": 0,
+                                    "type": "Asset",
+                                    "value": "HTTP://PK.FESTO.COM/3S7PM0CP4BD",
+                                    "local": true
+                                }
+                            ]
+                        },
+                        "category": "CONSTANT",
+                        "descriptions": null,
+                        "submodels": [{
+                                "keys": [{
+                                        "idType": "IRI",
+                                        "index": 0,
+                                        "type": "Submodel",
+                                        "value": "www.company.com/ids/sm/4343_5072_7091_3242",
+                                        "local": true
+                                    }
+                                ]
+                            }, {
+                                "keys": [{
+                                        "idType": "IRI",
+                                        "index": 0,
+                                        "type": "Submodel",
+                                        "value": "www.company.com/ids/sm/2543_5072_7091_2660",
+                                        "local": true
+                                    }
+                                ]
+                            }, {
+                                "keys": [{
+                                        "idType": "IRI",
+                                        "index": 0,
+                                        "type": "Submodel",
+                                        "value": "www.company.com/ids/sm/6053_5072_7091_5102",
+                                        "local": true
+                                    }
+                                ]
+                            }, {
+                                "keys": [{
+                                        "idType": "IRI",
+                                        "index": 0,
+                                        "type": "Submodel",
+                                        "value": "www.company.com/ids/sm/6563_5072_7091_4267",
+                                        "local": true
+                                    }
+                                ]
+                            }, {
+                                "keys": [{
+                                        "idType": "IRI",
+                                        "index": 0,
+                                        "type": "Submodel",
+                                        "value": "smart.festo.com/demo/sm/instance/1/1/13B7CCD9BF7A3F24",
+                                        "local": true
+                                    }
+                                ]
                             }
                         ]
                     }
                 },
-                "category": {
-                    "type": "string",
-                    "example": "CONSTANT"
-                },
-                "descriptions": {
-                    "type": "string"
-                },
-                "submodels": {
-                    "type": "array",
-                    "items": {
-                        "type": "object"
-                    },
-                    "example": [{
-                            "keys": [{
-                                    "idType": "IRI",
-                                    "index": 0,
-                                    "type": "Submodel",
-                                    "value": "www.company.com/ids/sm/4343_5072_7091_3242",
-                                    "local": true
-                                }
-                            ]
-                        }, {
-                            "keys": [{
-                                    "idType": "IRI",
-                                    "index": 0,
-                                    "type": "Submodel",
-                                    "value": "www.company.com/ids/sm/2543_5072_7091_2660",
-                                    "local": true
-                                }
-                            ]
-                        }, {
-                            "keys": [{
-                                    "idType": "IRI",
-                                    "index": 0,
-                                    "type": "Submodel",
-                                    "value": "www.company.com/ids/sm/6053_5072_7091_5102",
-                                    "local": true
-                                }
-                            ]
-                        }, {
-                            "keys": [{
-                                    "idType": "IRI",
-                                    "index": 0,
-                                    "type": "Submodel",
-                                    "value": "www.company.com/ids/sm/6563_5072_7091_4267",
-                                    "local": true
-                                }
-                            ]
-                        }, {
-                            "keys": [{
-                                    "idType": "IRI",
-                                    "index": 0,
-                                    "type": "Submodel",
-                                    "value": "smart.festo.com/demo/sm/instance/1/1/13B7CCD9BF7A3F24",
-                                    "local": true
-                                }
-                            ]
-                        }
-                    ]
-                }
-            }
-        },
-        "SubmodellistItem": {
-            "type": "object",
-            "required": ["idShort"],
-            "properties": {
-                "idShort": {
-                    "type": "string",
-                    "example": "Nameplate"
-                },
-                "kind": {
-                    "type": "string",
-                    "example": "Instance"
-                },
-                "id": {
+                "Asset": {
                     "type": "object",
                     "example": {
-                        "idType": "IRI",
-                        "id": "www.company.com/ids/sm/4343_5072_7091_3242"
+                        "identification": {
+                            "idType": "IRI",
+                            "id": "HTTP://PK.FESTO.COM/3S7PM0CP4BD"
+                        },
+                        "idShort": "FPK_3s7plfdrs35",
+                        "hasDataSpecification": [],
+                        "administration": null,
+                        "kind": "Instance",
+                        "billOfMaterialRef": null,
+                        "assetIdentificationModelRef": null,
+                        "modelType": {
+                            "name": "Asset"
+                        },
+                        "category": null,
+                        "descriptions": [{
+                                "language": "EN",
+                                "text": "Festo OVEL Vacuum generator"
+                            }, {
+                                "language": "DE",
+                                "text": "Festo OVEL Vakuumsaugdüse"
+                            }
+                        ]
                     }
-                }
-            }
-        },
-        "SubmodelelementlistItem": {
-            "type": "object",
-            "required": ["idShort"],
-            "properties": {
-                "semId": {
-                    "type": "string",
-                    "example": "0173-1#02-AAO677#002"
-                },
-                "unit": {
-                    "type": "string"
-                },
-                "semIdType": {
-                    "type": "string",
-                    "example": "IRDI"
-                },
-                "idShorts": {
-                    "type": "string",
-                    "example": "ManufactName"
-                },
-                "typeName": {
-                    "type": "string",
-                    "example": "Property"
-                },
-                "shortName": {
-                    "type": "string",
-                    "example": "Manufacturer Name"
-                },
-                "value": {
-                    "type": "string",
-                    "example": "kl_777"
                 }
             }
         },
@@ -857,6 +847,84 @@
                 }
             }
         },
+        "SubmodelelementListItem": {
+            "type": "object",
+            "required": ["idShort"],
+            "properties": {
+                "semId": {
+                    "type": "string",
+                    "example": "0173-1#02-AAO677#002"
+                },
+                "unit": {
+                    "type": "string"
+                },
+                "semIdType": {
+                    "type": "string",
+                    "example": "IRDI"
+                },
+                "idShorts": {
+                    "type": "string",
+                    "example": "ManufactName"
+                },
+                "typeName": {
+                    "type": "string",
+                    "example": "Property"
+                },
+                "shortName": {
+                    "type": "string",
+                    "example": "Manufacturer Name"
+                },
+                "value": {
+                    "type": "string",
+                    "example": "kl_777"
+                }
+            }
+        },
+        "SubmodelListItem": {
+            "type": "object",
+            "required": ["idShort"],
+            "properties": {
+                "idShort": {
+                    "type": "string",
+                    "example": "Nameplate"
+                },
+                "kind": {
+                    "type": "string",
+                    "example": "Instance"
+                },
+                "id": {
+                    "type": "object",
+                    "example": {
+                        "idType": "IRI",
+                        "id": "www.company.com/ids/sm/4343_5072_7091_3242"
+                    }
+                }
+            }
+        },
+        "ConceptDescriptionListItem": {
+            "type": "object",
+            "required": ["idShort"],
+            "properties": {
+                "identification": {
+                    "type": "object",
+                    "example": {
+                        "idType": "IRDI",
+                        "id": "0173-1#02-AAO677#002"
+                    }
+                },
+                "idShort": {
+                    "type": "string",
+                    "example": "ManufacturerName"
+                },
+                "isCaseOf": {
+                    "type": "string"
+                },
+                "shortName": {
+                    "type": "string",
+                    "example": "Manufacturer Name"
+                }
+            }
+        },
         "Asset": {
             "type": "object",
             "required": ["idShort"],
@@ -865,55 +933,12 @@
                     "type": "object",
                     "example": {
                         "idType": "IRI",
-                        "id": "HTTP://PK.FESTO.COM/3S7PM0CP4BD"
+                        "id": "smart.festo.com/demo/aas/1/1/454576463545648365874"
                     }
                 },
                 "idShort": {
                     "type": "string",
-                    "example": "FPK_3s7plfdrs35"
-                },
-                "hasDataSpecification": {
-                    "type": "array",
-                    "items": {
-                        "type": "object"
-                    },
-                    "example": "[]"
-                },
-                "administration": {
-                    "type": "string"
-                },
-                "kind": {
-                    "type": "string",
-                    "example": "Instance"
-                },
-                "billOfMaterialRef": {
-                    "type": "string"
-                },
-                "assetIdentificationModelRef": {
-                    "type": "string"
-                },
-                "modelType": {
-                    "type": "object",
-                    "example": {
-                        "name": "Asset"
-                    }
-                },
-                "category": {
-                    "type": "string"
-                },
-                "descriptions": {
-                    "type": "array",
-                    "items": {
-                        "type": "object"
-                    },
-                    "example": [{
-                            "language": "EN",
-                            "text": "Festo OVEL Vacuum generator"
-                        }, {
-                            "language": "DE",
-                            "text": "Festo OVEL Vakuumsaugdüse"
-                        }
-                    ]
+                    "example": "Festo_3S7PM0CP4BD"
                 }
             }
         },

@@ -108,7 +108,7 @@ public class DataGenerationService {
         String path = "";
         String pathPut = "";
         String goodExample = "{\"idShort\":\"example\",\"id\":\"example\"}";
-        Schema schema = null;
+        Schema schema = new Schema("string", null, null, null);
         switch (route.getType()) {
         case "get":
             switch (route.getTag()) {
@@ -146,6 +146,8 @@ public class DataGenerationService {
             case "Concept Description":
                 path = route.getPath().equals("/aas/{aas.idShort}/cds")
                         ? Constants.EXAMPLE_CD_LIST : Constants.EXAMPLE_CD;
+                schema = route.getPath().equals("/aas/{aas.idShort}/cds")
+                		? Constants.CD_LIST_SCHEMA : Constants.CD_SCHEMA;
                 break;
             default:
                 break;
@@ -370,10 +372,32 @@ public class DataGenerationService {
             Routes routes) {
         try {
             JSONParser parser = new JSONParser();
-            Definition[] definitions = new Definition[8];
-            JSONObject aas = (JSONObject)
-                    parser.parse(restService.httpGet(routes.getBaseUrl()
-                            + routes.getAASRouteWithId())[1]);
+            String[] definitionNames = new String[] {
+                    "AssetAdministrationShell", "Asset", "SubmodelListItem", 
+                    "Submodel", "SubmodelelementListItem", "SubmodelElement",
+                    "ConceptDescriptionListItem", "ConceptDescription"};
+            Definition[] definitions = new Definition[definitionNames.length+1];
+            Property[] apiResponseProperties = new Property[] {
+                    new Property("resultCode", "integer", "int32",
+                            null, null, "200", null, null, null),
+                    new Property("type", "string", null, null, null,
+                            "application/json", null, null, null),
+                    new Property("message", "string", null, null, null,
+                            "OK (updated)", null, null, null)
+            };
+            definitions[0] = new Definition("ApiResponse", "object",
+                    new String[] {"resultCode", "type", "message"},
+                    apiResponseProperties);
+            JSONArray assetList = (JSONArray)
+            		parser.parse(restService.httpGet(routes.getBaseUrl()
+            				+ routes.getAssetRouteWithId())[1]);
+            JSONObject assetListItem = null;
+            for (Object assetListObject : assetList) {
+                try {
+                	assetListItem = (JSONObject) assetListObject;
+                    break;
+                } catch (NullPointerException assetListException) { }
+            }
             JSONArray submodelList = (JSONArray)
             		parser.parse(restService.httpGet(routes.getBaseUrl()
             				+ routes.getSubmodelListRouteWithId())[1]);
@@ -394,26 +418,20 @@ public class DataGenerationService {
                     break;
                 } catch (NullPointerException elementListException) { }
             }
-            Property[] apiResponseProperties = new Property[] {
-                    new Property("resultCode", "integer", "int32",
-                            null, null, "200", null, null, null),
-                    new Property("type", "string", null, null, null,
-                            "application/json", null, null, null),
-                    new Property("message", "string", null, null, null,
-                            "OK (updated)", null, null, null)
-            };
-            definitions[0] = new Definition("ApiResponse", "object",
-                    new String[] {"resultCode", "type", "message"},
-                    apiResponseProperties);
-            String[] definitionNames = new String[] {
-                    "AssetAdministrationShell", "Asset", "SubmodellistItem", 
-                    "Submodel", "SubmodelelementlistItem", "SubmodelElement",
-                    "ConceptDescription"};
+            JSONArray cdList = (JSONArray)
+            		parser.parse(restService.httpGet(routes.getBaseUrl()
+            				+ routes.getConceptDescriptionListRouteWithId())[1]);
+            JSONObject cdListItem = null;
+            for (Object cdListObject : cdList) {
+                try {
+                	cdListItem = (JSONObject) cdListObject;
+                    break;
+                } catch (NullPointerException cdListException) { }
+            }
             JSONObject[] definitionExamples = new JSONObject[] {
-                    (JSONObject) parser.parse(
-                    		aas.get("AAS").toString()),
-                    (JSONObject) parser.parse(aas.get("Asset").toString()),
-                    submodelListItem,
+            		(JSONObject) parser.parse(restService.httpGet(
+            				routes.getBaseUrl() + routes.getAASRouteWithId())[1]),
+                    assetListItem, submodelListItem,
                     (JSONObject) parser.parse(restService.httpGet(
                             routes.getBaseUrl()
                             + routes.getSubmodelRouteWithId())[1]),
@@ -421,6 +439,7 @@ public class DataGenerationService {
                     (JSONObject) parser.parse(restService.httpGet(
                             routes.getBaseUrl()
                             + routes.getElementRouteWithId())[1]),
+                    cdListItem,
                     (JSONObject) parser.parse(restService.httpGet(
                             routes.getBaseUrl()
                             + routes.getConceptDescriptionRouteWithId())[1])
