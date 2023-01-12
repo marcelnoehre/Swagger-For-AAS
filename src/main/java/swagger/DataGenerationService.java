@@ -69,7 +69,7 @@ public class DataGenerationService {
                             "body", "The new or updated "
                     + route.getTag(), "true", null, null,
                     null, null, null, null,
-                    new Schema("object", null, null, null)));
+                    new Schema("string", null, null, null)));
         }
         Parameter[] parameters = new Parameter[parameterList.size()];
         int i = 0;

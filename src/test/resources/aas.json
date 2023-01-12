@@ -134,7 +134,7 @@
                 },
                 "parameters": [{
                         "schema": {
-                            "type": "object"
+                            "type": "string"
                         },
                         "in": "body",
                         "name": "Asset Administration Shell",
@@ -160,7 +160,7 @@
                 },
                 "parameters": [{
                         "schema": {
-                            "type": "object"
+                            "type": "string"
                         },
                         "in": "body",
                         "name": "Asset",
@@ -227,7 +227,7 @@
                         "required": true
                     }, {
                         "schema": {
-                            "type": "object"
+                            "type": "string"
                         },
                         "in": "body",
                         "name": "Submodel",
@@ -306,7 +306,7 @@
                         "required": true
                     }, {
                         "schema": {
-                            "type": "object"
+                            "type": "string"
                         },
                         "in": "body",
                         "name": "Submodelelement",
@@ -344,7 +344,7 @@
                         "required": true
                     }, {
                         "schema": {
-                            "type": "object"
+                            "type": "string"
                         },
                         "in": "body",
                         "name": "Concept Description",
