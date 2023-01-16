@@ -93,6 +93,26 @@ public class Transform {
             return "{}";
         }
     }
+    
+    /**
+     * Transform a list of path instaces to a JSON String fitting the gson
+     * format.
+     *
+     * @param paths The list of path instances
+     * @return The transformed list as JSON String fitting the gson format
+     */
+    @SuppressWarnings("unchecked")
+    public static String pathsToGson(Path[] paths) {
+        try {
+            JSONObject container = new JSONObject();
+            for (Path path : paths) {
+                container.put(path.getPath().substring(1), path.asJson());
+            }
+            return container.toJSONString();
+        } catch (NullPointerException nullPointer) {
+            return "{}";
+        }
+    }
 
     /**
      * Transform a list of response instaces to a JSON String.

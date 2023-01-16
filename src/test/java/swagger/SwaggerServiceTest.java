@@ -28,9 +28,14 @@ public class SwaggerServiceTest {
 		SwaggerService swagger =
 		        new SwaggerService(SCHEMES, HOST, BASEPATH, AAS_ID);
 		try {
+			String[] swaggerStrings = swagger.generateDocumentation();
 			File file = new File("./src/test/resources/aas.json");
 			OutputStreamWriter out =  new OutputStreamWriter(new FileOutputStream(file), "UTF-8");
-			out.write(swagger.generateDocumentation());
+			out.write(swaggerStrings[0]);
+			out.close();
+			file = new File("./src/test/resources/aas_gson.json");
+			out =  new OutputStreamWriter(new FileOutputStream(file), "UTF-8");
+			out.write(swaggerStrings[1]);
 			out.close();
 			System.out.println("Swagger generation completed!");
 		} catch (IOException e) {

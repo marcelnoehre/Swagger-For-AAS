@@ -3,6 +3,7 @@ package swagger;
 import requests.RestService;
 import templates.Definition;
 import templates.ExternalDocs;
+import templates.GsonSwagger;
 import templates.Info;
 import templates.Path;
 import templates.Swagger;
@@ -52,7 +53,7 @@ public class SwaggerService {
 	 *
 	 * @return The Swagger documentation as JSON String
 	 */
-	public String generateDocumentation() {
+	public String[] generateDocumentation() {
 		Info info = DataGenerationService
 		        .generateInfo(restService, routes);
 		Tag[] tags = DataGenerationService.generateTags();
@@ -65,6 +66,13 @@ public class SwaggerService {
 		Swagger swagger = new Swagger(
 		        "2.0", info, host, basePath, tags, schemes,
 		        paths, null, definitions, externalDocs);
-		return Transform.adjustJson(swagger.asJson());
+		GsonSwagger gsonSwagger = new GsonSwagger(
+				"2.0", info, host, basePath, tags, schemes,
+		        paths, null, definitions, externalDocs);
+		return new String[] {
+				Transform.adjustJson(swagger.asJson()),
+				Transform.adjustJson(gsonSwagger.asJson())
+				
+		};
 	}
 }
