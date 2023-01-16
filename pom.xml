@@ -57,17 +57,22 @@
 		<dependency>
 		    <groupId>org.glassfish.jersey.core</groupId>
 		    <artifactId>jersey-client</artifactId>
-		    <version>3.1.0</version>
+		    <version>2.38</version>
 		</dependency>
 		<dependency>
 		    <groupId>org.glassfish.jersey.media</groupId>
 		    <artifactId>jersey-media-json-jackson</artifactId>
-		    <version>3.1.0</version>
+		    <version>2.38</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.glassfish.jersey.inject</groupId>
+		    <artifactId>jersey-hk2</artifactId>
+		    <version>2.38</version>
 		</dependency>
 		<dependency>
 		    <groupId>org.glassfish.jersey.media</groupId>
 		    <artifactId>jersey-media-multipart</artifactId>
-		    <version>3.1.0</version>
+		    <version>2.38</version>
 		</dependency>
 		<dependency>
 		    <groupId>com.squareup.okhttp</groupId>
@@ -126,10 +131,11 @@
 								<interfaceOnly>true</interfaceOnly>
 								<dateLibrary>java8</dateLibrary>
 								<sourceFolder>/src/main/java</sourceFolder>
-							</configOptions>
+								<encoding>UTF-8</encoding>
+								<!-- <library>resttemplate</library> -->
 								<!-- <library>jersey2</library> -->
-							<!-- <library>resttemplate</library> -->
-							<library>okhttp-gson</library>
+								<library>okhttp-gson</library>
+							</configOptions>
 						</configuration>
 					</execution>
 				</executions>
