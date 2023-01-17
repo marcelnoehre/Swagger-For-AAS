@@ -134,7 +134,7 @@
                 },
                 "parameters": [{
                         "schema": {
-                            "type": "string"
+                            "$ref": "#/definitions/AasInput"
                         },
                         "in": "body",
                         "name": "Asset Administration Shell",
@@ -160,7 +160,7 @@
                 },
                 "parameters": [{
                         "schema": {
-                            "type": "string"
+                            "$ref": "#/definitions/AssetInput"
                         },
                         "in": "body",
                         "name": "Asset",
@@ -227,7 +227,7 @@
                         "required": true
                     }, {
                         "schema": {
-                            "type": "string"
+                            "$ref": "#/definitions/SubmodelInput"
                         },
                         "in": "body",
                         "name": "Submodel",
@@ -306,7 +306,7 @@
                         "required": true
                     }, {
                         "schema": {
-                            "type": "string"
+                            "$ref": "#/definitions/SubmodelElementInput"
                         },
                         "in": "body",
                         "name": "Submodelelement",
@@ -344,7 +344,7 @@
                         "required": true
                     }, {
                         "schema": {
-                            "type": "string"
+                            "$ref": "#/definitions/ConceptDescriptionInput"
                         },
                         "in": "body",
                         "name": "Concept Description",
@@ -719,10 +719,411 @@
                                 "text": "Festo OVEL Vacuum generator"
                             }, {
                                 "language": "DE",
-                                "text": "Festo OVEL Vakuumsaugdüse"
+                                "text": "Festo OVEL Vakuumsaugdï¿½se"
                             }
                         ]
                     }
+                }
+            }
+        },
+        "SubmodelelementListItem": {
+            "type": "object",
+            "required": ["idShort"],
+            "properties": {
+                "semId": {
+                    "type": "string",
+                    "example": "0173-1#02-AAO677#002"
+                },
+                "unit": {
+                    "type": "string"
+                },
+                "semIdType": {
+                    "type": "string",
+                    "example": "IRDI"
+                },
+                "idShorts": {
+                    "type": "string",
+                    "example": "ManufactName"
+                },
+                "typeName": {
+                    "type": "string",
+                    "example": "Property"
+                },
+                "shortName": {
+                    "type": "string",
+                    "example": "Manufacturer Name"
+                },
+                "value": {
+                    "type": "string",
+                    "example": "kl_777"
+                }
+            }
+        },
+        "ConceptDescriptionInput": {
+            "type": "object",
+            "required": ["idShort"],
+            "properties": {
+                "identification": {
+                    "type": "object",
+                    "example": {
+                        "idType": "IRDI",
+                        "id": "0173-1#02-AAO677#002"
+                    }
+                },
+                "idShort": {
+                    "type": "string",
+                    "example": "ManufacturerName"
+                },
+                "administration": {
+                    "type": "string"
+                },
+                "isCaseOf": {
+                    "type": "array",
+                    "items": {
+                        "type": "object"
+                    },
+                    "example": "[]"
+                },
+                "modelType": {
+                    "type": "object",
+                    "example": {
+                        "name": "ConceptDescription"
+                    }
+                },
+                "category": {
+                    "type": "string"
+                },
+                "descriptions": {
+                    "type": "string"
+                },
+                "embeddedDataSpecifications": {
+                    "type": "array",
+                    "items": {
+                        "type": "object"
+                    },
+                    "example": [{
+                            "dataSpecification": {
+                                "keys": []
+                            },
+                            "dataSpecificationContent": {
+                                "symbol": null,
+                                "unit": "",
+                                "sourceOfDefinition": null,
+                                "dataType": "",
+                                "valueFormat": null,
+                                "unitId": null,
+                                "definition": [{
+                                        "language": "DE",
+                                        "text": "Bezeichnung für eine natürliche oder juristische Person, die für die Auslegung, Herstellung und Verpackung sowie die Etikettierung eines Produkts im Hinblick auf das 'Inverkehrbringen' im eigenen Namen verantwortlich ist"
+                                    }, {
+                                        "language": "EN",
+                                        "text": "legally valid designation of the natural or judicial person which is directly responsible for the design, production, packaging and labeling of a product in respect to its being brought into circulation"
+                                    }
+                                ],
+                                "preferredName": [{
+                                        "language": "DE",
+                                        "text": "Herstellername"
+                                    }, {
+                                        "language": "EN",
+                                        "text": "Manufacturer Name"
+                                    }
+                                ],
+                                "shortName": [{
+                                        "language": "EN?",
+                                        "text": "Manufacturer Name"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            }
+        },
+        "ConceptDescriptionListItem": {
+            "type": "object",
+            "required": ["idShort"],
+            "properties": {
+                "identification": {
+                    "type": "object",
+                    "example": {
+                        "idType": "IRDI",
+                        "id": "0173-1#02-AAO677#002"
+                    }
+                },
+                "idShort": {
+                    "type": "string",
+                    "example": "ManufacturerName"
+                },
+                "isCaseOf": {
+                    "type": "string"
+                },
+                "shortName": {
+                    "type": "string",
+                    "example": "Manufacturer Name"
+                }
+            }
+        },
+        "AasInput": {
+            "type": "object",
+            "required": ["idShort"],
+            "properties": {
+                "identification": {
+                    "type": "object",
+                    "example": {
+                        "idType": "IRI",
+                        "id": "smart.festo.com/demo/aas/1/1/454576463545648365874"
+                    }
+                },
+                "idShort": {
+                    "type": "string",
+                    "example": "Festo_3S7PM0CP4BD"
+                },
+                "conceptDictionaries": {
+                    "type": "array",
+                    "items": {
+                        "type": "object"
+                    },
+                    "example": "[]"
+                },
+                "hasDataSpecification": {
+                    "type": "array",
+                    "items": {
+                        "type": "object"
+                    },
+                    "example": "[]"
+                },
+                "administration": {
+                    "type": "string"
+                },
+                "derivedFrom": {
+                    "type": "string"
+                },
+                "modelType": {
+                    "type": "object",
+                    "example": {
+                        "name": "AssetAdministrationShell"
+                    }
+                },
+                "asset": {
+                    "type": "object",
+                    "example": {
+                        "keys": [{
+                                "idType": "IRI",
+                                "index": 0,
+                                "type": "Asset",
+                                "value": "HTTP://PK.FESTO.COM/3S7PM0CP4BD",
+                                "local": true
+                            }
+                        ]
+                    }
+                },
+                "category": {
+                    "type": "string",
+                    "example": "CONSTANT"
+                },
+                "descriptions": {
+                    "type": "string"
+                },
+                "submodels": {
+                    "type": "array",
+                    "items": {
+                        "type": "object"
+                    },
+                    "example": [{
+                            "keys": [{
+                                    "idType": "IRI",
+                                    "index": 0,
+                                    "type": "Submodel",
+                                    "value": "www.company.com/ids/sm/4343_5072_7091_3242",
+                                    "local": true
+                                }
+                            ]
+                        }, {
+                            "keys": [{
+                                    "idType": "IRI",
+                                    "index": 0,
+                                    "type": "Submodel",
+                                    "value": "www.company.com/ids/sm/2543_5072_7091_2660",
+                                    "local": true
+                                }
+                            ]
+                        }, {
+                            "keys": [{
+                                    "idType": "IRI",
+                                    "index": 0,
+                                    "type": "Submodel",
+                                    "value": "www.company.com/ids/sm/6053_5072_7091_5102",
+                                    "local": true
+                                }
+                            ]
+                        }, {
+                            "keys": [{
+                                    "idType": "IRI",
+                                    "index": 0,
+                                    "type": "Submodel",
+                                    "value": "www.company.com/ids/sm/6563_5072_7091_4267",
+                                    "local": true
+                                }
+                            ]
+                        }, {
+                            "keys": [{
+                                    "idType": "IRI",
+                                    "index": 0,
+                                    "type": "Submodel",
+                                    "value": "smart.festo.com/demo/sm/instance/1/1/13B7CCD9BF7A3F24",
+                                    "local": true
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        },
+        "ApiResponse": {
+            "type": "object",
+            "required": ["resultCode", "type", "message"],
+            "properties": {
+                "resultCode": {
+                    "format": "int32",
+                    "type": "integer",
+                    "example": 200
+                },
+                "type": {
+                    "type": "string",
+                    "example": "application/json"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "OK (updated)"
+                }
+            }
+        },
+        "AssetInput": {
+            "type": "object",
+            "required": ["idShort"],
+            "properties": {
+                "identification": {
+                    "type": "object",
+                    "example": {
+                        "idType": "IRI",
+                        "id": "HTTP://PK.FESTO.COM/3S7PM0CP4BD"
+                    }
+                },
+                "idShort": {
+                    "type": "string",
+                    "example": "FPK_3s7plfdrs35"
+                },
+                "hasDataSpecification": {
+                    "type": "array",
+                    "items": {
+                        "type": "object"
+                    },
+                    "example": "[]"
+                },
+                "administration": {
+                    "type": "string"
+                },
+                "kind": {
+                    "type": "string",
+                    "example": "Instance"
+                },
+                "billOfMaterialRef": {
+                    "type": "string"
+                },
+                "assetIdentificationModelRef": {
+                    "type": "string"
+                },
+                "modelType": {
+                    "type": "object",
+                    "example": {
+                        "name": "Asset"
+                    }
+                },
+                "category": {
+                    "type": "string"
+                },
+                "descriptions": {
+                    "type": "array",
+                    "items": {
+                        "type": "object"
+                    },
+                    "example": [{
+                            "language": "EN",
+                            "text": "Festo OVEL Vacuum generator"
+                        }, {
+                            "language": "DE",
+                            "text": "Festo OVEL Vakuumsaugdï¿½se"
+                        }
+                    ]
+                }
+            }
+        },
+        "SubmodelElementInput": {
+            "type": "object",
+            "required": ["idShort"],
+            "properties": {
+                "valueId": {
+                    "type": "string"
+                },
+                "semanticId": {
+                    "type": "object",
+                    "example": {
+                        "keys": [{
+                                "idType": "IRDI",
+                                "index": 0,
+                                "type": "ConceptDescription",
+                                "value": "0173-1#02-AAO677#002",
+                                "local": true
+                            }
+                        ]
+                    }
+                },
+                "idShort": {
+                    "type": "string",
+                    "example": "ManufactName"
+                },
+                "hasDataSpecification": {
+                    "type": "array",
+                    "items": {
+                        "type": "object"
+                    },
+                    "example": "[]"
+                },
+                "kind": {
+                    "type": "string",
+                    "example": "Instance"
+                },
+                "valueType": {
+                    "type": "object",
+                    "example": {
+                        "dataObjectType": {
+                            "name": "string"
+                        }
+                    }
+                },
+                "modelType": {
+                    "type": "object",
+                    "example": {
+                        "name": "Property"
+                    }
+                },
+                "category": {
+                    "type": "string",
+                    "example": "PARAMETER"
+                },
+                "value": {
+                    "type": "string",
+                    "example": "kl_777"
+                },
+                "constraints": {
+                    "type": "array",
+                    "items": {
+                        "type": "object"
+                    },
+                    "example": "[]"
+                },
+                "descriptions": {
+                    "type": "string"
                 }
             }
         },
@@ -825,39 +1226,6 @@
                 }
             }
         },
-        "SubmodelelementListItem": {
-            "type": "object",
-            "required": ["idShort"],
-            "properties": {
-                "semId": {
-                    "type": "string",
-                    "example": "0173-1#02-AAO677#002"
-                },
-                "unit": {
-                    "type": "string"
-                },
-                "semIdType": {
-                    "type": "string",
-                    "example": "IRDI"
-                },
-                "idShorts": {
-                    "type": "string",
-                    "example": "ManufactName"
-                },
-                "typeName": {
-                    "type": "string",
-                    "example": "Property"
-                },
-                "shortName": {
-                    "type": "string",
-                    "example": "Manufacturer Name"
-                },
-                "value": {
-                    "type": "string",
-                    "example": "kl_777"
-                }
-            }
-        },
         "SubmodelListItem": {
             "type": "object",
             "required": ["idShort"],
@@ -879,30 +1247,6 @@
                 }
             }
         },
-        "ConceptDescriptionListItem": {
-            "type": "object",
-            "required": ["idShort"],
-            "properties": {
-                "identification": {
-                    "type": "object",
-                    "example": {
-                        "idType": "IRDI",
-                        "id": "0173-1#02-AAO677#002"
-                    }
-                },
-                "idShort": {
-                    "type": "string",
-                    "example": "ManufacturerName"
-                },
-                "isCaseOf": {
-                    "type": "string"
-                },
-                "shortName": {
-                    "type": "string",
-                    "example": "Manufacturer Name"
-                }
-            }
-        },
         "Asset": {
             "type": "object",
             "required": ["idShort"],
@@ -917,6 +1261,69 @@
                 "idShort": {
                     "type": "string",
                     "example": "Festo_3S7PM0CP4BD"
+                }
+            }
+        },
+        "SubmodelInput": {
+            "type": "object",
+            "required": ["idShort"],
+            "properties": {
+                "semanticId": {
+                    "type": "object",
+                    "example": {
+                        "keys": [{
+                                "idType": "IRI",
+                                "index": 0,
+                                "type": "GlobalReference",
+                                "value": "https://www.hsu-hh.de/aut/aas/nameplate",
+                                "local": false
+                            }
+                        ]
+                    }
+                },
+                "identification": {
+                    "type": "object",
+                    "example": {
+                        "idType": "IRI",
+                        "id": "www.company.com/ids/sm/4343_5072_7091_3242"
+                    }
+                },
+                "idShort": {
+                    "type": "string",
+                    "example": "Nameplate"
+                },
+                "hasDataSpecification": {
+                    "type": "array",
+                    "items": {
+                        "type": "object"
+                    },
+                    "example": "[]"
+                },
+                "administration": {
+                    "type": "string"
+                },
+                "kind": {
+                    "type": "string",
+                    "example": "Instance"
+                },
+                "qualifiers": {
+                    "type": "array",
+                    "items": {
+                        "type": "object"
+                    },
+                    "example": "[]"
+                },
+                "modelType": {
+                    "type": "object",
+                    "example": {
+                        "name": "Submodel"
+                    }
+                },
+                "category": {
+                    "type": "string"
+                },
+                "descriptions": {
+                    "type": "string"
                 }
             }
         },
@@ -997,25 +1404,6 @@
                             }
                         }
                     ]
-                }
-            }
-        },
-        "ApiResponse": {
-            "type": "object",
-            "required": ["resultCode", "type", "message"],
-            "properties": {
-                "resultCode": {
-                    "format": "int32",
-                    "type": "integer",
-                    "example": 200
-                },
-                "type": {
-                    "type": "string",
-                    "example": "application/json"
-                },
-                "message": {
-                    "type": "string",
-                    "example": "OK (updated)"
                 }
             }
         }

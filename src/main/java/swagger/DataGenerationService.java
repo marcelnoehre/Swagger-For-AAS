@@ -64,12 +64,31 @@ public class DataGenerationService {
             }
         }
         if (route.getType().equals("put")) {
+        	Schema schema = null;
+        	switch(route.getTag()) {
+            case "Asset Administration Shell":
+            	schema = Constants.AAS_INPUT_SCHEMA;
+                break;
+            case "Asset":
+            	schema = Constants.ASSET_INPUT_SCHEMA;
+                break;
+            case "Submodel":
+            	schema = Constants.SUBMODEL_INPUT_SCHEMA;
+                break;
+            case "Submodelelement":
+            	schema = Constants.ELEMENT_INPUT_SCHEMA;
+                break;
+            case "Concept Description":
+            	schema = Constants.CD_INPUT_SCHEMA;
+                break;
+            default:
+                break;
+        	}
             parameterList.add(
                     new Parameter(route.getTag(),
                             "body", "The new or updated "
                     + route.getTag(), "true", null, null,
-                    null, null, null, null,
-                    new Schema("string", null, null, null)));
+                    null, null, null, null, schema));
         }
         Parameter[] parameters = new Parameter[parameterList.size()];
         int i = 0;
@@ -367,7 +386,9 @@ public class DataGenerationService {
             String[] definitionNames = new String[] {
                     "AssetAdministrationShell", "Asset", "SubmodelListItem", 
                     "Submodel", "SubmodelelementListItem", "SubmodelElement",
-                    "ConceptDescriptionListItem", "ConceptDescription"};
+                    "ConceptDescriptionListItem", "ConceptDescription", "AasInput",
+                    "AssetInput", "SubmodelInput", "SubmodelElementInput", 
+                    "ConceptDescriptionInput"};
             Definition[] definitions = new Definition[definitionNames.length+1];
             Property[] apiResponseProperties = new Property[] {
                     new Property("resultCode", "integer", "int32",
@@ -420,10 +441,17 @@ public class DataGenerationService {
                     break;
                 } catch (NullPointerException cdListException) { }
             }
+            JSONObject aasResponse = (JSONObject) parser.parse(restService.httpGet(
+    				routes.getBaseUrl() + routes.getAASRouteWithId())[1]);
+            JSONObject submodelInput = (JSONObject) parser.parse(restService.httpGet(
+            		routes.getBaseUrl() + routes.getSubmodelRouteWithId())[1]);
+            JSONObject elementInput = (JSONObject) ((JSONObject) parser.parse(
+            		restService.httpGet(routes.getBaseUrl()
+            				+ routes.getElementRouteWithId())[1])).get("elem");
+            JSONObject cdInput = (JSONObject) parser.parse(restService.httpGet(
+            		routes.getBaseUrl() + routes.getConceptDescriptionRouteWithId())[1]);
             JSONObject[] definitionExamples = new JSONObject[] {
-            		(JSONObject) parser.parse(restService.httpGet(
-            				routes.getBaseUrl() + routes.getAASRouteWithId())[1]),
-                    assetListItem, submodelListItem,
+            		aasResponse, assetListItem, submodelListItem,
                     (JSONObject) parser.parse(restService.httpGet(
                             routes.getBaseUrl()
                             + routes.getSubmodelRouteWithId())[1]),
@@ -434,7 +462,10 @@ public class DataGenerationService {
                     cdListItem,
                     (JSONObject) parser.parse(restService.httpGet(
                             routes.getBaseUrl()
-                            + routes.getConceptDescriptionRouteWithId())[1])
+                            + routes.getConceptDescriptionRouteWithId())[1]),
+                    (JSONObject) aasResponse.get("AAS"), 
+                    (JSONObject) aasResponse.get("Asset"),
+                    submodelInput, elementInput, cdInput
             };
             for (int i = 0; i < definitionExamples.length; i++) {
                 Property[] properties;

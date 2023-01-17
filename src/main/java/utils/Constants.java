@@ -262,10 +262,40 @@ public class Constants {
     		null, null, null, "#/definitions/ConceptDescription");
 
     /**
-     * Schema definition for a concept description list
+     * Schema definition for a concept description list.
      */
     public static final Schema CD_LIST_SCHEMA = new Schema(
                 null, null, null, "#/definitions/ConceptDescriptionListItem");
+    
+    /**
+     * Schema definition for a aas input.
+     */
+    public static final Schema AAS_INPUT_SCHEMA = new Schema(
+    		null, null, null, "#/definitions/AasInput");
+    
+    /**
+     * Schema definition for a asset input.
+     */
+    public static final Schema ASSET_INPUT_SCHEMA = new Schema(
+    		null, null, null, "#/definitions/AssetInput");
+    
+    /**
+     * Schema definition for a submodel input.
+     */
+    public static final Schema SUBMODEL_INPUT_SCHEMA = new Schema(
+    		null, null, null, "#/definitions/SubmodelInput");
+    
+    /**
+     * Schema definition for a submodel element input.
+     */
+    public static final Schema ELEMENT_INPUT_SCHEMA = new Schema(
+    		null, null, null, "#/definitions/SubmodelElementInput");
+    
+    /**
+     * Schema definition for a submodel element input.
+     */
+    public static final Schema CD_INPUT_SCHEMA = new Schema(
+    		null, null, null, "#/definitions/ConceptDescriptionInput");
     
     /**
      * Example response for a http put request to add/update a asset.
