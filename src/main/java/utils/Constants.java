@@ -226,8 +226,9 @@ public class Constants {
     /**
      * Schema definition for a asset.
      */
-    public static final Schema ASSET_SCHEMA = new Schema(
-    		null, null, null, "#/definitions/Asset");
+    public static final Schema ASSETS_SCHEMA = new Schema(
+    		"array", new Items(null, null, null,
+                "#/definitions/Asset"), null, null);
     
     /**
      * Schema definition for a item in a submodellist.
@@ -265,7 +266,8 @@ public class Constants {
      * Schema definition for a concept description list.
      */
     public static final Schema CD_LIST_SCHEMA = new Schema(
-                null, null, null, "#/definitions/ConceptDescriptionListItem");
+                "array", new Items(null, null, null,
+                		"#/definitions/ConceptDescriptionListItem"), null, null);
     
     /**
      * Schema definition for a aas input.

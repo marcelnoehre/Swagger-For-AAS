@@ -8,10 +8,10 @@
 
 ## 2: Generate Swagger JSON
 - Run SwaggerServiceTest.java (update attributes if necessary)
-- Paste JSON into <a href="https://editor.swagger.io/">Swagger-Editor</a> to see the result
+- Load aas.json into <a href="https://editor.swagger.io/">Swagger-Editor</a> to see the result
 
 ## 3: Generate Swagger CodeGen
 - Run "mvn clean compile" in the root directory of this project
+- Using Eclipse, you need to generate a accessible target folder with the command "mvn eclipse:eclipse"
 - The results can be found in "target/generated-sources/swagger/src/main/java/swagger2java"
-
-PS: Using Eclipse you need the maven plugin ("mvn eclipse:eclipse") to import classes from the target folder.
+- Run SwaggerToJavaTest.java to check if the generated classes work (update attributes if necessary)

@@ -133,7 +133,7 @@ public class DataGenerationService {
                 break;
             case "Asset":
                 path = Constants.EXAMPLE_ASSETS;
-                schema = Constants.ASSET_SCHEMA;
+                schema = Constants.ASSETS_SCHEMA;
                 break;
             case "Submodel":
                 path = route.getPath().equals(
@@ -487,7 +487,7 @@ public class DataGenerationService {
                             format = type.equals("integer") ? "int64" : null;
                         } catch (NullPointerException nullPointer) {
                             value = null;
-                            type = "string";
+                            type = "object";
                             format = null;
                         }
                         if(type.equals("array")) {

@@ -363,7 +363,10 @@
                 "responses": {
                     "200": {
                         "schema": {
-                            "$ref": "#/definitions/ConceptDescriptionListItem"
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/ConceptDescriptionListItem"
+                            }
                         },
                         "description": "successful operation"
                     },
@@ -455,7 +458,10 @@
                 "responses": {
                     "200": {
                         "schema": {
-                            "$ref": "#/definitions/Asset"
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Asset"
+                            }
                         },
                         "description": "successful operation"
                     }
@@ -590,7 +596,7 @@
                     "example": "[]"
                 },
                 "administration": {
-                    "type": "string"
+                    "type": "object"
                 },
                 "kind": {
                     "type": "string",
@@ -610,10 +616,10 @@
                     }
                 },
                 "category": {
-                    "type": "string"
+                    "type": "object"
                 },
                 "descriptions": {
-                    "type": "string"
+                    "type": "object"
                 }
             }
         },
@@ -719,7 +725,7 @@
                                 "text": "Festo OVEL Vacuum generator"
                             }, {
                                 "language": "DE",
-                                "text": "Festo OVEL Vakuumsaugdï¿½se"
+                                "text": "Festo OVEL Vakuumsaugdüse"
                             }
                         ]
                     }
@@ -775,7 +781,7 @@
                     "example": "ManufacturerName"
                 },
                 "administration": {
-                    "type": "string"
+                    "type": "object"
                 },
                 "isCaseOf": {
                     "type": "array",
@@ -791,10 +797,10 @@
                     }
                 },
                 "category": {
-                    "type": "string"
+                    "type": "object"
                 },
                 "descriptions": {
-                    "type": "string"
+                    "type": "object"
                 },
                 "embeddedDataSpecifications": {
                     "type": "array",
@@ -855,7 +861,7 @@
                     "example": "ManufacturerName"
                 },
                 "isCaseOf": {
-                    "type": "string"
+                    "type": "object"
                 },
                 "shortName": {
                     "type": "string",
@@ -893,10 +899,10 @@
                     "example": "[]"
                 },
                 "administration": {
-                    "type": "string"
+                    "type": "object"
                 },
                 "derivedFrom": {
-                    "type": "string"
+                    "type": "object"
                 },
                 "modelType": {
                     "type": "object",
@@ -922,7 +928,7 @@
                     "example": "CONSTANT"
                 },
                 "descriptions": {
-                    "type": "string"
+                    "type": "object"
                 },
                 "submodels": {
                     "type": "array",
@@ -1021,17 +1027,17 @@
                     "example": "[]"
                 },
                 "administration": {
-                    "type": "string"
+                    "type": "object"
                 },
                 "kind": {
                     "type": "string",
                     "example": "Instance"
                 },
                 "billOfMaterialRef": {
-                    "type": "string"
+                    "type": "object"
                 },
                 "assetIdentificationModelRef": {
-                    "type": "string"
+                    "type": "object"
                 },
                 "modelType": {
                     "type": "object",
@@ -1040,7 +1046,7 @@
                     }
                 },
                 "category": {
-                    "type": "string"
+                    "type": "object"
                 },
                 "descriptions": {
                     "type": "array",
@@ -1052,7 +1058,7 @@
                             "text": "Festo OVEL Vacuum generator"
                         }, {
                             "language": "DE",
-                            "text": "Festo OVEL Vakuumsaugdï¿½se"
+                            "text": "Festo OVEL Vakuumsaugdüse"
                         }
                     ]
                 }
@@ -1063,7 +1069,7 @@
             "required": ["idShort"],
             "properties": {
                 "valueId": {
-                    "type": "string"
+                    "type": "object"
                 },
                 "semanticId": {
                     "type": "object",
@@ -1123,7 +1129,7 @@
                     "example": "[]"
                 },
                 "descriptions": {
-                    "type": "string"
+                    "type": "object"
                 }
             }
         },
@@ -1300,7 +1306,7 @@
                     "example": "[]"
                 },
                 "administration": {
-                    "type": "string"
+                    "type": "object"
                 },
                 "kind": {
                     "type": "string",
@@ -1320,10 +1326,10 @@
                     }
                 },
                 "category": {
-                    "type": "string"
+                    "type": "object"
                 },
                 "descriptions": {
-                    "type": "string"
+                    "type": "object"
                 }
             }
         },
@@ -1343,7 +1349,7 @@
                     "example": "ManufacturerName"
                 },
                 "administration": {
-                    "type": "string"
+                    "type": "object"
                 },
                 "isCaseOf": {
                     "type": "array",
@@ -1359,10 +1365,10 @@
                     }
                 },
                 "category": {
-                    "type": "string"
+                    "type": "object"
                 },
                 "descriptions": {
-                    "type": "string"
+                    "type": "object"
                 },
                 "embeddedDataSpecifications": {
                     "type": "array",
