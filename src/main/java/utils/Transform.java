@@ -93,7 +93,7 @@ public class Transform {
             return "{}";
         }
     }
-    
+
     /**
      * Transform a list of path instaces to a JSON String fitting the gson
      * format.

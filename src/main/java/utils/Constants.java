@@ -216,89 +216,90 @@ public class Constants {
      */
     public static final Schema API_RESPONSE = new Schema(
             null, null, null, "#/definitions/ApiResponse");
-    
+
     /**
      * Schema definition for a aas.
      */
     public static final Schema AAS_SCHEMA = new Schema(
-    		null, null, null, "#/definitions/AssetAdministrationShell");
-    
+            null, null, null, "#/definitions/AssetAdministrationShell");
+
     /**
      * Schema definition for a asset.
      */
     public static final Schema ASSETS_SCHEMA = new Schema(
-    		"array", new Items(null, null, null,
+            "array", new Items(null, null, null,
                 "#/definitions/Asset"), null, null);
-    
+
     /**
      * Schema definition for a item in a submodellist.
      */
     public static final Schema SUBMODEL_LIST_SCHEMA = new Schema(
-    		"array", new Items(null, null, null,
-    				"#/definitions/SubmodelListItem"), null, null);
-    		
+            "array", new Items(null, null, null,
+                    "#/definitions/SubmodelListItem"), null, null);
+
     /**
      * Schema definition for a submodel.
      */
     public static final Schema SUBMODEL_SCHEMA = new Schema(
-    		null, null, null, "#/definitions/Submodel");
+            null, null, null, "#/definitions/Submodel");
 
     /**
      * Schema definition for a item in a submodelelementlist.
      */
     public static final Schema ELEMENT_LIST_SCHEMA = new Schema(
-    		"array", new Items(null, null, null,
-    				"#/definitions/SubmodelelementListItem"), null, null);
-    
+            "array", new Items(null, null, null,
+                    "#/definitions/SubmodelelementListItem"), null, null);
+
     /**
      * Schema definition for a submodelelement.
      */
     public static final Schema ELEMENT_SCHEMA = new Schema(
-    		null, null, null, "#/definitions/SubmodelElement");
-    
+            null, null, null, "#/definitions/SubmodelElement");
+
     /**
      * Schema definition for a concept description.
      */
     public static final Schema CD_SCHEMA = new Schema(
-    		null, null, null, "#/definitions/ConceptDescription");
+            null, null, null, "#/definitions/ConceptDescription");
 
     /**
      * Schema definition for a concept description list.
      */
     public static final Schema CD_LIST_SCHEMA = new Schema(
                 "array", new Items(null, null, null,
-                		"#/definitions/ConceptDescriptionListItem"), null, null);
-    
+                        "#/definitions/ConceptDescriptionListItem"),
+                null, null);
+
     /**
      * Schema definition for a aas input.
      */
     public static final Schema AAS_INPUT_SCHEMA = new Schema(
-    		null, null, null, "#/definitions/AasInput");
-    
+            null, null, null, "#/definitions/AasInput");
+
     /**
      * Schema definition for a asset input.
      */
     public static final Schema ASSET_INPUT_SCHEMA = new Schema(
-    		null, null, null, "#/definitions/AssetInput");
-    
+            null, null, null, "#/definitions/AssetInput");
+
     /**
      * Schema definition for a submodel input.
      */
     public static final Schema SUBMODEL_INPUT_SCHEMA = new Schema(
-    		null, null, null, "#/definitions/SubmodelInput");
-    
+            null, null, null, "#/definitions/SubmodelInput");
+
     /**
      * Schema definition for a submodel element input.
      */
     public static final Schema ELEMENT_INPUT_SCHEMA = new Schema(
-    		null, null, null, "#/definitions/SubmodelElementInput");
-    
+            null, null, null, "#/definitions/SubmodelElementInput");
+
     /**
      * Schema definition for a submodel element input.
      */
     public static final Schema CD_INPUT_SCHEMA = new Schema(
-    		null, null, null, "#/definitions/ConceptDescriptionInput");
-    
+            null, null, null, "#/definitions/ConceptDescriptionInput");
+
     /**
      * Example response for a http put request to add/update a asset.
      */

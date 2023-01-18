@@ -27,7 +27,7 @@ public class Routes {
             Constants.PUT_AAS,
             Constants.GET_ASSETS,
             Constants.PUT_ASSETS,
-			Constants.GET_SUBMODEL_LIST,
+            Constants.GET_SUBMODEL_LIST,
             Constants.PUT_SUBMODEL,
             Constants.GET_ELEMENT_LIST,
             Constants.PUT_ELEMENT,
@@ -35,22 +35,22 @@ public class Routes {
             Constants.PUT_CONCEPT_DESCRIPTION
             };
     private static final Route[][] MULTI_ROUTES = new Route[][] {
-    	new Route[] {
-    			Constants.GET_AAS,
-    			Constants.DELETE_AAS
-    	},
-    	new Route[] {
-    			Constants.GET_SUBMODEL,
-    			Constants.DELETE_SUBMODEL
-    	},
-    	new Route[] {
-    			Constants.GET_ELEMENT,
-    			Constants.DELETE_ELEMENT
-    	},
-    	new Route[] {
-    			Constants.GET_CONCEPT_DESCRIPTION,
-    			Constants.DELETE_CONCEPT_DESCRIPTION
-    	}
+        new Route[] {
+                Constants.GET_AAS,
+                Constants.DELETE_AAS
+        },
+        new Route[] {
+                Constants.GET_SUBMODEL,
+                Constants.DELETE_SUBMODEL
+        },
+        new Route[] {
+                Constants.GET_ELEMENT,
+                Constants.DELETE_ELEMENT
+        },
+        new Route[] {
+                Constants.GET_CONCEPT_DESCRIPTION,
+                Constants.DELETE_CONCEPT_DESCRIPTION
+        }
     };
 
     /**
@@ -115,14 +115,14 @@ public class Routes {
     public String getBaseUrl() {
         return this.baseUrl;
     }
-    
+
     /**
      * Get the list of multi routes.
-     * 
+     *
      * @return The list of multi routes
      */
     public static Route[][] getMultiRoutes() {
-    	return MULTI_ROUTES;
+        return MULTI_ROUTES;
     }
 
     /**
@@ -190,13 +190,13 @@ public class Routes {
 
     /**
      * Get the route to a submodellist with filled ids.
-     * 
+     *
      * @return The route to a submodellist with filled ids
      */
     public String getSubmodelListRouteWithId() {
-    	return this.replaceIDs(Constants.GET_SUBMODEL_LIST.getPath());
+        return this.replaceIDs(Constants.GET_SUBMODEL_LIST.getPath());
     }
-    
+
     /**
      * Get the route to a submodel with filled ids.
      *
@@ -205,14 +205,14 @@ public class Routes {
     public String getSubmodelRouteWithId() {
         return this.replaceIDs(Constants.GET_SUBMODEL.getPath());
     }
-    
+
     /**
      * Get the route to a elementlist with filled ids.
-     * 
+     *
      * @return The route to a elementlist with filled ids
      */
     public String getElementListRouteWithId() {
-    	return this.replaceIDs(Constants.GET_ELEMENT_LIST.getPath());
+        return this.replaceIDs(Constants.GET_ELEMENT_LIST.getPath());
     }
 
     /**
@@ -232,14 +232,15 @@ public class Routes {
     public String getConceptDescriptionRouteWithId() {
         return this.replaceIDs(Constants.GET_CONCEPT_DESCRIPTION.getPath());
     }
-    
+
     /**
      * Get the route to a concept description list with filled ids.
-     * 
+     *
      * @return THe route to a concept description list with filled ids
      */
     public String getConceptDescriptionListRouteWithId() {
-    	return this.replaceIDs(Constants.GET_CONCEPT_DESCRIPTION_LIST.getPath());
+        return this.replaceIDs(
+                Constants.GET_CONCEPT_DESCRIPTION_LIST.getPath());
     }
 
     /**
