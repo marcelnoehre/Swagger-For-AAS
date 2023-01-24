@@ -19,6 +19,12 @@ import swagger2java.model.SubmodelInput;
 import templates.PutExample;
 import utils.Routes;
 
+/**
+ * Unit test to test the model generation.
+ *
+ * @author Marcel N&oumlhre
+ *
+ */
 public class SwaggerToJavaTest {
     private final static AssetAdministrationShellApi AAS =
             new AssetAdministrationShellApi();
