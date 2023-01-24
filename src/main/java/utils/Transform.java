@@ -235,4 +235,16 @@ public class Transform {
                 .replace("\"[{", "[{")
                 .replace("}]\"", "}]");
     }
+    
+    /**
+     * Remove special chars to compare complex strings.
+     * 
+     * @param value string to get transformed
+     * @return input without special chars
+     */
+    public static String removeSpecialChars(String value) {
+        return value.replace("ä", "").replace("ö", "").replace("ü", "")
+                .replace("Ä", "").replace("Ö", "").replace("Ü", "")
+                .replace("ß", "").replace("�", "");
+    }
 }
