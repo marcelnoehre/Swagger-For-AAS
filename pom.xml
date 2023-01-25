@@ -70,6 +70,11 @@
             <artifactId>gson-fire</artifactId>
             <version>1.8.5</version>
         </dependency>
+        <dependency>
+		    <groupId>org.python</groupId>
+		    <artifactId>jython-standalone</artifactId>
+		    <version>2.7.2</version>
+		</dependency>
     </dependencies>
     <build>
         <plugins>
@@ -88,6 +93,11 @@
                             <apiPackage>swagger2java.api</apiPackage>
                             <modelPackage>swagger2java.model</modelPackage>
                             <invokerPackage>swagger2java.handler</invokerPackage>
+                            <!-- <language>python</language>
+                            <apiPackage>swagger2python.api</apiPackage>
+                            <modelPackage>swagger2python.model</modelPackage>
+                            <invokerPackage>swagger2python.handler</invokerPackage> -->
+                            <!-- <language>typescript-fetch</language> -->
                             <generateApiTests>false</generateApiTests>
                             <generateApiDocumentation>false</generateApiDocumentation>
                             <generateModelTests>false</generateModelTests>
@@ -97,6 +107,8 @@
                                 <interfaceOnly>true</interfaceOnly>
                                 <dateLibrary>java8</dateLibrary>
                                 <sourceFolder>/src/main/java</sourceFolder>
+                                <!-- <sourceFolder>src/main/python</sourceFolder> -->
+                                <!-- <sourceFolder>src/main/typescript</sourceFolder> -->
                                 <encoding>${project.build.sourceEncoding}</encoding>
                                 <library>okhttp-gson</library>
                             </configOptions>
