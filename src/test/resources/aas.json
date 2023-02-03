@@ -12,7 +12,7 @@
                         "description": "successful operation"
                     },
                     "404": {
-                        "description": "No AAS 'Festo_3S7PM0CP4BD' or no Submodel with idShort 'example' found."
+                        "description": "No AAS 'ExampleMotor' or no Submodel with idShort 'example' found."
                     }
                 },
                 "parameters": [{
@@ -254,7 +254,7 @@
                         "description": "successful operation"
                     },
                     "404": {
-                        "description": "No AAS 'Festo_3S7PM0CP4BD' or no Submodel with idShort 'example' found."
+                        "description": "No AAS 'ExampleMotor' or no Submodel with idShort 'example' found."
                     }
                 },
                 "parameters": [{
@@ -397,7 +397,7 @@
                         "description": "successful operation"
                     },
                     "404": {
-                        "description": "No AAS 'Festo_3S7PM0CP4BD' or no ConceptDescription with id 'example' found."
+                        "description": "No AAS 'ExampleMotor' or no ConceptDescription with id 'example' found."
                     }
                 },
                 "parameters": [{
@@ -430,7 +430,7 @@
                         "schema": {
                             "type": "string"
                         },
-                        "description": "No AAS 'Festo_3S7PM0CP4BD' or no ConceptDescription with id 'example' found."
+                        "description": "No AAS 'ExampleMotor' or no ConceptDescription with id 'example' found."
                     }
                 },
                 "parameters": [{
@@ -568,10 +568,10 @@
                     "type": "object",
                     "example": {
                         "keys": [{
-                                "idType": "IRI",
+                                "idType": "IRDI",
                                 "index": 0,
                                 "type": "GlobalReference",
-                                "value": "https://www.hsu-hh.de/aut/aas/nameplate",
+                                "value": "0173-1#01-ADN198#009",
                                 "local": false
                             }
                         ]
@@ -581,19 +581,15 @@
                     "type": "object",
                     "example": {
                         "idType": "IRI",
-                        "id": "www.company.com/ids/sm/4343_5072_7091_3242"
+                        "id": "http://i40.customer.com/type/1/1/F13E8576F6488342"
                     }
                 },
                 "idShort": {
                     "type": "string",
-                    "example": "Nameplate"
+                    "example": "Identification"
                 },
                 "hasDataSpecification": {
-                    "type": "array",
-                    "items": {
-                        "type": "object"
-                    },
-                    "example": "[]"
+                    "type": "object"
                 },
                 "administration": {
                     "type": "object"
@@ -616,10 +612,19 @@
                     }
                 },
                 "category": {
-                    "type": "object"
+                    "type": "string",
+                    "example": "CONSTANT"
                 },
                 "descriptions": {
-                    "type": "object"
+                    "type": "array",
+                    "items": {
+                        "type": "object"
+                    },
+                    "example": [{
+                            "language": "EN",
+                            "text": "Identification from Manufacturer"
+                        }
+                    ]
                 }
             }
         },
@@ -632,11 +637,11 @@
                     "example": {
                         "identification": {
                             "idType": "IRI",
-                            "id": "smart.festo.com/demo/aas/1/1/454576463545648365874"
+                            "id": "http://customer.com/aas/9175_7013_7091_9168"
                         },
-                        "idShort": "Festo_3S7PM0CP4BD",
+                        "idShort": "ExampleMotor",
                         "conceptDictionaries": [],
-                        "hasDataSpecification": [],
+                        "hasDataSpecification": null,
                         "administration": null,
                         "derivedFrom": null,
                         "modelType": {
@@ -647,7 +652,7 @@
                                     "idType": "IRI",
                                     "index": 0,
                                     "type": "Asset",
-                                    "value": "HTTP://PK.FESTO.COM/3S7PM0CP4BD",
+                                    "value": "http://customer.com/assets/KHBVZJSQKIY",
                                     "local": true
                                 }
                             ]
@@ -659,7 +664,7 @@
                                         "idType": "IRI",
                                         "index": 0,
                                         "type": "Submodel",
-                                        "value": "www.company.com/ids/sm/4343_5072_7091_3242",
+                                        "value": "http://i40.customer.com/type/1/1/F13E8576F6488342",
                                         "local": true
                                     }
                                 ]
@@ -668,7 +673,7 @@
                                         "idType": "IRI",
                                         "index": 0,
                                         "type": "Submodel",
-                                        "value": "www.company.com/ids/sm/2543_5072_7091_2660",
+                                        "value": "http.//i40.customer.com/type/1/1/7A7104BDAB57E184",
                                         "local": true
                                     }
                                 ]
@@ -677,7 +682,7 @@
                                         "idType": "IRI",
                                         "index": 0,
                                         "type": "Submodel",
-                                        "value": "www.company.com/ids/sm/6053_5072_7091_5102",
+                                        "value": "http://i40.customer.com/instance/1/1/AC69B1CB44F07935",
                                         "local": true
                                     }
                                 ]
@@ -686,16 +691,7 @@
                                         "idType": "IRI",
                                         "index": 0,
                                         "type": "Submodel",
-                                        "value": "www.company.com/ids/sm/6563_5072_7091_4267",
-                                        "local": true
-                                    }
-                                ]
-                            }, {
-                                "keys": [{
-                                        "idType": "IRI",
-                                        "index": 0,
-                                        "type": "Submodel",
-                                        "value": "smart.festo.com/demo/sm/instance/1/1/13B7CCD9BF7A3F24",
+                                        "value": "http://i40.customer.com/type/1/1/1A7B62B529F19152",
                                         "local": true
                                     }
                                 ]
@@ -708,26 +704,28 @@
                     "example": {
                         "identification": {
                             "idType": "IRI",
-                            "id": "HTTP://PK.FESTO.COM/3S7PM0CP4BD"
+                            "id": "http://customer.com/assets/KHBVZJSQKIY"
                         },
-                        "idShort": "FPK_3s7plfdrs35",
-                        "hasDataSpecification": [],
+                        "idShort": "ServoDCMotor",
+                        "hasDataSpecification": null,
                         "administration": null,
                         "kind": "Instance",
                         "billOfMaterialRef": null,
-                        "assetIdentificationModelRef": null,
+                        "assetIdentificationModelRef": {
+                            "keys": [{
+                                    "idType": "IRI",
+                                    "index": 0,
+                                    "type": "Submodel",
+                                    "value": "i40.customer.com/type/1/1/F13E8576F6488342",
+                                    "local": true
+                                }
+                            ]
+                        },
                         "modelType": {
                             "name": "Asset"
                         },
-                        "category": null,
-                        "descriptions": [{
-                                "language": "EN",
-                                "text": "Festo OVEL Vacuum generator"
-                            }, {
-                                "language": "DE",
-                                "text": "Festo OVEL Vakuumsaugdüse"
-                            }
-                        ]
+                        "category": "",
+                        "descriptions": null
                     }
                 }
             }
@@ -749,19 +747,18 @@
                 },
                 "idShorts": {
                     "type": "string",
-                    "example": "ManufactName"
+                    "example": "Manufacturer"
                 },
                 "typeName": {
                     "type": "string",
                     "example": "Property"
                 },
                 "shortName": {
-                    "type": "string",
-                    "example": "Manufacturer Name"
+                    "type": "string"
                 },
                 "value": {
                     "type": "string",
-                    "example": "kl_777"
+                    "example": "CUSTOMER GmbH"
                 }
             }
         },
@@ -772,23 +769,19 @@
                 "identification": {
                     "type": "object",
                     "example": {
-                        "idType": "IRDI",
-                        "id": "0173-1#02-AAO677#002"
+                        "idType": "IRI",
+                        "id": "www.vdi2770.com/blatt1/Entwurf/Okt18/cd/Document"
                     }
                 },
                 "idShort": {
                     "type": "string",
-                    "example": "ManufacturerName"
+                    "example": "Document"
                 },
                 "administration": {
                     "type": "object"
                 },
                 "isCaseOf": {
-                    "type": "array",
-                    "items": {
-                        "type": "object"
-                    },
-                    "example": "[]"
+                    "type": "object"
                 },
                 "modelType": {
                     "type": "object",
@@ -800,7 +793,11 @@
                     "type": "object"
                 },
                 "descriptions": {
-                    "type": "object"
+                    "type": "array",
+                    "items": {
+                        "type": "object"
+                    },
+                    "example": "[]"
                 },
                 "embeddedDataSpecifications": {
                     "type": "array",
@@ -809,34 +806,31 @@
                     },
                     "example": [{
                             "dataSpecification": {
-                                "keys": []
+                                "keys": [{
+                                        "idType": "IRI",
+                                        "index": 0,
+                                        "type": "GlobalReference",
+                                        "value": "http://admin-shell.io/DataSpecificationTemplates/DataSpecificationIEC61360",
+                                        "local": false
+                                    }
+                                ]
                             },
                             "dataSpecificationContent": {
                                 "symbol": null,
                                 "unit": "",
-                                "sourceOfDefinition": null,
-                                "dataType": "",
+                                "sourceOfDefinition": "[ISO 15519-1:2010]",
+                                "dataType": "ENTITY",
                                 "valueFormat": null,
                                 "unitId": null,
                                 "definition": [{
                                         "language": "DE",
-                                        "text": "Bezeichnung für eine natürliche oder juristische Person, die für die Auslegung, Herstellung und Verpackung sowie die Etikettierung eines Produkts im Hinblick auf das 'Inverkehrbringen' im eigenen Namen verantwortlich ist"
-                                    }, {
-                                        "language": "EN",
-                                        "text": "legally valid designation of the natural or judicial person which is directly responsible for the design, production, packaging and labeling of a product in respect to its being brought into circulation"
+                                        "text": "Feste und geordnete Menge von für die Verwendung durch Personen bestimmte Informationen, die verwaltet und als Einheit zwischen Benutzern und System ausgetauscht werden kann."
                                     }
                                 ],
-                                "preferredName": [{
-                                        "language": "DE",
-                                        "text": "Herstellername"
-                                    }, {
-                                        "language": "EN",
-                                        "text": "Manufacturer Name"
-                                    }
-                                ],
+                                "preferredName": [],
                                 "shortName": [{
                                         "language": "EN?",
-                                        "text": "Manufacturer Name"
+                                        "text": "Document"
                                     }
                                 ]
                             }
@@ -852,20 +846,20 @@
                 "identification": {
                     "type": "object",
                     "example": {
-                        "idType": "IRDI",
-                        "id": "0173-1#02-AAO677#002"
+                        "idType": "IRI",
+                        "id": "www.vdi2770.com/blatt1/Entwurf/Okt18/cd/Document"
                     }
                 },
                 "idShort": {
                     "type": "string",
-                    "example": "ManufacturerName"
+                    "example": "Document"
                 },
                 "isCaseOf": {
                     "type": "object"
                 },
                 "shortName": {
                     "type": "string",
-                    "example": "Manufacturer Name"
+                    "example": "Document"
                 }
             }
         },
@@ -877,12 +871,12 @@
                     "type": "object",
                     "example": {
                         "idType": "IRI",
-                        "id": "smart.festo.com/demo/aas/1/1/454576463545648365874"
+                        "id": "http://customer.com/aas/9175_7013_7091_9168"
                     }
                 },
                 "idShort": {
                     "type": "string",
-                    "example": "Festo_3S7PM0CP4BD"
+                    "example": "ExampleMotor"
                 },
                 "conceptDictionaries": {
                     "type": "array",
@@ -892,11 +886,7 @@
                     "example": "[]"
                 },
                 "hasDataSpecification": {
-                    "type": "array",
-                    "items": {
-                        "type": "object"
-                    },
-                    "example": "[]"
+                    "type": "object"
                 },
                 "administration": {
                     "type": "object"
@@ -917,7 +907,7 @@
                                 "idType": "IRI",
                                 "index": 0,
                                 "type": "Asset",
-                                "value": "HTTP://PK.FESTO.COM/3S7PM0CP4BD",
+                                "value": "http://customer.com/assets/KHBVZJSQKIY",
                                 "local": true
                             }
                         ]
@@ -940,7 +930,7 @@
                                     "idType": "IRI",
                                     "index": 0,
                                     "type": "Submodel",
-                                    "value": "www.company.com/ids/sm/4343_5072_7091_3242",
+                                    "value": "http://i40.customer.com/type/1/1/F13E8576F6488342",
                                     "local": true
                                 }
                             ]
@@ -949,7 +939,7 @@
                                     "idType": "IRI",
                                     "index": 0,
                                     "type": "Submodel",
-                                    "value": "www.company.com/ids/sm/2543_5072_7091_2660",
+                                    "value": "http.//i40.customer.com/type/1/1/7A7104BDAB57E184",
                                     "local": true
                                 }
                             ]
@@ -958,7 +948,7 @@
                                     "idType": "IRI",
                                     "index": 0,
                                     "type": "Submodel",
-                                    "value": "www.company.com/ids/sm/6053_5072_7091_5102",
+                                    "value": "http://i40.customer.com/instance/1/1/AC69B1CB44F07935",
                                     "local": true
                                 }
                             ]
@@ -967,16 +957,7 @@
                                     "idType": "IRI",
                                     "index": 0,
                                     "type": "Submodel",
-                                    "value": "www.company.com/ids/sm/6563_5072_7091_4267",
-                                    "local": true
-                                }
-                            ]
-                        }, {
-                            "keys": [{
-                                    "idType": "IRI",
-                                    "index": 0,
-                                    "type": "Submodel",
-                                    "value": "smart.festo.com/demo/sm/instance/1/1/13B7CCD9BF7A3F24",
+                                    "value": "http://i40.customer.com/type/1/1/1A7B62B529F19152",
                                     "local": true
                                 }
                             ]
@@ -1012,19 +993,15 @@
                     "type": "object",
                     "example": {
                         "idType": "IRI",
-                        "id": "HTTP://PK.FESTO.COM/3S7PM0CP4BD"
+                        "id": "http://customer.com/assets/KHBVZJSQKIY"
                     }
                 },
                 "idShort": {
                     "type": "string",
-                    "example": "FPK_3s7plfdrs35"
+                    "example": "ServoDCMotor"
                 },
                 "hasDataSpecification": {
-                    "type": "array",
-                    "items": {
-                        "type": "object"
-                    },
-                    "example": "[]"
+                    "type": "object"
                 },
                 "administration": {
                     "type": "object"
@@ -1037,7 +1014,17 @@
                     "type": "object"
                 },
                 "assetIdentificationModelRef": {
-                    "type": "object"
+                    "type": "object",
+                    "example": {
+                        "keys": [{
+                                "idType": "IRI",
+                                "index": 0,
+                                "type": "Submodel",
+                                "value": "i40.customer.com/type/1/1/F13E8576F6488342",
+                                "local": true
+                            }
+                        ]
+                    }
                 },
                 "modelType": {
                     "type": "object",
@@ -1046,21 +1033,10 @@
                     }
                 },
                 "category": {
-                    "type": "object"
+                    "type": "string"
                 },
                 "descriptions": {
-                    "type": "array",
-                    "items": {
-                        "type": "object"
-                    },
-                    "example": [{
-                            "language": "EN",
-                            "text": "Festo OVEL Vacuum generator"
-                        }, {
-                            "language": "DE",
-                            "text": "Festo OVEL Vakuumsaugdüse"
-                        }
-                    ]
+                    "type": "object"
                 }
             }
         },
@@ -1077,23 +1053,19 @@
                         "keys": [{
                                 "idType": "IRDI",
                                 "index": 0,
-                                "type": "ConceptDescription",
+                                "type": "GlobalReference",
                                 "value": "0173-1#02-AAO677#002",
-                                "local": true
+                                "local": false
                             }
                         ]
                     }
                 },
                 "idShort": {
                     "type": "string",
-                    "example": "ManufactName"
+                    "example": "Manufacturer"
                 },
                 "hasDataSpecification": {
-                    "type": "array",
-                    "items": {
-                        "type": "object"
-                    },
-                    "example": "[]"
+                    "type": "object"
                 },
                 "kind": {
                     "type": "string",
@@ -1115,11 +1087,11 @@
                 },
                 "category": {
                     "type": "string",
-                    "example": "PARAMETER"
+                    "example": "CONSTANT"
                 },
                 "value": {
                     "type": "string",
-                    "example": "kl_777"
+                    "example": "CUSTOMER GmbH"
                 },
                 "constraints": {
                     "type": "array",
@@ -1145,14 +1117,14 @@
                             "keys": [{
                                     "idType": "IRDI",
                                     "index": 0,
-                                    "type": "ConceptDescription",
+                                    "type": "GlobalReference",
                                     "value": "0173-1#02-AAO677#002",
-                                    "local": true
+                                    "local": false
                                 }
                             ]
                         },
-                        "idShort": "ManufactName",
-                        "hasDataSpecification": [],
+                        "idShort": "Manufacturer",
+                        "hasDataSpecification": null,
                         "kind": "Instance",
                         "valueType": {
                             "dataObjectType": {
@@ -1162,8 +1134,8 @@
                         "modelType": {
                             "name": "Property"
                         },
-                        "category": "PARAMETER",
-                        "value": "kl_777",
+                        "category": "CONSTANT",
+                        "value": "CUSTOMER GmbH",
                         "constraints": [],
                         "descriptions": null
                     }
@@ -1173,28 +1145,32 @@
                     "example": {
                         "semanticId": {
                             "keys": [{
-                                    "idType": "IRI",
+                                    "idType": "IRDI",
                                     "index": 0,
                                     "type": "GlobalReference",
-                                    "value": "https://www.hsu-hh.de/aut/aas/nameplate",
+                                    "value": "0173-1#01-ADN198#009",
                                     "local": false
                                 }
                             ]
                         },
                         "identification": {
                             "idType": "IRI",
-                            "id": "www.company.com/ids/sm/4343_5072_7091_3242"
+                            "id": "http://i40.customer.com/type/1/1/F13E8576F6488342"
                         },
-                        "idShort": "Nameplate",
-                        "hasDataSpecification": [],
+                        "idShort": "Identification",
+                        "hasDataSpecification": null,
                         "administration": null,
                         "kind": "Instance",
                         "qualifiers": [],
                         "modelType": {
                             "name": "Submodel"
                         },
-                        "category": null,
-                        "descriptions": null
+                        "category": "CONSTANT",
+                        "descriptions": [{
+                                "language": "EN",
+                                "text": "Identification from Manufacturer"
+                            }
+                        ]
                     }
                 },
                 "wrapper": {
@@ -1206,14 +1182,14 @@
                                 "keys": [{
                                         "idType": "IRDI",
                                         "index": 0,
-                                        "type": "ConceptDescription",
+                                        "type": "GlobalReference",
                                         "value": "0173-1#02-AAO677#002",
-                                        "local": true
+                                        "local": false
                                     }
                                 ]
                             },
-                            "idShort": "ManufactName",
-                            "hasDataSpecification": [],
+                            "idShort": "Manufacturer",
+                            "hasDataSpecification": null,
                             "kind": "Instance",
                             "valueType": {
                                 "dataObjectType": {
@@ -1223,8 +1199,8 @@
                             "modelType": {
                                 "name": "Property"
                             },
-                            "category": "PARAMETER",
-                            "value": "kl_777",
+                            "category": "CONSTANT",
+                            "value": "CUSTOMER GmbH",
                             "constraints": [],
                             "descriptions": null
                         }
@@ -1238,7 +1214,7 @@
             "properties": {
                 "idShort": {
                     "type": "string",
-                    "example": "Nameplate"
+                    "example": "Identification"
                 },
                 "kind": {
                     "type": "string",
@@ -1248,7 +1224,7 @@
                     "type": "object",
                     "example": {
                         "idType": "IRI",
-                        "id": "www.company.com/ids/sm/4343_5072_7091_3242"
+                        "id": "http://i40.customer.com/type/1/1/F13E8576F6488342"
                     }
                 }
             }
@@ -1261,12 +1237,12 @@
                     "type": "object",
                     "example": {
                         "idType": "IRI",
-                        "id": "smart.festo.com/demo/aas/1/1/454576463545648365874"
+                        "id": "http://customer.com/aas/9175_7013_7091_9168"
                     }
                 },
                 "idShort": {
                     "type": "string",
-                    "example": "Festo_3S7PM0CP4BD"
+                    "example": "ExampleMotor"
                 }
             }
         },
@@ -1278,10 +1254,10 @@
                     "type": "object",
                     "example": {
                         "keys": [{
-                                "idType": "IRI",
+                                "idType": "IRDI",
                                 "index": 0,
                                 "type": "GlobalReference",
-                                "value": "https://www.hsu-hh.de/aut/aas/nameplate",
+                                "value": "0173-1#01-ADN198#009",
                                 "local": false
                             }
                         ]
@@ -1291,19 +1267,15 @@
                     "type": "object",
                     "example": {
                         "idType": "IRI",
-                        "id": "www.company.com/ids/sm/4343_5072_7091_3242"
+                        "id": "http://i40.customer.com/type/1/1/F13E8576F6488342"
                     }
                 },
                 "idShort": {
                     "type": "string",
-                    "example": "Nameplate"
+                    "example": "Identification"
                 },
                 "hasDataSpecification": {
-                    "type": "array",
-                    "items": {
-                        "type": "object"
-                    },
-                    "example": "[]"
+                    "type": "object"
                 },
                 "administration": {
                     "type": "object"
@@ -1326,10 +1298,19 @@
                     }
                 },
                 "category": {
-                    "type": "object"
+                    "type": "string",
+                    "example": "CONSTANT"
                 },
                 "descriptions": {
-                    "type": "object"
+                    "type": "array",
+                    "items": {
+                        "type": "object"
+                    },
+                    "example": [{
+                            "language": "EN",
+                            "text": "Identification from Manufacturer"
+                        }
+                    ]
                 }
             }
         },
@@ -1340,23 +1321,19 @@
                 "identification": {
                     "type": "object",
                     "example": {
-                        "idType": "IRDI",
-                        "id": "0173-1#02-AAO677#002"
+                        "idType": "IRI",
+                        "id": "www.vdi2770.com/blatt1/Entwurf/Okt18/cd/Document"
                     }
                 },
                 "idShort": {
                     "type": "string",
-                    "example": "ManufacturerName"
+                    "example": "Document"
                 },
                 "administration": {
                     "type": "object"
                 },
                 "isCaseOf": {
-                    "type": "array",
-                    "items": {
-                        "type": "object"
-                    },
-                    "example": "[]"
+                    "type": "object"
                 },
                 "modelType": {
                     "type": "object",
@@ -1368,7 +1345,11 @@
                     "type": "object"
                 },
                 "descriptions": {
-                    "type": "object"
+                    "type": "array",
+                    "items": {
+                        "type": "object"
+                    },
+                    "example": "[]"
                 },
                 "embeddedDataSpecifications": {
                     "type": "array",
@@ -1377,34 +1358,31 @@
                     },
                     "example": [{
                             "dataSpecification": {
-                                "keys": []
+                                "keys": [{
+                                        "idType": "IRI",
+                                        "index": 0,
+                                        "type": "GlobalReference",
+                                        "value": "http://admin-shell.io/DataSpecificationTemplates/DataSpecificationIEC61360",
+                                        "local": false
+                                    }
+                                ]
                             },
                             "dataSpecificationContent": {
                                 "symbol": null,
                                 "unit": "",
-                                "sourceOfDefinition": null,
-                                "dataType": "",
+                                "sourceOfDefinition": "[ISO 15519-1:2010]",
+                                "dataType": "ENTITY",
                                 "valueFormat": null,
                                 "unitId": null,
                                 "definition": [{
                                         "language": "DE",
-                                        "text": "Bezeichnung für eine natürliche oder juristische Person, die für die Auslegung, Herstellung und Verpackung sowie die Etikettierung eines Produkts im Hinblick auf das 'Inverkehrbringen' im eigenen Namen verantwortlich ist"
-                                    }, {
-                                        "language": "EN",
-                                        "text": "legally valid designation of the natural or judicial person which is directly responsible for the design, production, packaging and labeling of a product in respect to its being brought into circulation"
+                                        "text": "Feste und geordnete Menge von für die Verwendung durch Personen bestimmte Informationen, die verwaltet und als Einheit zwischen Benutzern und System ausgetauscht werden kann."
                                     }
                                 ],
-                                "preferredName": [{
-                                        "language": "DE",
-                                        "text": "Herstellername"
-                                    }, {
-                                        "language": "EN",
-                                        "text": "Manufacturer Name"
-                                    }
-                                ],
+                                "preferredName": [],
                                 "shortName": [{
                                         "language": "EN?",
-                                        "text": "Manufacturer Name"
+                                        "text": "Document"
                                     }
                                 ]
                             }
@@ -1416,8 +1394,8 @@
     },
     "swagger": "2.0",
     "info": {
-        "description": "REST server for access to the Asset Administration Shell: Festo_3S7PM0CP4BD. The AAS belongs to the asset: Festo OVEL Vacuum generator",
-        "title": "Asset Adminstration Shell: Festo_3S7PM0CP4BD",
+        "description": "REST server for access to the Asset Administration Shell: ExampleMotor",
+        "title": "Asset Adminstration Shell: ExampleMotor",
         "version": "1.0"
     },
     "tags": [{

@@ -93,7 +93,7 @@ public class Compare {
                 transformedRest += key + ":" + object.get(key);
             }
         }
-        return Transform.removeSpecialChars(transformedModel).equals(Transform.removeSpecialChars((transformedRest+"}").replace("\"", "")));
+        return Transform.removeSpecialChars(transformedModel).equals(Transform.removeSpecialChars((transformedRest+"}").replace("\"", "")).replaceAll("\\s", ""));
     }
 
     public static boolean compareElementListResponse(List<SubmodelelementListItem> model, String rest) {
@@ -197,15 +197,17 @@ public class Compare {
                     String[] innerKeys = new String[] {"type", "local", "value", "index", "idType"};
                     JSONArray caseOf = json.getJSONArray(key);
                     for(Object caseOfObject : caseOf) {
-                        transformedRest += "{keys:[{";
+                        transformedRest += "{keys:[";
+                        boolean filled = ((JSONObject) caseOfObject).getJSONArray("keys").length() > 0;
+                        transformedRest += filled ? "{" : "";
                         for(Object keysObject : ((JSONObject) caseOfObject).getJSONArray("keys")) {
                             for(String innerKey: innerKeys) {
                                 transformedRest += innerKey + ":" + ((JSONObject) keysObject).get(innerKey);  
                             }
                         }
-                        transformedRest += "";
+                        transformedRest += filled ? "}" : "";
                     }
-                    transformedRest += "}]}]";
+                    transformedRest += "]}]";
                 } else {
                     transformedRest += key + ":" + json.get(key);   
                 }
@@ -230,7 +232,20 @@ public class Compare {
         transformedRest += "embeddedDataSpecifications:[";
         for(Object element : array) {
             JSONObject json = (JSONObject) element;
-            transformedRest += "{dataSpecification:" + json.get("dataSpecification");
+            if(!json.get("dataSpecification").equals("{}")) {
+                transformedRest += "{dataSpecification:";
+                String[] innerKeys = new String[] {"type", "local", "value", "index", "idType"};
+                JSONObject dataSpecification = json.getJSONObject("dataSpecification");
+                transformedRest += "{keys:[{";
+                for(Object keysObject : dataSpecification.getJSONArray("keys")) {
+                    for(String innerKey: innerKeys) {
+                        transformedRest += innerKey + ":" + ((JSONObject) keysObject).get(innerKey) + ",";
+                    }
+                }
+                transformedRest += "]}";
+            } else {
+                transformedRest += "{dataSpecification:" + json.get("dataSpecification");
+            }
             transformedRest += ",dataSpecificationContent:{";
             json = json.getJSONObject("dataSpecificationContent");
             keys = new String[] {"preferredName", "shortName", "unit", "unitId", "valueFormat", "sourceOfDefinition", "symbol", "dataType", "definition"};

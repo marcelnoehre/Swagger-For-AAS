@@ -17,6 +17,7 @@ import swagger2java.model.ConceptDescriptionInput;
 import swagger2java.model.SubmodelElementInput;
 import swagger2java.model.SubmodelInput;
 import templates.PutExample;
+import utils.Constants;
 import utils.Routes;
 
 /**
@@ -39,7 +40,7 @@ public class SwaggerToJavaTest {
     private final static RestService restService =
             new RestService();
     private final static Routes routes = new Routes(
-            restService, "http://localhost:1111/", "Festo_3S7PM0CP4BD");
+            restService, "http://localhost:1111/", Constants.TEST_AAS_ID);
     private final static String[] models = new String[] {
             "GET_AAS", "GET_SUBMODEL_LIST", "PUT_AAS", "DELETE_AAS",
             "GET_ASSET", "GET_SUBMODEL", "GET_ELEMENT_LIST", "PUT_SUBMODEL",

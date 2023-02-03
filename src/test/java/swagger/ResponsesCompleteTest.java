@@ -12,6 +12,7 @@ import swagger2java.api.ConceptDescriptionApi;
 import swagger2java.api.SubmodelApi;
 import swagger2java.api.SubmodelelementApi;
 import utils.Compare;
+import utils.Constants;
 import utils.Routes;
 
 /**
@@ -34,7 +35,7 @@ public class ResponsesCompleteTest {
     private final static RestService restService =
             new RestService();
     private final static Routes routes = new Routes(
-            restService, "http://localhost:1111/", "Festo_3S7PM0CP4BD");
+            restService, "http://localhost:1111/", Constants.TEST_AAS_ID);
     private final static String[] models = new String[] {
             "GET_AAS", "GET_SUBMODEL_LIST", "GET_ASSET", "GET_SUBMODEL",
             "GET_ELEMENT_LIST", "GET_ELEMENT", "GET_CD_LIST", "GET_CD"

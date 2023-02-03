@@ -5,8 +5,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 
+import utils.Constants;
+
 /**
- * Service to test the Swagger service.
+ * Service to test the Swagger-Service.
  *
  * @author Marcel N&oumlhre
  *
@@ -15,7 +17,6 @@ public class SwaggerServiceTest {
     private static final String[] SCHEMES = new String[] {"http"};
     private static final String HOST = "localhost:1111";
     private static final String BASEPATH = "";
-    private static final String AAS_ID = "Festo_3S7PM0CP4BD";
 
     /**
      * Test to build a swagger documentation for a asset administration
@@ -25,7 +26,8 @@ public class SwaggerServiceTest {
      */
     public static void main(String[] args) {
         SwaggerService swagger =
-                new SwaggerService(SCHEMES, HOST, BASEPATH, AAS_ID);
+                new SwaggerService(SCHEMES, HOST, BASEPATH,
+                        Constants.TEST_AAS_ID);
         try {
             String[] swaggerStrings = swagger.generateDocumentation();
             File file = new File("./src/test/resources/aas.json");
@@ -41,6 +43,5 @@ public class SwaggerServiceTest {
         } catch (IOException e) {
             System.err.println("Swagger generation failed!");
         }
-
     }
 }
