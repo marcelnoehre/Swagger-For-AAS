@@ -1,9 +1,16 @@
 package swagger;
 
+import static org.junit.Assert.assertTrue;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+import org.junit.Test;
 
 import utils.Constants;
 
@@ -19,29 +26,21 @@ public class SwaggerServiceTest {
     private static final String BASEPATH = "";
 
     /**
-     * Test to build a swagger documentation for a asset administration
-     * shell.
-     *
-     * @param args The command line arguments
+     * Test if the Swagger-Service generates valid JSON Strings.
      */
-    public static void main(String[] args) {
+    @Test
+    public void testSwaggerService() {
         SwaggerService swagger =
                 new SwaggerService(SCHEMES, HOST, BASEPATH,
                         Constants.TEST_AAS_ID);
-        try {
-            String[] swaggerStrings = swagger.generateDocumentation();
-            File file = new File("./src/test/resources/aas.json");
-            OutputStreamWriter out =  new OutputStreamWriter(
-                    new FileOutputStream(file), "UTF-8");
-            out.write(swaggerStrings[0]);
-            out.close();
-            file = new File("./src/test/resources/aas_gson.json");
-            out =  new OutputStreamWriter(new FileOutputStream(file), "UTF-8");
-            out.write(swaggerStrings[1]);
-            out.close();
-            System.out.println("Swagger generation completed!");
-        } catch (IOException e) {
-            System.err.println("Swagger generation failed!");
+        JSONParser jsonParser = new JSONParser();
+        int counter = 0;
+        for(String swaggerString : swagger.generateDocumentation()) {
+            try {
+                jsonParser.parse(swaggerString);
+                counter++;
+            } catch (ParseException e) { }
         }
+        assertTrue(counter == 2);        
     }
 }
