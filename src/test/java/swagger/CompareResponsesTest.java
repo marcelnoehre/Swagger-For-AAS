@@ -3,6 +3,7 @@ package swagger;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+
 import org.junit.Test;
 
 import requests.RestService;
@@ -15,13 +16,7 @@ import utils.Compare;
 import utils.Constants;
 import utils.Routes;
 
-/**
- * Unit test to check the rest responses.
- *
- * @author Marcel N&oumlhre
- *
- */
-public class ResponsesCompleteTest {
+public class CompareResponsesTest {
     private final static AssetAdministrationShellApi AAS =
             new AssetAdministrationShellApi();
     private final static AssetApi ASSET =
@@ -40,12 +35,9 @@ public class ResponsesCompleteTest {
             "GET_AAS", "GET_SUBMODEL_LIST", "GET_ASSET", "GET_SUBMODEL",
             "GET_ELEMENT_LIST", "GET_ELEMENT", "GET_CD_LIST", "GET_CD"
     };
-
-    /**
-     * Test if all responses from restService and generated models match.
-     */
+    
     @Test
-    public void testResponses() {
+    public void compareResponses() {
         ArrayList<String> checkedModels = new ArrayList<String>();
         ArrayList<String> failedModels = new ArrayList<String>();
         try {
@@ -57,7 +49,9 @@ public class ResponsesCompleteTest {
             } else {
                 failedModels.add("GET_AAS");
             }
-        } catch (Exception e) { }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         try {
             if (Compare.compareSubmodelListResponse(
                     AAS.aasAasIdShortSubmodelsGet(routes.getAASId()),
