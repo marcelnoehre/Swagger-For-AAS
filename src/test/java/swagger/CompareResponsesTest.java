@@ -49,9 +49,7 @@ public class CompareResponsesTest {
             } else {
                 failedModels.add("GET_AAS");
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        } catch (Exception e) { }
         try {
             if (Compare.compareSubmodelListResponse(
                     AAS.aasAasIdShortSubmodelsGet(routes.getAASId()),
