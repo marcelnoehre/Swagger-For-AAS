@@ -484,28 +484,32 @@ public class DataGenerationService {
                         String type;
                         String format;
                         Items items = null;
-                        try {
-                            value = (String)
-                                    definitionExamples[i].get(key).toString();
-                            type = Checks.variableType(value);
-                            format = type.equals("integer") ? "int64" : null;
-                        } catch (NullPointerException nullPointer) {
-                            value = null;
-                            type = "object";
-                            format = null;
-                        }
-                        if (type.equals("array")) {
-                            items = new Items("object", null, null, null);
-                            for (Object element
-                                    : new org.json.JSONArray(value)) {
-                                items = new Items(
-                                        Checks.variableType(element.toString()),
-                                        null, null, null);
-                                break;
+                        if(key.equals("isCaseOf")) {
+                            properties[j] = Constants.EXAMPLE_IS_CASE_OF_PROPERTY;
+                        } else {
+                            try {
+                                value = (String)
+                                        definitionExamples[i].get(key).toString();
+                                type = Checks.variableType(value);
+                                format = type.equals("integer") ? "int64" : null;
+                            } catch (NullPointerException nullPointer) {
+                                value = null;
+                                type = "object";
+                                format = null;
                             }
+                            if (type.equals("array")) {
+                                items = new Items("object", null, null, null);
+                                for (Object element
+                                        : new org.json.JSONArray(value)) {
+                                    items = new Items(
+                                            Checks.variableType(element.toString()),
+                                            null, null, null);
+                                    break;
+                                }
+                            }
+                            properties[j] = new Property(key, type, format,
+                                    null, null, value, null, items, null);
                         }
-                        properties[j] = new Property(key, type, format,
-                                null, null, value, null, items, null);
                         j++;
                     }
                 } else {

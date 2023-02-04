@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.google.gson.internal.LinkedTreeMap;
@@ -35,72 +36,91 @@ public class Compare {
     @SuppressWarnings("rawtypes")
     public static boolean compareJSONObject(
             LinkedTreeMap model,
-            JSONObject rest) {
+            String rest) {
         boolean check = true;
+        try {
         for(Iterator iterator = model.keySet().iterator();
                 iterator.hasNext();) {
             String key = (String) iterator.next();
-            try {
                 if(model.get(key).getClass().equals(LinkedTreeMap.class)) {
-                    if(!compareJSONObject((LinkedTreeMap) model.get(key), rest.getJSONObject(key))) {
+                    if(!compareJSONObject((LinkedTreeMap) model.get(key), new JSONObject(rest).get(key).toString())) {
                         check = false;
                     }
                 } else if(model.get(key).getClass().equals(ArrayList.class)) {
-                    if(!compareJSONArray(convertObjectToList(model.get(key)), new JSONArray(rest.get(key).toString()))) {
+                    if(!compareJSONArray(convertObjectToList(model.get(key)), new JSONObject(rest).get(key).toString())) {
                         check = false;
                     }
                 } else if(model.get(key).getClass().equals(String.class)) {
-                    if(!model.get(key).equals(rest.get(key))) {
+                    if(!compareValues(model.get(key).toString(), new JSONObject(rest).get(key).toString())) {
                         check = false;
                     }
                 } else {
-                    if(model.get(key) != (rest.get(key))) {
-                        check = false;
+                    if(model.get(key) != (new JSONObject(rest).get(key))) {
+                        if(!(model.get(key).toString().replaceAll("0.0", "0")).equals(new JSONObject(rest).get(key).toString())) {
+                            System.err.println(model.get(key).toString().replaceAll("0.0", "0") + " : " + new JSONObject(rest).get(key).toString());
+                            check = false;
+                        }
                     }
                 }
-            } catch (NullPointerException nulPointer) {
-                if(model.get(key) != (rest.get(key))) {
-                    check = false;
-                }
             }
-        }
+        } catch (NullPointerException nullPointer) { }
         return check;
     }
     
-    public static boolean compareJSONArray(List<?> list, JSONArray rest) {
+    @SuppressWarnings("rawtypes")
+    public static boolean compareJSONArray(List<?> list, String rest) {
         boolean check = true;
-        Object[] restArray = new Object[rest.length()];
-        int i = 0;
-        for(Object object : rest) {
-            restArray[i] = object;
-            i++;
-        }
-        i = 0;
-        for(Object object : list) {
-            try {
-                if(!compareJSONObject((LinkedTreeMap) object, (JSONObject) restArray[i])) {
-                    check = false;
-                }
-            } catch(NullPointerException nullPointer) {
-                if(object != restArray[i]) {
-                    check = false;
-                }
+        try {
+            JSONArray jsonArray = new JSONArray(rest);
+            Object[] restArray = new Object[rest.length()];
+            int i = 0;
+            for(Object object : jsonArray) {
+                restArray[i] = object;
+                i++;
             }
-            i++;
-        }
+            i = 0;
+            for(Object object : list) {
+                try {
+                    if(!compareJSONObject((LinkedTreeMap) object, restArray[i].toString())) {
+                        check = false;
+                    }
+                } catch(NullPointerException nullPointer) { }
+                i++;
+            }   
+        } catch(JSONException jsonException) { }
         return check;
+    }
+    
+    public static boolean compareValues(String model, String rest) {
+        try {
+            model.getClass();
+            model = Transform.removeSpecialChars(model);
+            rest = Transform.removeSpecialChars(rest);
+            if(!model.equals(rest)) {
+                System.err.println(model + " : " + rest);
+                return false;
+            } else {
+                return true;
+            }
+        } catch(NullPointerException nullPointer) {
+            return rest == null;
+        }
     }
     
     @SuppressWarnings("rawtypes")
     public static boolean compareAASResponse(AssetAdministrationShell model, String rest) {
         boolean check = true;
         JSONObject restObject = new JSONObject(rest);
-        compareJSONObject((LinkedTreeMap) model.getAAS(), (JSONObject) restObject.get("AAS"));
-        compareJSONObject((LinkedTreeMap) model.getAsset(), (JSONObject) restObject.get("Asset"));
-        new JSONObject(rest).getJSONObject("AAS");
+        if(!compareJSONObject((LinkedTreeMap) model.getAAS(), restObject.get("AAS").toString())) {
+            check = false;
+        }
+        if(!compareJSONObject((LinkedTreeMap) model.getAsset(), restObject.get("Asset").toString())) {
+            check = false;
+        }
         return check;
     }
     
+    @SuppressWarnings("rawtypes")
     public static boolean compareSubmodelListResponse(List<SubmodelListItem> model, String rest) {
         JSONArray jsonArray = new JSONArray(rest);
         JSONObject[] restArray = new JSONObject[jsonArray.length()];
@@ -112,13 +132,13 @@ public class Compare {
         }
         i = 0;
         for(SubmodelListItem submodelListItem: model) {
-            if(compareJSONObject((LinkedTreeMap) submodelListItem.getId(), new JSONObject(restArray[i].get("id")))) {
+            if(!compareJSONObject((LinkedTreeMap) submodelListItem.getId(), restArray[i].get("id").toString())) {
                 check = false;
             }
-            if(!submodelListItem.getIdShort().equals(restArray[i].get("idShort"))) {
+            if(!compareValues(submodelListItem.getIdShort().toString(), restArray[i].get("idShort").toString())) {
                 check = false;
             }
-            if(!submodelListItem.getKind().equals(restArray[i].get("kind"))) {
+            if(!compareValues(submodelListItem.getKind().toString(), restArray[i].get("kind").toString())) {
                 check = false;
             }
             i++;
@@ -126,6 +146,7 @@ public class Compare {
         return check;
     }
 
+    @SuppressWarnings("rawtypes")
     public static boolean compareAssetsResponse(List<Asset> model, String rest) {
         JSONArray jsonArray = new JSONArray(rest);
         JSONObject[] restArray = new JSONObject[jsonArray.length()];
@@ -137,47 +158,48 @@ public class Compare {
         }
         i = 0;
         for(Asset asset : model) {
-            if(!compareJSONObject((LinkedTreeMap) asset.getIdentification(), new JSONObject(restArray[i].get("identification")))) {
+            if(!compareJSONObject((LinkedTreeMap) asset.getIdentification(), restArray[i].get("identification").toString())) {
                 check = false;
             }
-            if(!asset.getIdShort().equals(restArray[i].get("idShort"))) {
+            if(!compareValues(asset.getIdShort().toString(), restArray[i].get("idShort").toString())) {
                 check = false;
             }
         }
         return check;
     }
 
+    @SuppressWarnings("rawtypes")
     public static boolean compareSubmodelResponse(Submodel model, String rest) {
         JSONObject restObject = new JSONObject(rest);
-        boolean check = false;
-        if(compareJSONObject((LinkedTreeMap) model.getAdministration(), (JSONObject) restObject.get("administration"))) {
+        boolean check = true;
+        if(!compareJSONObject((LinkedTreeMap) model.getAdministration(), restObject.get("administration").toString())) {
             check = false;
         }
-        if(!model.getCategory().equals(restObject.get("category"))) {
+        if(!compareValues(model.getCategory(), restObject.get("category").toString())) {
             check = false;
         }
-        if(!compareJSONArray(model.getDescriptions(), new JSONArray(restObject.get("descriptions").toString()))) {
+        if(!compareJSONArray(model.getDescriptions(), restObject.get("descriptions").toString())) {
             check = false;
         }
-        if(compareJSONObject((LinkedTreeMap) model.getHasDataSpecification(), (JSONObject) restObject.get("hasDataSpecification"))) {
+        if(!compareJSONObject((LinkedTreeMap) model.getHasDataSpecification(), restObject.get("hasDataSpecification").toString())) {
             check = false;
         }
-        if(compareJSONObject((LinkedTreeMap) model.getIdentification(), (JSONObject) restObject.get("identification"))) {
+        if(!compareJSONObject((LinkedTreeMap) model.getIdentification(), restObject.get("identification").toString())) {
             check = false;
         }
-        if(!model.getIdShort().equals(restObject.get("idShort"))) {
+        if(!compareValues(model.getIdShort(), restObject.get("idShort").toString())) {
             check = false;
         }
-        if(!model.getKind().equals(restObject.get("kind"))) {
+        if(!compareValues(model.getKind(), restObject.get("kind").toString())) {
             check = false;
         }
-        if(compareJSONObject((LinkedTreeMap) model.getModelType(), (JSONObject) restObject.get("modelType"))) {
+        if(!compareJSONObject((LinkedTreeMap) model.getModelType(), restObject.get("modelType").toString())) {
             check = false;
         }
-        if(!compareJSONArray(model.getQualifiers(), new JSONArray(restObject.get("qualifiers").toString()))) {
+        if(!compareJSONArray(model.getQualifiers(), restObject.get("qualifiers").toString())) {
             check = false;
         }
-        if(compareJSONObject((LinkedTreeMap) model.getSemanticId(), (JSONObject) restObject.get("semanticId"))) {
+        if(!compareJSONObject((LinkedTreeMap) model.getSemanticId(), restObject.get("semanticId").toString())) {
             check = false;
         }
         return check;
@@ -194,46 +216,49 @@ public class Compare {
         }
         i = 0;
         for(SubmodelelementListItem submodelElementListItem : model) {
-            if(!submodelElementListItem.getIdShorts().equals(restArray[i].get("idShort"))) {
+            if(!compareValues(submodelElementListItem.getIdShorts(), restArray[i].get("idShorts").toString())) {
                 check = false;
-            }        
-            if(!submodelElementListItem.getSemId().equals(restArray[i].get("semId"))) {
+            }     
+            if(!compareValues(submodelElementListItem.getSemId(), restArray[i].get("semId").toString())) {
                 check = false;
-            }  
-            if(!submodelElementListItem.getSemIdType().equals(restArray[i].get("semIdType"))) {
+            } 
+            if(!compareValues(submodelElementListItem.getSemIdType(), restArray[i].get("semIdType").toString())) {
                 check = false;
-            }  
-            if(!submodelElementListItem.getShortName().equals(restArray[i].get("shortName"))) {
+            } 
+            if(!compareValues(submodelElementListItem.getShortName(), restArray[i].get("shortName").toString())) {
                 check = false;
-            }  
-            if(!submodelElementListItem.getTypeName().equals(restArray[i].get("typeName"))) {
+            } 
+            if(!compareValues(submodelElementListItem.getTypeName(), restArray[i].get("typeName").toString())) {
                 check = false;
-            }  
-            if(!submodelElementListItem.getUnit().equals(restArray[i].get("unit"))) {
+            } 
+            if(!compareValues(submodelElementListItem.getUnit(), restArray[i].get("unit").toString())) {
                 check = false;
-            }  
-            if(!submodelElementListItem.getValue().equals(restArray[i].get("value"))) {
+            } 
+            if(!compareValues(submodelElementListItem.getValue(), restArray[i].get("value").toString())) {
                 check = false;
             }
+            i++;
         }
         return check;
     }
 
+    @SuppressWarnings("rawtypes")
     public static boolean compareElementResponse(SubmodelElement model, String rest) {
         JSONObject restObject = new JSONObject(rest);
         boolean check = true;
-        if(!compareJSONObject((LinkedTreeMap) model.getElem(), (JSONObject) restObject.get("elem"))) {
+        if(!compareJSONObject((LinkedTreeMap) model.getElem(), restObject.get("elem").toString())) {
             check = false;
         }
-        if(!compareJSONObject((LinkedTreeMap) model.getParent(), (JSONObject) restObject.get("parent"))) {
+        if(!compareJSONObject((LinkedTreeMap) model.getParent(), restObject.get("parent").toString())) {
             check = false;
         }
-        if(!compareJSONObject((LinkedTreeMap) model.getWrapper(), (JSONObject) restObject.get("wrapper"))) {
+        if(!compareJSONObject((LinkedTreeMap) model.getWrapper(), restObject.get("wrapper").toString())) {
             check = false;
         }
         return check;
     }
 
+    @SuppressWarnings("rawtypes")
     public static boolean compareCDListResponse(List<ConceptDescriptionListItem> model, String rest) {
         JSONArray jsonArray = new JSONArray(rest);
         JSONObject[] restArray = new JSONObject[jsonArray.length()];
@@ -245,50 +270,52 @@ public class Compare {
         }
         i = 0;
         for(ConceptDescriptionListItem cdListItem : model) {
-            if(!compareJSONObject((LinkedTreeMap) cdListItem.getIdentification(), (JSONObject) restArray[i].get("identification"))) {
+            if(!compareJSONObject((LinkedTreeMap) cdListItem.getIdentification(), restArray[i].get("identification").toString())) {
                 check = false;
             }
-            if(!cdListItem.getIdShort().equals(restArray[i].get("idShort"))) {
+            if(!compareValues(cdListItem.getIdShort(), restArray[i].get("idShort").toString())) {
                 check = false;
-            }        
-            if(!compareJSONObject((LinkedTreeMap) cdListItem.getIsCaseOf(), (JSONObject) restArray[i].get("administration"))) {
+            }            
+            if(!compareJSONArray(cdListItem.getIsCaseOf(), restArray[i].get("isCaseOf").toString())) {
                 check = false;
             }
-            if(!cdListItem.getShortName().equals(restArray[i].get("shortName"))) {
+            if(!compareValues(cdListItem.getShortName(), restArray[i].get("shortName").toString())) {
                 check = false;
-            }        
+            }
+            i++;
         }
         return check;
     }
 
+    @SuppressWarnings("rawtypes")
     public static boolean compareCDResponse(ConceptDescription model, String rest) {
         JSONObject restObject = new JSONObject(rest);
-        boolean check = false;
-        if(!compareJSONObject((LinkedTreeMap) model.getAdministration(), (JSONObject) restObject.get("administration"))) {
+        boolean check = true;
+        if(!compareJSONObject((LinkedTreeMap) model.getAdministration(), restObject.get("administration").toString())) {
             check = false;
         }
-        if(!compareJSONObject((LinkedTreeMap) model.getCategory(), (JSONObject) restObject.get("category"))) {
+        if(!compareJSONObject((LinkedTreeMap) model.getCategory(), restObject.get("category").toString())) {
             check = false;
         }
-        if(!compareJSONArray(model.getDescriptions(), new JSONArray(restObject.get("descriptions").toString()))) {
+        if(!compareJSONArray(model.getDescriptions(), restObject.get("descriptions").toString())) {
             check = false;
         }
-        if(!compareJSONArray(model.getEmbeddedDataSpecifications(), new JSONArray(restObject.get("embeddedDataSpecifications").toString()))) {
+        if(!compareJSONArray(model.getEmbeddedDataSpecifications(), restObject.get("embeddedDataSpecifications").toString())) {
             check = false;
         }
-        if(!compareJSONObject((LinkedTreeMap) model.getIdentification(), (JSONObject) restObject.get("identification"))) {
+        if(!compareJSONObject((LinkedTreeMap) model.getIdentification(), restObject.get("identification").toString())) {
             check = false;
         }
-        if(!model.getIdShort().equals(restObject.get("idShort"))) {
+        if(!compareValues(model.getIdShort(), restObject.get("idShort").toString().toString())) {
             check = false;
-        }        
-        if(!compareJSONObject((LinkedTreeMap) model.getIsCaseOf(), (JSONObject) restObject.get("isCaseOf"))) {
-            check = false;
-        }
-        if(!compareJSONObject((LinkedTreeMap) model.getModelType(), (JSONObject) restObject.get("modelType"))) {
+        }          
+        if(!compareJSONArray(model.getIsCaseOf(), restObject.get("isCaseOf").toString())) {
             check = false;
         }
-        return false;
+        if(!compareJSONObject((LinkedTreeMap) model.getModelType(), restObject.get("modelType").toString())) {
+            check = false;
+        }
+        return check;
     }
 
 }

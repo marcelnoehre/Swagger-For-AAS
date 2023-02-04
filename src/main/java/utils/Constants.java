@@ -2,6 +2,7 @@ package utils;
 
 import templates.Items;
 import templates.Parameter;
+import templates.Property;
 import templates.Response;
 import templates.Route;
 import templates.Schema;
@@ -316,4 +317,8 @@ public class Constants {
             new Response("400", "No payload or content type is not JSON.",
                     null, null)
     };
+    
+    public static final Property EXAMPLE_IS_CASE_OF_PROPERTY = new Property(
+            "isCaseOf", "array", null, null, null, null, null, new Items(
+            "object",null, null, null), null);
 }

@@ -79,7 +79,9 @@ public class CompareResponsesTest {
             } else {
                 failedModels.add("GET_SUBMODEL");
             }
-        } catch (Exception e) { }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         try {
             if (Compare.compareElementListResponse(
                     SUBMODEL.aasAasIdShortSubmodelsSubmodelIdShortTableGet(
@@ -112,7 +114,9 @@ public class CompareResponsesTest {
             } else {
                 failedModels.add("GET_CD_LIST");
             }
-        } catch (Exception e) { }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         try {
             if (Compare.compareCDResponse(CD.aasAasIdShortCdsCdIdShortGet(
                     routes.getAASId(), routes.getCdId()),
@@ -123,6 +127,9 @@ public class CompareResponsesTest {
                 failedModels.add("GET_CD");
             }
         } catch (Exception e) { }
+        if(failedModels.size() > 0) {
+            System.out.println("--------------------");
+        }
         failedModels.forEach(System.err::println);
         for (String model : models) {
             assertTrue(checkedModels.contains(model));

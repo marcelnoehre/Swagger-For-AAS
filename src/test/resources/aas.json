@@ -781,7 +781,10 @@
                     "type": "object"
                 },
                 "isCaseOf": {
-                    "type": "object"
+                    "type": "array",
+                    "items": {
+                        "type": "object"
+                    }
                 },
                 "modelType": {
                     "type": "object",
@@ -855,7 +858,10 @@
                     "example": "Document"
                 },
                 "isCaseOf": {
-                    "type": "object"
+                    "type": "array",
+                    "items": {
+                        "type": "object"
+                    }
                 },
                 "shortName": {
                     "type": "string",
@@ -1333,7 +1339,10 @@
                     "type": "object"
                 },
                 "isCaseOf": {
-                    "type": "object"
+                    "type": "array",
+                    "items": {
+                        "type": "object"
+                    }
                 },
                 "modelType": {
                     "type": "object",
