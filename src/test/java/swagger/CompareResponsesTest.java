@@ -4,6 +4,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 
+import org.json.JSONObject;
 import org.junit.Test;
 
 import requests.RestService;

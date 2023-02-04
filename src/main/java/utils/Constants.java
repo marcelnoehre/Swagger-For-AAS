@@ -18,7 +18,7 @@ public class Constants {
     /*
      * AAS idShort to test the functionalities.
      */
-    public static final String TEST_AAS_ID = "ExampleMotor";
+     public static final String TEST_AAS_ID = "ExampleMotor";
 //     public static final String TEST_AAS_ID = "Bosch_NexoPistolGripNutrunner";
 //     public static final String TEST_AAS_ID = "Festo_3S7PM0CP4BD";
 //     public static final String TEST_AAS_ID = "Lenze_i950";
