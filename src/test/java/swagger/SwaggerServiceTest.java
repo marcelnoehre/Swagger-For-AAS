@@ -9,7 +9,7 @@ import org.junit.Test;
 import utils.Constants;
 
 /**
- * Service to test the Swagger-Service.
+ * Unit test to test the Swagger-Service.
  *
  * @author Marcel N&oumlhre
  *
@@ -29,12 +29,12 @@ public class SwaggerServiceTest {
                         Constants.TEST_AAS_ID);
         JSONParser jsonParser = new JSONParser();
         int counter = 0;
-        for(String swaggerString : swagger.generateDocumentation()) {
+        for (String swaggerString : swagger.generateDocumentation()) {
             try {
                 jsonParser.parse(swaggerString);
                 counter++;
             } catch (ParseException e) { }
         }
-        assertTrue(counter == 2);        
+        assertTrue(counter == 2);
     }
 }

@@ -58,8 +58,8 @@ public class SwaggerService {
     }
 
     /**
-     * Service function to build a swagger documentation for a asset administration
-     * shell.
+     * Service function to build a swagger documentation for a asset
+     * administration shell.
      *
      * @param args The command line arguments
      */

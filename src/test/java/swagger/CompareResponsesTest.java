@@ -4,7 +4,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 
-import org.json.JSONObject;
 import org.junit.Test;
 
 import requests.RestService;
@@ -17,6 +16,12 @@ import utils.Compare;
 import utils.Constants;
 import utils.Routes;
 
+/**
+ * Unit test to check the rest responses.
+ *
+ * @author Marcel N&oumlhre
+ *
+ */
 public class CompareResponsesTest {
     private final static AssetAdministrationShellApi AAS =
             new AssetAdministrationShellApi();
@@ -36,7 +41,11 @@ public class CompareResponsesTest {
             "GET_AAS", "GET_SUBMODEL_LIST", "GET_ASSET", "GET_SUBMODEL",
             "GET_ELEMENT_LIST", "GET_ELEMENT", "GET_CD_LIST", "GET_CD"
     };
-    
+
+    /**
+     * Compare whether the responses of the generated Java models correspond to
+     * the responses of the REST requests.
+     */
     @Test
     public void compareResponses() {
         ArrayList<String> checkedModels = new ArrayList<String>();
@@ -128,7 +137,7 @@ public class CompareResponsesTest {
                 failedModels.add("GET_CD");
             }
         } catch (Exception e) { }
-        if(failedModels.size() > 0) {
+        if (failedModels.size() > 0) {
             System.out.println("--------------------");
         }
         failedModels.forEach(System.err::println);

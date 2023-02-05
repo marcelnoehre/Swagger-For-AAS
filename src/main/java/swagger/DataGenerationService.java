@@ -484,14 +484,16 @@ public class DataGenerationService {
                         String type;
                         String format;
                         Items items = null;
-                        if(key.equals("isCaseOf")) {
-                            properties[j] = Constants.EXAMPLE_IS_CASE_OF_PROPERTY;
+                        if (key.equals("isCaseOf")) {
+                            properties[j]
+                                    = Constants.EXAMPLE_IS_CASE_OF_PROPERTY;
                         } else {
                             try {
-                                value = (String)
-                                        definitionExamples[i].get(key).toString();
+                                value = (String) definitionExamples[i]
+                                        .get(key).toString();
                                 type = Checks.variableType(value);
-                                format = type.equals("integer") ? "int64" : null;
+                                format = type.equals("integer")
+                                        ? "int64" : null;
                             } catch (NullPointerException nullPointer) {
                                 value = null;
                                 type = "object";
@@ -501,8 +503,8 @@ public class DataGenerationService {
                                 items = new Items("object", null, null, null);
                                 for (Object element
                                         : new org.json.JSONArray(value)) {
-                                    items = new Items(
-                                            Checks.variableType(element.toString()),
+                                    items = new Items(Checks.variableType(
+                                            element.toString()),
                                             null, null, null);
                                     break;
                                 }

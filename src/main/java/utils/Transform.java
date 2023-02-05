@@ -1,5 +1,10 @@
 package utils;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -235,10 +240,10 @@ public class Transform {
                 .replace("\"[{", "[{")
                 .replace("}]\"", "}]");
     }
-    
+
     /**
      * Remove special chars to compare complex strings.
-     * 
+     *
      * @param value string to get transformed
      * @return input without special chars
      */
@@ -246,5 +251,21 @@ public class Transform {
         return value.replace("ä", "").replace("ö", "").replace("ü", "")
                 .replace("Ä", "").replace("Ö", "").replace("Ü", "")
                 .replace("ß", "").replace("�", "");
+    }
+
+    /**
+     * Transform a object to a list.
+     *
+     * @param obj Object to transform to a list
+     * @return the created list
+     */
+    public static List<?> objectToList(Object obj) {
+        List<?> list = new ArrayList<>();
+        if (obj.getClass().isArray()) {
+            list = Arrays.asList((Object[]) obj);
+        } else if (obj instanceof Collection) {
+            list = new ArrayList<>((Collection<?>) obj);
+        }
+        return list;
     }
 }
