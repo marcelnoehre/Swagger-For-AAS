@@ -380,27 +380,35 @@ public class DataGenerationService {
     public static Definition[] generateDefinitions(
             RestService restService,
             Routes routes) {
+        JSONParser parser = new JSONParser();
+        Property[] apiResponseProperties = new Property[] {
+                new Property("resultCode", "integer", "int32",
+                        null, null, "200", null, null, null),
+                new Property("type", "string", null, null, null,
+                        "application/json", null, null, null),
+                new Property("message", "string", null, null, null,
+                        "OK (updated)", null, null, null)
+        };
+        ArrayList<JSONObject> validDefinitions = new ArrayList<JSONObject>();
+        ArrayList<String> validDefinitionNames = new ArrayList<String>();
         try {
-            JSONParser parser = new JSONParser();
-            String[] definitionNames = new String[] {
-                    "AssetAdministrationShell", "Asset", "SubmodelListItem",
-                    "Submodel", "SubmodelelementListItem", "SubmodelElement",
-                    "ConceptDescriptionListItem", "ConceptDescription",
-                    "AasInput", "AssetInput", "SubmodelInput",
-                    "SubmodelElementInput", "ConceptDescriptionInput"};
-            Definition[] definitions =
-                    new Definition[definitionNames.length + 1];
-            Property[] apiResponseProperties = new Property[] {
-                    new Property("resultCode", "integer", "int32",
-                            null, null, "200", null, null, null),
-                    new Property("type", "string", null, null, null,
-                            "application/json", null, null, null),
-                    new Property("message", "string", null, null, null,
-                            "OK (updated)", null, null, null)
-            };
-            definitions[0] = new Definition("ApiResponse", "object",
-                    new String[] {"resultCode", "type", "message"},
-                    apiResponseProperties);
+            JSONObject aasResponse =
+                    (JSONObject) parser.parse(restService.httpGet(
+                    routes.getBaseUrl() + routes.getAASRouteWithId())[1]);
+            validDefinitions.add(aasResponse);
+            validDefinitionNames.add("AssetAdministrationShell");
+            try {
+                JSONObject aasInput = (JSONObject) aasResponse.get("AAS");
+                validDefinitions.add(aasInput);
+                validDefinitionNames.add("AasInput");
+            } catch(Exception e) { }
+            try {
+                JSONObject assetInput = (JSONObject) aasResponse.get("Asset");
+                validDefinitions.add(assetInput);
+                validDefinitionNames.add("AssetInput");
+            } catch(Exception e) { }
+        } catch(Exception e) { }
+        try {
             JSONArray assetList = (JSONArray)
                     parser.parse(restService.httpGet(routes.getBaseUrl()
                             + routes.getAssetRouteWithId())[1]);
@@ -408,9 +416,13 @@ public class DataGenerationService {
             for (Object assetListObject : assetList) {
                 try {
                     assetListItem = (JSONObject) assetListObject;
+                    validDefinitions.add(assetListItem);
+                    validDefinitionNames.add("Asset");
                     break;
                 } catch (NullPointerException assetListException) { }
             }
+        } catch(Exception e) { }            
+        try {
             JSONArray submodelList = (JSONArray)
                     parser.parse(restService.httpGet(routes.getBaseUrl()
                             + routes.getSubmodelListRouteWithId())[1]);
@@ -418,9 +430,20 @@ public class DataGenerationService {
             for (Object submodelListObject : submodelList) {
                 try {
                     submodelListItem = (JSONObject) submodelListObject;
+                    validDefinitions.add(submodelListItem);
+                    validDefinitionNames.add("SubmodelListItem");
                     break;
                 } catch (NullPointerException submodelListException) { }
-            }
+            }    
+        } catch(Exception e) { }
+        try {
+            JSONObject submodel = (JSONObject) parser.parse(restService.httpGet(
+                    routes.getBaseUrl()
+                    + routes.getSubmodelRouteWithId())[1]);
+            validDefinitions.add(submodel);
+            validDefinitionNames.add("Submodel");
+        } catch(Exception e) { }
+        try {
             JSONArray elementList = (JSONArray)
                     parser.parse(restService.httpGet(routes.getBaseUrl()
                             + routes.getElementListRouteWithId())[1]);
@@ -428,9 +451,20 @@ public class DataGenerationService {
             for (Object elementListObject : elementList) {
                 try {
                     elementListItem = (JSONObject) elementListObject;
+                    validDefinitions.add(elementListItem);
+                    validDefinitionNames.add("SubmodelelementListItem");
                     break;
                 } catch (NullPointerException elementListException) { }
             }
+        } catch(Exception e) { }
+        try {
+            JSONObject element = (JSONObject) parser.parse(restService.httpGet(
+                    routes.getBaseUrl()
+                    + routes.getElementRouteWithId())[1]);
+            validDefinitions.add(element);
+            validDefinitionNames.add("SubmodelElement");
+        } catch(Exception e) { }
+        try {
             JSONArray cdList = (JSONArray)
                     parser.parse(restService.httpGet(routes.getBaseUrl()
                             + routes.
@@ -439,91 +473,107 @@ public class DataGenerationService {
             for (Object cdListObject : cdList) {
                 try {
                     cdListItem = (JSONObject) cdListObject;
+                    validDefinitions.add(cdListItem);
+                    validDefinitionNames.add("ConceptDescriptionListItem");
                     break;
                 } catch (NullPointerException cdListException) { }
             }
-            JSONObject aasResponse =
-                    (JSONObject) parser.parse(restService.httpGet(
-                    routes.getBaseUrl() + routes.getAASRouteWithId())[1]);
+        } catch(Exception e) { }
+        try {
+            JSONObject cd = (JSONObject) parser.parse(restService.httpGet(
+                    routes.getBaseUrl()
+                    + routes.getConceptDescriptionRouteWithId())[1]);
+            validDefinitions.add(cd);
+            validDefinitionNames.add("ConceptDescription");
+        } catch(Exception e) { }
+        try {
             JSONObject submodelInput =
                     (JSONObject) parser.parse(restService.httpGet(
                     routes.getBaseUrl() + routes.getSubmodelRouteWithId())[1]);
+            validDefinitions.add(submodelInput);
+            validDefinitionNames.add("SubmodelInput");
+        } catch(Exception e) { }
+        try {
             JSONObject elementInput = (JSONObject) ((JSONObject) parser.parse(
                     restService.httpGet(routes.getBaseUrl()
                             + routes.getElementRouteWithId())[1])).get("elem");
+            validDefinitions.add(elementInput);
+            validDefinitionNames.add("SubmodelElementInput");
+        } catch(Exception e) { }
+        
+        try {
             JSONObject cdInput = (JSONObject) parser.parse(restService.httpGet(
                     routes.getBaseUrl()
                     + routes.getConceptDescriptionRouteWithId())[1]);
-            JSONObject[] definitionExamples = new JSONObject[] {
-                    aasResponse, assetListItem, submodelListItem,
-                    (JSONObject) parser.parse(restService.httpGet(
-                            routes.getBaseUrl()
-                            + routes.getSubmodelRouteWithId())[1]),
-                    elementListItem,
-                    (JSONObject) parser.parse(restService.httpGet(
-                            routes.getBaseUrl()
-                            + routes.getElementRouteWithId())[1]),
-                    cdListItem,
-                    (JSONObject) parser.parse(restService.httpGet(
-                            routes.getBaseUrl()
-                            + routes.getConceptDescriptionRouteWithId())[1]),
-                    (JSONObject) aasResponse.get("AAS"),
-                    (JSONObject) aasResponse.get("Asset"),
-                    submodelInput, elementInput, cdInput
-            };
-            for (int i = 0; i < definitionExamples.length; i++) {
-                Property[] properties;
-                if (definitionExamples[i].size() > 0) {
-                    properties = new Property[definitionExamples[i].size()];
-                    int j = 0;
-                    for (Iterator iterator =
-                            definitionExamples[i].keySet().iterator();
-                            iterator.hasNext();) {
-                        String key = (String) iterator.next();
-                        String value;
-                        String type;
-                        String format;
-                        Items items = null;
-                        if (key.equals("isCaseOf")) {
-                            properties[j]
-                                    = Constants.EXAMPLE_IS_CASE_OF_PROPERTY;
-                        } else {
-                            try {
-                                value = (String) definitionExamples[i]
-                                        .get(key).toString();
-                                type = Checks.variableType(value);
-                                format = type.equals("integer")
-                                        ? "int64" : null;
-                            } catch (NullPointerException nullPointer) {
-                                value = null;
-                                type = "object";
-                                format = null;
-                            }
-                            if (type.equals("array")) {
-                                items = new Items("object", null, null, null);
-                                for (Object element
-                                        : new org.json.JSONArray(value)) {
-                                    items = new Items(Checks.variableType(
-                                            element.toString()),
-                                            null, null, null);
-                                    break;
-                                }
-                            }
-                            properties[j] = new Property(key, type, format,
-                                    null, null, value, null, items, null);
-                        }
-                        j++;
-                    }
-                } else {
-                    properties = null;
-                }
-                definitions[i + 1] = new Definition(definitionNames[i],
-                        "object", new String[]{"idShort"}, properties);
-            }
-            return definitions;
-        } catch (ParseException parse) {
-            return null;
+            validDefinitions.add(cdInput);
+            validDefinitionNames.add("ConceptDescriptionInput");
+        } catch(Exception e) { }
+        String[] definitionNames = new String[validDefinitionNames.size()];
+        int i = 0;
+        for(String definitionName : validDefinitionNames) {
+            definitionNames[i] = definitionName;
+            i++;
         }
+        JSONObject[] definitionExamples = new JSONObject[validDefinitions.size()];
+        i = 0;
+        for(JSONObject definition : validDefinitions) {
+            definitionExamples[i] = definition;
+            i++;
+        }
+        Definition[] definitions = new Definition[validDefinitions.size()+1];
+        definitions[0] = new Definition("ApiResponse", "object",
+                new String[] {"resultCode", "type", "message"},
+                apiResponseProperties);
+        for (i = 0; i < definitionExamples.length; i++) {
+            Property[] properties;
+            if (definitionExamples[i].size() > 0) {
+                properties = new Property[definitionExamples[i].size()];
+                int j = 0;
+                for (Iterator iterator =
+                        definitionExamples[i].keySet().iterator();
+                        iterator.hasNext();) {
+                    String key = (String) iterator.next();
+                    String value;
+                    String type;
+                    String format;
+                    Items items = null;
+                    if (key.equals("isCaseOf")) {
+                        properties[j]
+                                = Constants.EXAMPLE_IS_CASE_OF_PROPERTY;
+                    } else {
+                        try {
+                            value = (String) definitionExamples[i]
+                                    .get(key).toString();
+                            type = Checks.variableType(value);
+                            format = type.equals("integer")
+                                    ? "int64" : null;
+                        } catch (NullPointerException nullPointer) {
+                            value = null;
+                            type = "object";
+                            format = null;
+                        }
+                        if (type.equals("array")) {
+                            items = new Items("object", null, null, null);
+                            for (Object element
+                                    : new org.json.JSONArray(value)) {
+                                items = new Items(Checks.variableType(
+                                        element.toString()),
+                                        null, null, null);
+                                break;
+                            }
+                        }
+                        properties[j] = new Property(key, type, format,
+                                null, null, value, null, items, null);
+                    }
+                    j++;
+                }
+            } else {
+                properties = null;
+            }
+            definitions[i + 1] = new Definition(definitionNames[i],
+                    "object", new String[]{"idShort"}, properties);
+        }
+        return definitions;
     }
 
     /**

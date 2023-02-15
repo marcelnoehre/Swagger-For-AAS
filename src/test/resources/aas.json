@@ -12,7 +12,7 @@
                         "description": "successful operation"
                     },
                     "404": {
-                        "description": "No AAS 'ExampleMotor' or no Submodel with idShort 'example' found."
+                        "description": "No AAS 'IIP_Ecosphere' or no Submodel with idShort 'example' found."
                     }
                 },
                 "parameters": [{
@@ -254,7 +254,7 @@
                         "description": "successful operation"
                     },
                     "404": {
-                        "description": "No AAS 'ExampleMotor' or no Submodel with idShort 'example' found."
+                        "description": "No AAS 'IIP_Ecosphere' or no Submodel with idShort 'example' found."
                     }
                 },
                 "parameters": [{
@@ -397,7 +397,7 @@
                         "description": "successful operation"
                     },
                     "404": {
-                        "description": "No AAS 'ExampleMotor' or no ConceptDescription with id 'example' found."
+                        "description": "No AAS 'IIP_Ecosphere' or no ConceptDescription with id 'example' found."
                     }
                 },
                 "parameters": [{
@@ -430,7 +430,7 @@
                         "schema": {
                             "type": "string"
                         },
-                        "description": "No AAS 'ExampleMotor' or no ConceptDescription with id 'example' found."
+                        "description": "No AAS 'IIP_Ecosphere' or no ConceptDescription with id 'example' found."
                     }
                 },
                 "parameters": [{
@@ -482,14 +482,11 @@
                 "summary": "Information about the submodelelement",
                 "produces": ["application/json"],
                 "responses": {
-                    "200": {
+                    "404": {
                         "schema": {
                             "$ref": "#/definitions/SubmodelElement"
                         },
                         "description": "successful operation"
-                    },
-                    "404": {
-                        "description": "No matching element in Submodel found."
                     }
                 },
                 "parameters": [{
@@ -560,6 +557,55 @@
     "schemes": ["http"],
     "securityDefinitions": {},
     "definitions": {
+        "AssetInput": {
+            "type": "object",
+            "required": ["idShort"],
+            "properties": {
+                "identification": {
+                    "type": "object",
+                    "example": {
+                        "idType": "IRI",
+                        "id": "urn:::AAS:::iipEcosphere#asset"
+                    }
+                },
+                "idShort": {
+                    "type": "string",
+                    "example": "IIP_Ecosphere"
+                },
+                "hasDataSpecification": {
+                    "type": "array",
+                    "items": {
+                        "type": "object"
+                    },
+                    "example": "[]"
+                },
+                "administration": {
+                    "type": "object"
+                },
+                "kind": {
+                    "type": "string",
+                    "example": "Instance"
+                },
+                "billOfMaterialRef": {
+                    "type": "object"
+                },
+                "assetIdentificationModelRef": {
+                    "type": "object"
+                },
+                "modelType": {
+                    "type": "object",
+                    "example": {
+                        "name": "Asset"
+                    }
+                },
+                "category": {
+                    "type": "object"
+                },
+                "descriptions": {
+                    "type": "object"
+                }
+            }
+        },
         "Submodel": {
             "type": "object",
             "required": ["idShort"],
@@ -567,29 +613,26 @@
                 "semanticId": {
                     "type": "object",
                     "example": {
-                        "keys": [{
-                                "idType": "IRDI",
-                                "index": 0,
-                                "type": "GlobalReference",
-                                "value": "0173-1#01-ADN198#009",
-                                "local": false
-                            }
-                        ]
+                        "keys": []
                     }
                 },
                 "identification": {
                     "type": "object",
                     "example": {
-                        "idType": "IRI",
-                        "id": "http://i40.customer.com/type/1/1/F13E8576F6488342"
+                        "idType": "Custom",
+                        "id": "installedConnectors"
                     }
                 },
                 "idShort": {
                     "type": "string",
-                    "example": "Identification"
+                    "example": "installedConnectors"
                 },
                 "hasDataSpecification": {
-                    "type": "object"
+                    "type": "array",
+                    "items": {
+                        "type": "object"
+                    },
+                    "example": "[]"
                 },
                 "administration": {
                     "type": "object"
@@ -612,19 +655,10 @@
                     }
                 },
                 "category": {
-                    "type": "string",
-                    "example": "CONSTANT"
+                    "type": "object"
                 },
                 "descriptions": {
-                    "type": "array",
-                    "items": {
-                        "type": "object"
-                    },
-                    "example": [{
-                            "language": "EN",
-                            "text": "Identification from Manufacturer"
-                        }
-                    ]
+                    "type": "object"
                 }
             }
         },
@@ -637,11 +671,11 @@
                     "example": {
                         "identification": {
                             "idType": "IRI",
-                            "id": "http://customer.com/aas/9175_7013_7091_9168"
+                            "id": "urn:::AAS:::iipEcosphere#"
                         },
-                        "idShort": "ExampleMotor",
+                        "idShort": "IIP_Ecosphere",
                         "conceptDictionaries": [],
-                        "hasDataSpecification": null,
+                        "hasDataSpecification": [],
                         "administration": null,
                         "derivedFrom": null,
                         "modelType": {
@@ -652,46 +686,73 @@
                                     "idType": "IRI",
                                     "index": 0,
                                     "type": "Asset",
-                                    "value": "http://customer.com/assets/KHBVZJSQKIY",
+                                    "value": "urn:::AAS:::iipEcosphere#asset",
                                     "local": true
                                 }
                             ]
                         },
-                        "category": "CONSTANT",
+                        "category": null,
                         "descriptions": null,
                         "submodels": [{
                                 "keys": [{
-                                        "idType": "IRI",
+                                        "idType": "Custom",
                                         "index": 0,
                                         "type": "Submodel",
-                                        "value": "http://i40.customer.com/type/1/1/F13E8576F6488342",
+                                        "value": "installedConnectors",
                                         "local": true
                                     }
                                 ]
                             }, {
                                 "keys": [{
-                                        "idType": "IRI",
+                                        "idType": "Custom",
                                         "index": 0,
                                         "type": "Submodel",
-                                        "value": "http.//i40.customer.com/type/1/1/7A7104BDAB57E184",
+                                        "value": "platform",
                                         "local": true
                                     }
                                 ]
                             }, {
                                 "keys": [{
-                                        "idType": "IRI",
+                                        "idType": "Custom",
                                         "index": 0,
                                         "type": "Submodel",
-                                        "value": "http://i40.customer.com/instance/1/1/AC69B1CB44F07935",
+                                        "value": "activeConnectors",
                                         "local": true
                                     }
                                 ]
                             }, {
                                 "keys": [{
-                                        "idType": "IRI",
+                                        "idType": "Custom",
                                         "index": 0,
                                         "type": "Submodel",
-                                        "value": "http://i40.customer.com/type/1/1/1A7B62B529F19152",
+                                        "value": "transport",
+                                        "local": true
+                                    }
+                                ]
+                            }, {
+                                "keys": [{
+                                        "idType": "Custom",
+                                        "index": 0,
+                                        "type": "Submodel",
+                                        "value": "resources",
+                                        "local": true
+                                    }
+                                ]
+                            }, {
+                                "keys": [{
+                                        "idType": "Custom",
+                                        "index": 0,
+                                        "type": "Submodel",
+                                        "value": "netMgt",
+                                        "local": true
+                                    }
+                                ]
+                            }, {
+                                "keys": [{
+                                        "idType": "Custom",
+                                        "index": 0,
+                                        "type": "Submodel",
+                                        "value": "types",
                                         "local": true
                                     }
                                 ]
@@ -704,168 +765,41 @@
                     "example": {
                         "identification": {
                             "idType": "IRI",
-                            "id": "http://customer.com/assets/KHBVZJSQKIY"
+                            "id": "urn:::AAS:::iipEcosphere#asset"
                         },
-                        "idShort": "ServoDCMotor",
-                        "hasDataSpecification": null,
+                        "idShort": "IIP_Ecosphere",
+                        "hasDataSpecification": [],
                         "administration": null,
                         "kind": "Instance",
                         "billOfMaterialRef": null,
-                        "assetIdentificationModelRef": {
-                            "keys": [{
-                                    "idType": "IRI",
-                                    "index": 0,
-                                    "type": "Submodel",
-                                    "value": "i40.customer.com/type/1/1/F13E8576F6488342",
-                                    "local": true
-                                }
-                            ]
-                        },
+                        "assetIdentificationModelRef": null,
                         "modelType": {
                             "name": "Asset"
                         },
-                        "category": "",
+                        "category": null,
                         "descriptions": null
                     }
                 }
             }
         },
-        "SubmodelelementListItem": {
+        "SubmodelListItem": {
             "type": "object",
             "required": ["idShort"],
             "properties": {
-                "semId": {
-                    "type": "string",
-                    "example": "0173-1#02-AAO677#002"
-                },
-                "unit": {
-                    "type": "string"
-                },
-                "semIdType": {
-                    "type": "string",
-                    "example": "IRDI"
-                },
-                "idShorts": {
-                    "type": "string",
-                    "example": "Manufacturer"
-                },
-                "typeName": {
-                    "type": "string",
-                    "example": "Property"
-                },
-                "shortName": {
-                    "type": "string"
-                },
-                "value": {
-                    "type": "string",
-                    "example": "CUSTOMER GmbH"
-                }
-            }
-        },
-        "ConceptDescriptionInput": {
-            "type": "object",
-            "required": ["idShort"],
-            "properties": {
-                "identification": {
-                    "type": "object",
-                    "example": {
-                        "idType": "IRI",
-                        "id": "www.vdi2770.com/blatt1/Entwurf/Okt18/cd/Document"
-                    }
-                },
                 "idShort": {
                     "type": "string",
-                    "example": "Document"
+                    "example": "installedConnectors"
                 },
-                "administration": {
-                    "type": "object"
+                "kind": {
+                    "type": "string",
+                    "example": "Instance"
                 },
-                "isCaseOf": {
-                    "type": "array",
-                    "items": {
-                        "type": "object"
-                    }
-                },
-                "modelType": {
+                "id": {
                     "type": "object",
                     "example": {
-                        "name": "ConceptDescription"
+                        "idType": "Custom",
+                        "id": "installedConnectors"
                     }
-                },
-                "category": {
-                    "type": "object"
-                },
-                "descriptions": {
-                    "type": "array",
-                    "items": {
-                        "type": "object"
-                    },
-                    "example": "[]"
-                },
-                "embeddedDataSpecifications": {
-                    "type": "array",
-                    "items": {
-                        "type": "object"
-                    },
-                    "example": [{
-                            "dataSpecification": {
-                                "keys": [{
-                                        "idType": "IRI",
-                                        "index": 0,
-                                        "type": "GlobalReference",
-                                        "value": "http://admin-shell.io/DataSpecificationTemplates/DataSpecificationIEC61360",
-                                        "local": false
-                                    }
-                                ]
-                            },
-                            "dataSpecificationContent": {
-                                "symbol": null,
-                                "unit": "",
-                                "sourceOfDefinition": "[ISO 15519-1:2010]",
-                                "dataType": "ENTITY",
-                                "valueFormat": null,
-                                "unitId": null,
-                                "definition": [{
-                                        "language": "DE",
-                                        "text": "Feste und geordnete Menge von für die Verwendung durch Personen bestimmte Informationen, die verwaltet und als Einheit zwischen Benutzern und System ausgetauscht werden kann."
-                                    }
-                                ],
-                                "preferredName": [],
-                                "shortName": [{
-                                        "language": "EN?",
-                                        "text": "Document"
-                                    }
-                                ]
-                            }
-                        }
-                    ]
-                }
-            }
-        },
-        "ConceptDescriptionListItem": {
-            "type": "object",
-            "required": ["idShort"],
-            "properties": {
-                "identification": {
-                    "type": "object",
-                    "example": {
-                        "idType": "IRI",
-                        "id": "www.vdi2770.com/blatt1/Entwurf/Okt18/cd/Document"
-                    }
-                },
-                "idShort": {
-                    "type": "string",
-                    "example": "Document"
-                },
-                "isCaseOf": {
-                    "type": "array",
-                    "items": {
-                        "type": "object"
-                    }
-                },
-                "shortName": {
-                    "type": "string",
-                    "example": "Document"
                 }
             }
         },
@@ -877,12 +811,12 @@
                     "type": "object",
                     "example": {
                         "idType": "IRI",
-                        "id": "http://customer.com/aas/9175_7013_7091_9168"
+                        "id": "urn:::AAS:::iipEcosphere#"
                     }
                 },
                 "idShort": {
                     "type": "string",
-                    "example": "ExampleMotor"
+                    "example": "IIP_Ecosphere"
                 },
                 "conceptDictionaries": {
                     "type": "array",
@@ -892,7 +826,11 @@
                     "example": "[]"
                 },
                 "hasDataSpecification": {
-                    "type": "object"
+                    "type": "array",
+                    "items": {
+                        "type": "object"
+                    },
+                    "example": "[]"
                 },
                 "administration": {
                     "type": "object"
@@ -913,15 +851,14 @@
                                 "idType": "IRI",
                                 "index": 0,
                                 "type": "Asset",
-                                "value": "http://customer.com/assets/KHBVZJSQKIY",
+                                "value": "urn:::AAS:::iipEcosphere#asset",
                                 "local": true
                             }
                         ]
                     }
                 },
                 "category": {
-                    "type": "string",
-                    "example": "CONSTANT"
+                    "type": "object"
                 },
                 "descriptions": {
                     "type": "object"
@@ -933,42 +870,142 @@
                     },
                     "example": [{
                             "keys": [{
-                                    "idType": "IRI",
+                                    "idType": "Custom",
                                     "index": 0,
                                     "type": "Submodel",
-                                    "value": "http://i40.customer.com/type/1/1/F13E8576F6488342",
+                                    "value": "installedConnectors",
                                     "local": true
                                 }
                             ]
                         }, {
                             "keys": [{
-                                    "idType": "IRI",
+                                    "idType": "Custom",
                                     "index": 0,
                                     "type": "Submodel",
-                                    "value": "http.//i40.customer.com/type/1/1/7A7104BDAB57E184",
+                                    "value": "platform",
                                     "local": true
                                 }
                             ]
                         }, {
                             "keys": [{
-                                    "idType": "IRI",
+                                    "idType": "Custom",
                                     "index": 0,
                                     "type": "Submodel",
-                                    "value": "http://i40.customer.com/instance/1/1/AC69B1CB44F07935",
+                                    "value": "activeConnectors",
                                     "local": true
                                 }
                             ]
                         }, {
                             "keys": [{
-                                    "idType": "IRI",
+                                    "idType": "Custom",
                                     "index": 0,
                                     "type": "Submodel",
-                                    "value": "http://i40.customer.com/type/1/1/1A7B62B529F19152",
+                                    "value": "transport",
+                                    "local": true
+                                }
+                            ]
+                        }, {
+                            "keys": [{
+                                    "idType": "Custom",
+                                    "index": 0,
+                                    "type": "Submodel",
+                                    "value": "resources",
+                                    "local": true
+                                }
+                            ]
+                        }, {
+                            "keys": [{
+                                    "idType": "Custom",
+                                    "index": 0,
+                                    "type": "Submodel",
+                                    "value": "netMgt",
+                                    "local": true
+                                }
+                            ]
+                        }, {
+                            "keys": [{
+                                    "idType": "Custom",
+                                    "index": 0,
+                                    "type": "Submodel",
+                                    "value": "types",
                                     "local": true
                                 }
                             ]
                         }
                     ]
+                }
+            }
+        },
+        "Asset": {
+            "type": "object",
+            "required": ["idShort"],
+            "properties": {
+                "identification": {
+                    "type": "object",
+                    "example": {
+                        "idType": "IRI",
+                        "id": "urn:::AAS:::iipEcosphere#"
+                    }
+                },
+                "idShort": {
+                    "type": "string",
+                    "example": "IIP_Ecosphere"
+                }
+            }
+        },
+        "SubmodelInput": {
+            "type": "object",
+            "required": ["idShort"],
+            "properties": {
+                "semanticId": {
+                    "type": "object",
+                    "example": {
+                        "keys": []
+                    }
+                },
+                "identification": {
+                    "type": "object",
+                    "example": {
+                        "idType": "Custom",
+                        "id": "installedConnectors"
+                    }
+                },
+                "idShort": {
+                    "type": "string",
+                    "example": "installedConnectors"
+                },
+                "hasDataSpecification": {
+                    "type": "array",
+                    "items": {
+                        "type": "object"
+                    },
+                    "example": "[]"
+                },
+                "administration": {
+                    "type": "object"
+                },
+                "kind": {
+                    "type": "string",
+                    "example": "Instance"
+                },
+                "qualifiers": {
+                    "type": "array",
+                    "items": {
+                        "type": "object"
+                    },
+                    "example": "[]"
+                },
+                "modelType": {
+                    "type": "object",
+                    "example": {
+                        "name": "Submodel"
+                    }
+                },
+                "category": {
+                    "type": "object"
+                },
+                "descriptions": {
+                    "type": "object"
                 }
             }
         },
@@ -990,421 +1027,12 @@
                     "example": "OK (updated)"
                 }
             }
-        },
-        "AssetInput": {
-            "type": "object",
-            "required": ["idShort"],
-            "properties": {
-                "identification": {
-                    "type": "object",
-                    "example": {
-                        "idType": "IRI",
-                        "id": "http://customer.com/assets/KHBVZJSQKIY"
-                    }
-                },
-                "idShort": {
-                    "type": "string",
-                    "example": "ServoDCMotor"
-                },
-                "hasDataSpecification": {
-                    "type": "object"
-                },
-                "administration": {
-                    "type": "object"
-                },
-                "kind": {
-                    "type": "string",
-                    "example": "Instance"
-                },
-                "billOfMaterialRef": {
-                    "type": "object"
-                },
-                "assetIdentificationModelRef": {
-                    "type": "object",
-                    "example": {
-                        "keys": [{
-                                "idType": "IRI",
-                                "index": 0,
-                                "type": "Submodel",
-                                "value": "i40.customer.com/type/1/1/F13E8576F6488342",
-                                "local": true
-                            }
-                        ]
-                    }
-                },
-                "modelType": {
-                    "type": "object",
-                    "example": {
-                        "name": "Asset"
-                    }
-                },
-                "category": {
-                    "type": "string"
-                },
-                "descriptions": {
-                    "type": "object"
-                }
-            }
-        },
-        "SubmodelElementInput": {
-            "type": "object",
-            "required": ["idShort"],
-            "properties": {
-                "valueId": {
-                    "type": "object"
-                },
-                "semanticId": {
-                    "type": "object",
-                    "example": {
-                        "keys": [{
-                                "idType": "IRDI",
-                                "index": 0,
-                                "type": "GlobalReference",
-                                "value": "0173-1#02-AAO677#002",
-                                "local": false
-                            }
-                        ]
-                    }
-                },
-                "idShort": {
-                    "type": "string",
-                    "example": "Manufacturer"
-                },
-                "hasDataSpecification": {
-                    "type": "object"
-                },
-                "kind": {
-                    "type": "string",
-                    "example": "Instance"
-                },
-                "valueType": {
-                    "type": "object",
-                    "example": {
-                        "dataObjectType": {
-                            "name": "string"
-                        }
-                    }
-                },
-                "modelType": {
-                    "type": "object",
-                    "example": {
-                        "name": "Property"
-                    }
-                },
-                "category": {
-                    "type": "string",
-                    "example": "CONSTANT"
-                },
-                "value": {
-                    "type": "string",
-                    "example": "CUSTOMER GmbH"
-                },
-                "constraints": {
-                    "type": "array",
-                    "items": {
-                        "type": "object"
-                    },
-                    "example": "[]"
-                },
-                "descriptions": {
-                    "type": "object"
-                }
-            }
-        },
-        "SubmodelElement": {
-            "type": "object",
-            "required": ["idShort"],
-            "properties": {
-                "elem": {
-                    "type": "object",
-                    "example": {
-                        "valueId": null,
-                        "semanticId": {
-                            "keys": [{
-                                    "idType": "IRDI",
-                                    "index": 0,
-                                    "type": "GlobalReference",
-                                    "value": "0173-1#02-AAO677#002",
-                                    "local": false
-                                }
-                            ]
-                        },
-                        "idShort": "Manufacturer",
-                        "hasDataSpecification": null,
-                        "kind": "Instance",
-                        "valueType": {
-                            "dataObjectType": {
-                                "name": "string"
-                            }
-                        },
-                        "modelType": {
-                            "name": "Property"
-                        },
-                        "category": "CONSTANT",
-                        "value": "CUSTOMER GmbH",
-                        "constraints": [],
-                        "descriptions": null
-                    }
-                },
-                "parent": {
-                    "type": "object",
-                    "example": {
-                        "semanticId": {
-                            "keys": [{
-                                    "idType": "IRDI",
-                                    "index": 0,
-                                    "type": "GlobalReference",
-                                    "value": "0173-1#01-ADN198#009",
-                                    "local": false
-                                }
-                            ]
-                        },
-                        "identification": {
-                            "idType": "IRI",
-                            "id": "http://i40.customer.com/type/1/1/F13E8576F6488342"
-                        },
-                        "idShort": "Identification",
-                        "hasDataSpecification": null,
-                        "administration": null,
-                        "kind": "Instance",
-                        "qualifiers": [],
-                        "modelType": {
-                            "name": "Submodel"
-                        },
-                        "category": "CONSTANT",
-                        "descriptions": [{
-                                "language": "EN",
-                                "text": "Identification from Manufacturer"
-                            }
-                        ]
-                    }
-                },
-                "wrapper": {
-                    "type": "object",
-                    "example": {
-                        "submodelElement": {
-                            "valueId": null,
-                            "semanticId": {
-                                "keys": [{
-                                        "idType": "IRDI",
-                                        "index": 0,
-                                        "type": "GlobalReference",
-                                        "value": "0173-1#02-AAO677#002",
-                                        "local": false
-                                    }
-                                ]
-                            },
-                            "idShort": "Manufacturer",
-                            "hasDataSpecification": null,
-                            "kind": "Instance",
-                            "valueType": {
-                                "dataObjectType": {
-                                    "name": "string"
-                                }
-                            },
-                            "modelType": {
-                                "name": "Property"
-                            },
-                            "category": "CONSTANT",
-                            "value": "CUSTOMER GmbH",
-                            "constraints": [],
-                            "descriptions": null
-                        }
-                    }
-                }
-            }
-        },
-        "SubmodelListItem": {
-            "type": "object",
-            "required": ["idShort"],
-            "properties": {
-                "idShort": {
-                    "type": "string",
-                    "example": "Identification"
-                },
-                "kind": {
-                    "type": "string",
-                    "example": "Instance"
-                },
-                "id": {
-                    "type": "object",
-                    "example": {
-                        "idType": "IRI",
-                        "id": "http://i40.customer.com/type/1/1/F13E8576F6488342"
-                    }
-                }
-            }
-        },
-        "Asset": {
-            "type": "object",
-            "required": ["idShort"],
-            "properties": {
-                "identification": {
-                    "type": "object",
-                    "example": {
-                        "idType": "IRI",
-                        "id": "http://customer.com/aas/9175_7013_7091_9168"
-                    }
-                },
-                "idShort": {
-                    "type": "string",
-                    "example": "ExampleMotor"
-                }
-            }
-        },
-        "SubmodelInput": {
-            "type": "object",
-            "required": ["idShort"],
-            "properties": {
-                "semanticId": {
-                    "type": "object",
-                    "example": {
-                        "keys": [{
-                                "idType": "IRDI",
-                                "index": 0,
-                                "type": "GlobalReference",
-                                "value": "0173-1#01-ADN198#009",
-                                "local": false
-                            }
-                        ]
-                    }
-                },
-                "identification": {
-                    "type": "object",
-                    "example": {
-                        "idType": "IRI",
-                        "id": "http://i40.customer.com/type/1/1/F13E8576F6488342"
-                    }
-                },
-                "idShort": {
-                    "type": "string",
-                    "example": "Identification"
-                },
-                "hasDataSpecification": {
-                    "type": "object"
-                },
-                "administration": {
-                    "type": "object"
-                },
-                "kind": {
-                    "type": "string",
-                    "example": "Instance"
-                },
-                "qualifiers": {
-                    "type": "array",
-                    "items": {
-                        "type": "object"
-                    },
-                    "example": "[]"
-                },
-                "modelType": {
-                    "type": "object",
-                    "example": {
-                        "name": "Submodel"
-                    }
-                },
-                "category": {
-                    "type": "string",
-                    "example": "CONSTANT"
-                },
-                "descriptions": {
-                    "type": "array",
-                    "items": {
-                        "type": "object"
-                    },
-                    "example": [{
-                            "language": "EN",
-                            "text": "Identification from Manufacturer"
-                        }
-                    ]
-                }
-            }
-        },
-        "ConceptDescription": {
-            "type": "object",
-            "required": ["idShort"],
-            "properties": {
-                "identification": {
-                    "type": "object",
-                    "example": {
-                        "idType": "IRI",
-                        "id": "www.vdi2770.com/blatt1/Entwurf/Okt18/cd/Document"
-                    }
-                },
-                "idShort": {
-                    "type": "string",
-                    "example": "Document"
-                },
-                "administration": {
-                    "type": "object"
-                },
-                "isCaseOf": {
-                    "type": "array",
-                    "items": {
-                        "type": "object"
-                    }
-                },
-                "modelType": {
-                    "type": "object",
-                    "example": {
-                        "name": "ConceptDescription"
-                    }
-                },
-                "category": {
-                    "type": "object"
-                },
-                "descriptions": {
-                    "type": "array",
-                    "items": {
-                        "type": "object"
-                    },
-                    "example": "[]"
-                },
-                "embeddedDataSpecifications": {
-                    "type": "array",
-                    "items": {
-                        "type": "object"
-                    },
-                    "example": [{
-                            "dataSpecification": {
-                                "keys": [{
-                                        "idType": "IRI",
-                                        "index": 0,
-                                        "type": "GlobalReference",
-                                        "value": "http://admin-shell.io/DataSpecificationTemplates/DataSpecificationIEC61360",
-                                        "local": false
-                                    }
-                                ]
-                            },
-                            "dataSpecificationContent": {
-                                "symbol": null,
-                                "unit": "",
-                                "sourceOfDefinition": "[ISO 15519-1:2010]",
-                                "dataType": "ENTITY",
-                                "valueFormat": null,
-                                "unitId": null,
-                                "definition": [{
-                                        "language": "DE",
-                                        "text": "Feste und geordnete Menge von für die Verwendung durch Personen bestimmte Informationen, die verwaltet und als Einheit zwischen Benutzern und System ausgetauscht werden kann."
-                                    }
-                                ],
-                                "preferredName": [],
-                                "shortName": [{
-                                        "language": "EN?",
-                                        "text": "Document"
-                                    }
-                                ]
-                            }
-                        }
-                    ]
-                }
-            }
         }
     },
     "swagger": "2.0",
     "info": {
-        "description": "REST server for access to the Asset Administration Shell: ExampleMotor",
-        "title": "Asset Adminstration Shell: ExampleMotor",
+        "description": "REST server for access to the Asset Administration Shell: IIP_Ecosphere",
+        "title": "Asset Adminstration Shell: IIP_Ecosphere",
         "version": "1.0"
     },
     "tags": [{
