@@ -37,6 +37,15 @@ public class Items {
     }
 
     /**
+     * Getter for the reference to a items object.
+     * 
+     * @return the reference to a items object
+     */
+    public String getRef() {
+        return this.$ref;
+    }
+    
+    /**
      * Get a array of all template values.
      *
      * @return array of all template values

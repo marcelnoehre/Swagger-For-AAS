@@ -86,7 +86,7 @@ public class DataGenerationService {
             default:
                 break;
             }
-            if(!VALID_DEFINITION_NAMES.contains(schema.getRef())) {
+            if(!VALID_DEFINITION_NAMES.contains(schema.getRef().replace("#/definitions/", ""))) {
                 String ref = "#/definitions/";
                 ref += route.getTag().equals("Submodelelement")
                         ? "ExamplePutSubmodelElementBody"
@@ -177,8 +177,16 @@ public class DataGenerationService {
                     + routes.replaceIDs(route.getPath()));
             bad = restService.httpGet(routes.getBaseUrl()
                     + routes.replaceIDs(path));
-            if(!VALID_DEFINITION_NAMES.contains(schema.getRef())) {
-                schema = null;
+            try {
+                if(!VALID_DEFINITION_NAMES.contains(
+                        schema.getRef().replace("#/definitions/", ""))) {
+                    schema = null;
+                }
+            } catch(NullPointerException nullPointer) {
+                if(!VALID_DEFINITION_NAMES.contains(schema.getItems().getRef()
+                        .replace("#/definitions/", ""))) {
+                    schema = null;
+                }
             }
             return new Response[] {
                     new Response(bad[0], bad[1], null, null),

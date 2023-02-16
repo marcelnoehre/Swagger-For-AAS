@@ -6,10 +6,13 @@
                 "produces": ["application/json"],
                 "responses": {
                     "200": {
+                        "schema": {
+                            "$ref": "#/definitions/Submodel"
+                        },
                         "description": "successful operation"
                     },
                     "404": {
-                        "description": "No AAS 'IIP_Ecosphere' or no Submodel with idShort 'example' found."
+                        "description": "No AAS 'ExampleMotor' or no Submodel with idShort 'example' found."
                     }
                 },
                 "parameters": [{
@@ -57,41 +60,15 @@
                 "consumes": ["application/json"]
             }
         },
-        "/aas/{aas.idShort}/submodels/{submodel.idShort}/table": {
-            "get": {
-                "summary": "A list of all elements of an submodel",
-                "produces": ["application/json"],
-                "responses": {
-                    "200": {
-                        "description": "successful operation"
-                    },
-                    "404": {
-                        "description": "No AAS 'IIP_Ecosphere' or no Submodel with idShort 'example' found."
-                    }
-                },
-                "parameters": [{
-                        "in": "path",
-                        "name": "aas.idShort",
-                        "description": "The unique ID of an AAS",
-                        "type": "string",
-                        "required": true
-                    }, {
-                        "in": "path",
-                        "name": "submodel.idShort",
-                        "description": "The unique ID of an Submodel",
-                        "type": "string",
-                        "required": true
-                    }
-                ],
-                "tags": ["Submodel"]
-            }
-        },
         "/aas/{aas.idShort}": {
             "get": {
                 "summary": "Information about the Asset Administration Shell",
                 "produces": ["application/json"],
                 "responses": {
                     "200": {
+                        "schema": {
+                            "$ref": "#/definitions/AssetAdministrationShell"
+                        },
                         "description": "successful operation"
                     },
                     "404": {
@@ -137,174 +114,6 @@
                 "consumes": ["application/json"]
             }
         },
-        "/aas/{aas.idShort}/submodels/{submodel.idShort}/elements/": {
-            "put": {
-                "summary": "Add or update a submodelelement",
-                "produces": ["text/plain"],
-                "responses": {
-                    "200": {
-                        "schema": {
-                            "type": "string"
-                        },
-                        "description": "OK"
-                    },
-                    "400": {
-                        "schema": {
-                            "type": "string"
-                        },
-                        "description": "Cannot deserialize payload: Unexpected character encountered while parsing value: e. Path '', line 0, position 0.."
-                    }
-                },
-                "parameters": [{
-                        "in": "path",
-                        "name": "aas.idShort",
-                        "description": "The unique ID of an AAS",
-                        "type": "string",
-                        "required": true
-                    }, {
-                        "in": "path",
-                        "name": "submodel.idShort",
-                        "description": "The unique ID of an Submodel",
-                        "type": "string",
-                        "required": true
-                    }, {
-                        "schema": {
-                            "$ref": "#/definitions/ExamplePutSubmodelElementBody"
-                        },
-                        "in": "body",
-                        "name": "Submodelelement",
-                        "description": "The new or updated Submodelelement",
-                        "required": true
-                    }
-                ],
-                "tags": ["Submodelelement"],
-                "consumes": ["application/json"]
-            }
-        },
-        "/aas/{aas.idShort}/cds/": {
-            "put": {
-                "summary": "Add or update a concept description",
-                "produces": ["text/plain"],
-                "responses": {
-                    "200": {
-                        "schema": {
-                            "type": "string"
-                        },
-                        "description": "OK (new)"
-                    },
-                    "400": {
-                        "schema": {
-                            "type": "string"
-                        },
-                        "description": "Cannot deserialize payload: Unexpected character encountered while parsing value: e. Path '', line 0, position 0.."
-                    }
-                },
-                "parameters": [{
-                        "in": "path",
-                        "name": "aas.idShort",
-                        "description": "The unique ID of an AAS",
-                        "type": "string",
-                        "required": true
-                    }, {
-                        "schema": {
-                            "$ref": "#/definitions/ExamplePutBody"
-                        },
-                        "in": "body",
-                        "name": "Concept Description",
-                        "description": "The new or updated Concept Description",
-                        "required": true
-                    }
-                ],
-                "tags": ["Concept Description"],
-                "consumes": ["application/json"]
-            }
-        },
-        "/aas/{aas.idShort}/cds": {
-            "get": {
-                "summary": "A list of all concept descriptions of an AAS",
-                "produces": ["application/json"],
-                "responses": {
-                    "200": {
-                        "description": "successful operation"
-                    },
-                    "404": {
-                        "description": "No AAS with idShort 'example' found."
-                    }
-                },
-                "parameters": [{
-                        "in": "path",
-                        "name": "aas.idShort",
-                        "description": "The unique ID of an AAS",
-                        "type": "string",
-                        "required": true
-                    }
-                ],
-                "tags": ["Concept Description"]
-            }
-        },
-        "/aas/{aas.idShort}/cds/{cd.idShort}": {
-            "get": {
-                "summary": "Information about a concept description",
-                "produces": ["application/json"],
-                "responses": {
-                    "200": {
-                        "description": "successful operation"
-                    },
-                    "404": {
-                        "description": "No AAS 'IIP_Ecosphere' or no ConceptDescription with id 'example' found."
-                    }
-                },
-                "parameters": [{
-                        "in": "path",
-                        "name": "aas.idShort",
-                        "description": "The unique ID of an AAS",
-                        "type": "string",
-                        "required": true
-                    }, {
-                        "in": "path",
-                        "name": "cd.idShort",
-                        "description": "The unique ID of a CD",
-                        "type": "string",
-                        "required": true
-                    }
-                ],
-                "tags": ["Concept Description"]
-            },
-            "delete": {
-                "summary": "Delete a concept description",
-                "produces": ["text/plain"],
-                "responses": {
-                    "200": {
-                        "schema": {
-                            "type": "string"
-                        },
-                        "description": "OK"
-                    },
-                    "404": {
-                        "schema": {
-                            "type": "string"
-                        },
-                        "description": "No AAS 'IIP_Ecosphere' or no ConceptDescription with id 'example' found."
-                    }
-                },
-                "parameters": [{
-                        "in": "path",
-                        "name": "aas.idShort",
-                        "description": "The unique ID of an AAS",
-                        "type": "string",
-                        "required": true
-                    }, {
-                        "in": "path",
-                        "name": "cd.idShort",
-                        "description": "The unique ID of a CD",
-                        "type": "string",
-                        "required": true
-                    }
-                ],
-                "tags": ["Concept Description"],
-                "consumes": ["application/json"]
-            }
-        },
         "/aas/": {
             "put": {
                 "summary": "Add or update a Asset Administration Shell",
@@ -325,7 +134,7 @@
                 },
                 "parameters": [{
                         "schema": {
-                            "$ref": "#/definitions/ExamplePutBody"
+                            "$ref": "#/definitions/AasInput"
                         },
                         "in": "body",
                         "name": "Asset Administration Shell",
@@ -351,7 +160,7 @@
                 },
                 "parameters": [{
                         "schema": {
-                            "$ref": "#/definitions/ExamplePutBody"
+                            "$ref": "#/definitions/AssetInput"
                         },
                         "in": "body",
                         "name": "Asset",
@@ -363,32 +172,18 @@
                 "consumes": ["application/json"]
             }
         },
-        "/assets/{aas.idShort}": {
-            "get": {
-                "summary": "Information about the Asset",
-                "produces": ["application/json"],
-                "responses": {
-                    "200": {
-                        "description": "successful operation"
-                    }
-                },
-                "parameters": [{
-                        "in": "path",
-                        "name": "aas.idShort",
-                        "description": "The unique ID of an AAS",
-                        "type": "string",
-                        "required": true
-                    }
-                ],
-                "tags": ["Asset"]
-            }
-        },
         "/aas/{aas.idShort}/submodels": {
             "get": {
                 "summary": "A list of all submodels of an AAS",
                 "produces": ["application/json"],
                 "responses": {
                     "200": {
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/SubmodelListItem"
+                            }
+                        },
                         "description": "successful operation"
                     },
                     "404": {
@@ -432,7 +227,7 @@
                         "required": true
                     }, {
                         "schema": {
-                            "$ref": "#/definitions/ExamplePutBody"
+                            "$ref": "#/definitions/SubmodelInput"
                         },
                         "in": "body",
                         "name": "Submodel",
@@ -443,61 +238,328 @@
                 "tags": ["Submodel"],
                 "consumes": ["application/json"]
             }
+        },
+        "/aas/{aas.idShort}/submodels/{submodel.idShort}/table": {
+            "get": {
+                "summary": "A list of all elements of an submodel",
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/SubmodelelementListItem"
+                            }
+                        },
+                        "description": "successful operation"
+                    },
+                    "404": {
+                        "description": "No AAS 'ExampleMotor' or no Submodel with idShort 'example' found."
+                    }
+                },
+                "parameters": [{
+                        "in": "path",
+                        "name": "aas.idShort",
+                        "description": "The unique ID of an AAS",
+                        "type": "string",
+                        "required": true
+                    }, {
+                        "in": "path",
+                        "name": "submodel.idShort",
+                        "description": "The unique ID of an Submodel",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "tags": ["Submodel"]
+            }
+        },
+        "/aas/{aas.idShort}/submodels/{submodel.idShort}/elements/": {
+            "put": {
+                "summary": "Add or update a submodelelement",
+                "produces": ["text/plain"],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "OK"
+                    },
+                    "400": {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "Cannot deserialize payload: Unexpected character encountered while parsing value: e. Path '', line 0, position 0.."
+                    }
+                },
+                "parameters": [{
+                        "in": "path",
+                        "name": "aas.idShort",
+                        "description": "The unique ID of an AAS",
+                        "type": "string",
+                        "required": true
+                    }, {
+                        "in": "path",
+                        "name": "submodel.idShort",
+                        "description": "The unique ID of an Submodel",
+                        "type": "string",
+                        "required": true
+                    }, {
+                        "schema": {
+                            "$ref": "#/definitions/SubmodelElementInput"
+                        },
+                        "in": "body",
+                        "name": "Submodelelement",
+                        "description": "The new or updated Submodelelement",
+                        "required": true
+                    }
+                ],
+                "tags": ["Submodelelement"],
+                "consumes": ["application/json"]
+            }
+        },
+        "/aas/{aas.idShort}/cds/": {
+            "put": {
+                "summary": "Add or update a concept description",
+                "produces": ["text/plain"],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "OK (new)"
+                    },
+                    "400": {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "Cannot deserialize payload: Unexpected character encountered while parsing value: e. Path '', line 0, position 0.."
+                    }
+                },
+                "parameters": [{
+                        "in": "path",
+                        "name": "aas.idShort",
+                        "description": "The unique ID of an AAS",
+                        "type": "string",
+                        "required": true
+                    }, {
+                        "schema": {
+                            "$ref": "#/definitions/ConceptDescriptionInput"
+                        },
+                        "in": "body",
+                        "name": "Concept Description",
+                        "description": "The new or updated Concept Description",
+                        "required": true
+                    }
+                ],
+                "tags": ["Concept Description"],
+                "consumes": ["application/json"]
+            }
+        },
+        "/aas/{aas.idShort}/cds": {
+            "get": {
+                "summary": "A list of all concept descriptions of an AAS",
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/ConceptDescriptionListItem"
+                            }
+                        },
+                        "description": "successful operation"
+                    },
+                    "404": {
+                        "description": "No AAS with idShort 'example' found."
+                    }
+                },
+                "parameters": [{
+                        "in": "path",
+                        "name": "aas.idShort",
+                        "description": "The unique ID of an AAS",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "tags": ["Concept Description"]
+            }
+        },
+        "/aas/{aas.idShort}/cds/{cd.idShort}": {
+            "get": {
+                "summary": "Information about a concept description",
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/ConceptDescription"
+                        },
+                        "description": "successful operation"
+                    },
+                    "404": {
+                        "description": "No AAS 'ExampleMotor' or no ConceptDescription with id 'example' found."
+                    }
+                },
+                "parameters": [{
+                        "in": "path",
+                        "name": "aas.idShort",
+                        "description": "The unique ID of an AAS",
+                        "type": "string",
+                        "required": true
+                    }, {
+                        "in": "path",
+                        "name": "cd.idShort",
+                        "description": "The unique ID of a CD",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "tags": ["Concept Description"]
+            },
+            "delete": {
+                "summary": "Delete a concept description",
+                "produces": ["text/plain"],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "OK"
+                    },
+                    "404": {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "No AAS 'ExampleMotor' or no ConceptDescription with id 'example' found."
+                    }
+                },
+                "parameters": [{
+                        "in": "path",
+                        "name": "aas.idShort",
+                        "description": "The unique ID of an AAS",
+                        "type": "string",
+                        "required": true
+                    }, {
+                        "in": "path",
+                        "name": "cd.idShort",
+                        "description": "The unique ID of a CD",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "tags": ["Concept Description"],
+                "consumes": ["application/json"]
+            }
+        },
+        "/assets/{aas.idShort}": {
+            "get": {
+                "summary": "Information about the Asset",
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Asset"
+                            }
+                        },
+                        "description": "successful operation"
+                    }
+                },
+                "parameters": [{
+                        "in": "path",
+                        "name": "aas.idShort",
+                        "description": "The unique ID of an AAS",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "tags": ["Asset"]
+            }
+        },
+        "/aas/{aas.idShort}/submodels/{submodel.idShort}/elements/{element.idShort}": {
+            "get": {
+                "summary": "Information about the submodelelement",
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/SubmodelElement"
+                        },
+                        "description": "successful operation"
+                    },
+                    "404": {
+                        "description": "No matching element in Submodel found."
+                    }
+                },
+                "parameters": [{
+                        "in": "path",
+                        "name": "aas.idShort",
+                        "description": "The unique ID of an AAS",
+                        "type": "string",
+                        "required": true
+                    }, {
+                        "in": "path",
+                        "name": "submodel.idShort",
+                        "description": "The unique ID of an Submodel",
+                        "type": "string",
+                        "required": true
+                    }, {
+                        "in": "path",
+                        "name": "element.idShort",
+                        "description": "The unique ID of an Element",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "tags": ["Submodelelement"]
+            },
+            "delete": {
+                "summary": "Delete a submodelelement",
+                "produces": ["text/plain"],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "OK"
+                    },
+                    "404": {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "No matching element in Submodel found."
+                    }
+                },
+                "parameters": [{
+                        "in": "path",
+                        "name": "aas.idShort",
+                        "description": "The unique ID of an AAS",
+                        "type": "string",
+                        "required": true
+                    }, {
+                        "in": "path",
+                        "name": "submodel.idShort",
+                        "description": "The unique ID of an Submodel",
+                        "type": "string",
+                        "required": true
+                    }, {
+                        "in": "path",
+                        "name": "element.idShort",
+                        "description": "The unique ID of an Element",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "tags": ["Submodelelement"],
+                "consumes": ["application/json"]
+            }
         }
     },
     "host": "localhost:1111",
     "schemes": ["http"],
     "securityDefinitions": {},
     "definitions": {
-        "AssetInput": {
-            "type": "object",
-            "required": ["idShort"],
-            "properties": {
-                "identification": {
-                    "type": "object",
-                    "example": {
-                        "idType": "IRI",
-                        "id": "urn:::AAS:::iipEcosphere#asset"
-                    }
-                },
-                "idShort": {
-                    "type": "string",
-                    "example": "IIP_Ecosphere"
-                },
-                "hasDataSpecification": {
-                    "type": "array",
-                    "items": {
-                        "type": "object"
-                    },
-                    "example": "[]"
-                },
-                "administration": {
-                    "type": "object"
-                },
-                "kind": {
-                    "type": "string",
-                    "example": "Instance"
-                },
-                "billOfMaterialRef": {
-                    "type": "object"
-                },
-                "assetIdentificationModelRef": {
-                    "type": "object"
-                },
-                "modelType": {
-                    "type": "object",
-                    "example": {
-                        "name": "Asset"
-                    }
-                },
-                "category": {
-                    "type": "object"
-                },
-                "descriptions": {
-                    "type": "object"
-                }
-            }
-        },
         "Submodel": {
             "type": "object",
             "required": ["idShort"],
@@ -505,26 +567,29 @@
                 "semanticId": {
                     "type": "object",
                     "example": {
-                        "keys": []
+                        "keys": [{
+                                "idType": "IRDI",
+                                "index": 0,
+                                "type": "GlobalReference",
+                                "value": "0173-1#01-ADN198#009",
+                                "local": false
+                            }
+                        ]
                     }
                 },
                 "identification": {
                     "type": "object",
                     "example": {
-                        "idType": "Custom",
-                        "id": "installedConnectors"
+                        "idType": "IRI",
+                        "id": "http://i40.customer.com/type/1/1/F13E8576F6488342"
                     }
                 },
                 "idShort": {
                     "type": "string",
-                    "example": "installedConnectors"
+                    "example": "Identification"
                 },
                 "hasDataSpecification": {
-                    "type": "array",
-                    "items": {
-                        "type": "object"
-                    },
-                    "example": "[]"
+                    "type": "object"
                 },
                 "administration": {
                     "type": "object"
@@ -547,10 +612,19 @@
                     }
                 },
                 "category": {
-                    "type": "object"
+                    "type": "string",
+                    "example": "CONSTANT"
                 },
                 "descriptions": {
-                    "type": "object"
+                    "type": "array",
+                    "items": {
+                        "type": "object"
+                    },
+                    "example": [{
+                            "language": "EN",
+                            "text": "Identification from Manufacturer"
+                        }
+                    ]
                 }
             }
         },
@@ -563,11 +637,11 @@
                     "example": {
                         "identification": {
                             "idType": "IRI",
-                            "id": "urn:::AAS:::iipEcosphere#"
+                            "id": "http://customer.com/aas/9175_7013_7091_9168"
                         },
-                        "idShort": "IIP_Ecosphere",
+                        "idShort": "ExampleMotor",
                         "conceptDictionaries": [],
-                        "hasDataSpecification": [],
+                        "hasDataSpecification": null,
                         "administration": null,
                         "derivedFrom": null,
                         "modelType": {
@@ -578,100 +652,46 @@
                                     "idType": "IRI",
                                     "index": 0,
                                     "type": "Asset",
-                                    "value": "urn:::AAS:::iipEcosphere#asset",
+                                    "value": "http://customer.com/assets/KHBVZJSQKIY",
                                     "local": true
                                 }
                             ]
                         },
-                        "category": null,
+                        "category": "CONSTANT",
                         "descriptions": null,
                         "submodels": [{
                                 "keys": [{
-                                        "idType": "Custom",
+                                        "idType": "IRI",
                                         "index": 0,
                                         "type": "Submodel",
-                                        "value": "installedConnectors",
+                                        "value": "http://i40.customer.com/type/1/1/F13E8576F6488342",
                                         "local": true
                                     }
                                 ]
                             }, {
                                 "keys": [{
-                                        "idType": "Custom",
+                                        "idType": "IRI",
                                         "index": 0,
                                         "type": "Submodel",
-                                        "value": "platform",
+                                        "value": "http.//i40.customer.com/type/1/1/7A7104BDAB57E184",
                                         "local": true
                                     }
                                 ]
                             }, {
                                 "keys": [{
-                                        "idType": "Custom",
+                                        "idType": "IRI",
                                         "index": 0,
                                         "type": "Submodel",
-                                        "value": "Artifacts",
+                                        "value": "http://i40.customer.com/instance/1/1/AC69B1CB44F07935",
                                         "local": true
                                     }
                                 ]
                             }, {
                                 "keys": [{
-                                        "idType": "Custom",
+                                        "idType": "IRI",
                                         "index": 0,
                                         "type": "Submodel",
-                                        "value": "TechnicalData",
-                                        "local": true
-                                    }
-                                ]
-                            }, {
-                                "keys": [{
-                                        "idType": "Custom",
-                                        "index": 0,
-                                        "type": "Submodel",
-                                        "value": "services",
-                                        "local": true
-                                    }
-                                ]
-                            }, {
-                                "keys": [{
-                                        "idType": "Custom",
-                                        "index": 0,
-                                        "type": "Submodel",
-                                        "value": "activeConnectors",
-                                        "local": true
-                                    }
-                                ]
-                            }, {
-                                "keys": [{
-                                        "idType": "Custom",
-                                        "index": 0,
-                                        "type": "Submodel",
-                                        "value": "transport",
-                                        "local": true
-                                    }
-                                ]
-                            }, {
-                                "keys": [{
-                                        "idType": "Custom",
-                                        "index": 0,
-                                        "type": "Submodel",
-                                        "value": "resources",
-                                        "local": true
-                                    }
-                                ]
-                            }, {
-                                "keys": [{
-                                        "idType": "Custom",
-                                        "index": 0,
-                                        "type": "Submodel",
-                                        "value": "netMgt",
-                                        "local": true
-                                    }
-                                ]
-                            }, {
-                                "keys": [{
-                                        "idType": "Custom",
-                                        "index": 0,
-                                        "type": "Submodel",
-                                        "value": "types",
+                                        "value": "http://i40.customer.com/type/1/1/1A7B62B529F19152",
                                         "local": true
                                     }
                                 ]
@@ -684,20 +704,410 @@
                     "example": {
                         "identification": {
                             "idType": "IRI",
-                            "id": "urn:::AAS:::iipEcosphere#asset"
+                            "id": "http://customer.com/assets/KHBVZJSQKIY"
                         },
-                        "idShort": "IIP_Ecosphere",
-                        "hasDataSpecification": [],
+                        "idShort": "ServoDCMotor",
+                        "hasDataSpecification": null,
                         "administration": null,
                         "kind": "Instance",
                         "billOfMaterialRef": null,
-                        "assetIdentificationModelRef": null,
+                        "assetIdentificationModelRef": {
+                            "keys": [{
+                                    "idType": "IRI",
+                                    "index": 0,
+                                    "type": "Submodel",
+                                    "value": "i40.customer.com/type/1/1/F13E8576F6488342",
+                                    "local": true
+                                }
+                            ]
+                        },
                         "modelType": {
                             "name": "Asset"
                         },
-                        "category": null,
+                        "category": "",
                         "descriptions": null
                     }
+                }
+            }
+        },
+        "SubmodelelementListItem": {
+            "type": "object",
+            "required": ["idShort"],
+            "properties": {
+                "semId": {
+                    "type": "string",
+                    "example": "0173-1#02-AAO677#002"
+                },
+                "unit": {
+                    "type": "string"
+                },
+                "semIdType": {
+                    "type": "string",
+                    "example": "IRDI"
+                },
+                "idShorts": {
+                    "type": "string",
+                    "example": "Manufacturer"
+                },
+                "typeName": {
+                    "type": "string",
+                    "example": "Property"
+                },
+                "shortName": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "string",
+                    "example": "CUSTOMER GmbH"
+                }
+            }
+        },
+        "ConceptDescriptionInput": {
+            "type": "object",
+            "required": ["idShort"],
+            "properties": {
+                "identification": {
+                    "type": "object",
+                    "example": {
+                        "idType": "IRI",
+                        "id": "www.vdi2770.com/blatt1/Entwurf/Okt18/cd/Document"
+                    }
+                },
+                "idShort": {
+                    "type": "string",
+                    "example": "Document"
+                },
+                "administration": {
+                    "type": "object"
+                },
+                "isCaseOf": {
+                    "type": "array",
+                    "items": {
+                        "type": "object"
+                    }
+                },
+                "modelType": {
+                    "type": "object",
+                    "example": {
+                        "name": "ConceptDescription"
+                    }
+                },
+                "category": {
+                    "type": "object"
+                },
+                "descriptions": {
+                    "type": "array",
+                    "items": {
+                        "type": "object"
+                    },
+                    "example": "[]"
+                },
+                "embeddedDataSpecifications": {
+                    "type": "array",
+                    "items": {
+                        "type": "object"
+                    },
+                    "example": [{
+                            "dataSpecification": {
+                                "keys": [{
+                                        "idType": "IRI",
+                                        "index": 0,
+                                        "type": "GlobalReference",
+                                        "value": "http://admin-shell.io/DataSpecificationTemplates/DataSpecificationIEC61360",
+                                        "local": false
+                                    }
+                                ]
+                            },
+                            "dataSpecificationContent": {
+                                "symbol": null,
+                                "unit": "",
+                                "sourceOfDefinition": "[ISO 15519-1:2010]",
+                                "dataType": "ENTITY",
+                                "valueFormat": null,
+                                "unitId": null,
+                                "definition": [{
+                                        "language": "DE",
+                                        "text": "Feste und geordnete Menge von für die Verwendung durch Personen bestimmte Informationen, die verwaltet und als Einheit zwischen Benutzern und System ausgetauscht werden kann."
+                                    }
+                                ],
+                                "preferredName": [],
+                                "shortName": [{
+                                        "language": "EN?",
+                                        "text": "Document"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            }
+        },
+        "ConceptDescriptionListItem": {
+            "type": "object",
+            "required": ["idShort"],
+            "properties": {
+                "identification": {
+                    "type": "object",
+                    "example": {
+                        "idType": "IRI",
+                        "id": "www.vdi2770.com/blatt1/Entwurf/Okt18/cd/Document"
+                    }
+                },
+                "idShort": {
+                    "type": "string",
+                    "example": "Document"
+                },
+                "isCaseOf": {
+                    "type": "array",
+                    "items": {
+                        "type": "object"
+                    }
+                },
+                "shortName": {
+                    "type": "string",
+                    "example": "Document"
+                }
+            }
+        },
+        "AasInput": {
+            "type": "object",
+            "required": ["idShort"],
+            "properties": {
+                "identification": {
+                    "type": "object",
+                    "example": {
+                        "idType": "IRI",
+                        "id": "http://customer.com/aas/9175_7013_7091_9168"
+                    }
+                },
+                "idShort": {
+                    "type": "string",
+                    "example": "ExampleMotor"
+                },
+                "conceptDictionaries": {
+                    "type": "array",
+                    "items": {
+                        "type": "object"
+                    },
+                    "example": "[]"
+                },
+                "hasDataSpecification": {
+                    "type": "object"
+                },
+                "administration": {
+                    "type": "object"
+                },
+                "derivedFrom": {
+                    "type": "object"
+                },
+                "modelType": {
+                    "type": "object",
+                    "example": {
+                        "name": "AssetAdministrationShell"
+                    }
+                },
+                "asset": {
+                    "type": "object",
+                    "example": {
+                        "keys": [{
+                                "idType": "IRI",
+                                "index": 0,
+                                "type": "Asset",
+                                "value": "http://customer.com/assets/KHBVZJSQKIY",
+                                "local": true
+                            }
+                        ]
+                    }
+                },
+                "category": {
+                    "type": "string",
+                    "example": "CONSTANT"
+                },
+                "descriptions": {
+                    "type": "object"
+                },
+                "submodels": {
+                    "type": "array",
+                    "items": {
+                        "type": "object"
+                    },
+                    "example": [{
+                            "keys": [{
+                                    "idType": "IRI",
+                                    "index": 0,
+                                    "type": "Submodel",
+                                    "value": "http://i40.customer.com/type/1/1/F13E8576F6488342",
+                                    "local": true
+                                }
+                            ]
+                        }, {
+                            "keys": [{
+                                    "idType": "IRI",
+                                    "index": 0,
+                                    "type": "Submodel",
+                                    "value": "http.//i40.customer.com/type/1/1/7A7104BDAB57E184",
+                                    "local": true
+                                }
+                            ]
+                        }, {
+                            "keys": [{
+                                    "idType": "IRI",
+                                    "index": 0,
+                                    "type": "Submodel",
+                                    "value": "http://i40.customer.com/instance/1/1/AC69B1CB44F07935",
+                                    "local": true
+                                }
+                            ]
+                        }, {
+                            "keys": [{
+                                    "idType": "IRI",
+                                    "index": 0,
+                                    "type": "Submodel",
+                                    "value": "http://i40.customer.com/type/1/1/1A7B62B529F19152",
+                                    "local": true
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        },
+        "ApiResponse": {
+            "type": "object",
+            "required": ["resultCode", "type", "message"],
+            "properties": {
+                "resultCode": {
+                    "format": "int32",
+                    "type": "integer",
+                    "example": 200
+                },
+                "type": {
+                    "type": "string",
+                    "example": "application/json"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "OK (updated)"
+                }
+            }
+        },
+        "AssetInput": {
+            "type": "object",
+            "required": ["idShort"],
+            "properties": {
+                "identification": {
+                    "type": "object",
+                    "example": {
+                        "idType": "IRI",
+                        "id": "http://customer.com/assets/KHBVZJSQKIY"
+                    }
+                },
+                "idShort": {
+                    "type": "string",
+                    "example": "ServoDCMotor"
+                },
+                "hasDataSpecification": {
+                    "type": "object"
+                },
+                "administration": {
+                    "type": "object"
+                },
+                "kind": {
+                    "type": "string",
+                    "example": "Instance"
+                },
+                "billOfMaterialRef": {
+                    "type": "object"
+                },
+                "assetIdentificationModelRef": {
+                    "type": "object",
+                    "example": {
+                        "keys": [{
+                                "idType": "IRI",
+                                "index": 0,
+                                "type": "Submodel",
+                                "value": "i40.customer.com/type/1/1/F13E8576F6488342",
+                                "local": true
+                            }
+                        ]
+                    }
+                },
+                "modelType": {
+                    "type": "object",
+                    "example": {
+                        "name": "Asset"
+                    }
+                },
+                "category": {
+                    "type": "string"
+                },
+                "descriptions": {
+                    "type": "object"
+                }
+            }
+        },
+        "SubmodelElementInput": {
+            "type": "object",
+            "required": ["idShort"],
+            "properties": {
+                "valueId": {
+                    "type": "object"
+                },
+                "semanticId": {
+                    "type": "object",
+                    "example": {
+                        "keys": [{
+                                "idType": "IRDI",
+                                "index": 0,
+                                "type": "GlobalReference",
+                                "value": "0173-1#02-AAO677#002",
+                                "local": false
+                            }
+                        ]
+                    }
+                },
+                "idShort": {
+                    "type": "string",
+                    "example": "Manufacturer"
+                },
+                "hasDataSpecification": {
+                    "type": "object"
+                },
+                "kind": {
+                    "type": "string",
+                    "example": "Instance"
+                },
+                "valueType": {
+                    "type": "object",
+                    "example": {
+                        "dataObjectType": {
+                            "name": "string"
+                        }
+                    }
+                },
+                "modelType": {
+                    "type": "object",
+                    "example": {
+                        "name": "Property"
+                    }
+                },
+                "category": {
+                    "type": "string",
+                    "example": "CONSTANT"
+                },
+                "value": {
+                    "type": "string",
+                    "example": "CUSTOMER GmbH"
+                },
+                "constraints": {
+                    "type": "array",
+                    "items": {
+                        "type": "object"
+                    },
+                    "example": "[]"
+                },
+                "descriptions": {
+                    "type": "object"
                 }
             }
         },
@@ -715,13 +1125,116 @@
                 }
             }
         },
+        "SubmodelElement": {
+            "type": "object",
+            "required": ["idShort"],
+            "properties": {
+                "elem": {
+                    "type": "object",
+                    "example": {
+                        "valueId": null,
+                        "semanticId": {
+                            "keys": [{
+                                    "idType": "IRDI",
+                                    "index": 0,
+                                    "type": "GlobalReference",
+                                    "value": "0173-1#02-AAO677#002",
+                                    "local": false
+                                }
+                            ]
+                        },
+                        "idShort": "Manufacturer",
+                        "hasDataSpecification": null,
+                        "kind": "Instance",
+                        "valueType": {
+                            "dataObjectType": {
+                                "name": "string"
+                            }
+                        },
+                        "modelType": {
+                            "name": "Property"
+                        },
+                        "category": "CONSTANT",
+                        "value": "CUSTOMER GmbH",
+                        "constraints": [],
+                        "descriptions": null
+                    }
+                },
+                "parent": {
+                    "type": "object",
+                    "example": {
+                        "semanticId": {
+                            "keys": [{
+                                    "idType": "IRDI",
+                                    "index": 0,
+                                    "type": "GlobalReference",
+                                    "value": "0173-1#01-ADN198#009",
+                                    "local": false
+                                }
+                            ]
+                        },
+                        "identification": {
+                            "idType": "IRI",
+                            "id": "http://i40.customer.com/type/1/1/F13E8576F6488342"
+                        },
+                        "idShort": "Identification",
+                        "hasDataSpecification": null,
+                        "administration": null,
+                        "kind": "Instance",
+                        "qualifiers": [],
+                        "modelType": {
+                            "name": "Submodel"
+                        },
+                        "category": "CONSTANT",
+                        "descriptions": [{
+                                "language": "EN",
+                                "text": "Identification from Manufacturer"
+                            }
+                        ]
+                    }
+                },
+                "wrapper": {
+                    "type": "object",
+                    "example": {
+                        "submodelElement": {
+                            "valueId": null,
+                            "semanticId": {
+                                "keys": [{
+                                        "idType": "IRDI",
+                                        "index": 0,
+                                        "type": "GlobalReference",
+                                        "value": "0173-1#02-AAO677#002",
+                                        "local": false
+                                    }
+                                ]
+                            },
+                            "idShort": "Manufacturer",
+                            "hasDataSpecification": null,
+                            "kind": "Instance",
+                            "valueType": {
+                                "dataObjectType": {
+                                    "name": "string"
+                                }
+                            },
+                            "modelType": {
+                                "name": "Property"
+                            },
+                            "category": "CONSTANT",
+                            "value": "CUSTOMER GmbH",
+                            "constraints": [],
+                            "descriptions": null
+                        }
+                    }
+                }
+            }
+        },
         "SubmodelListItem": {
             "type": "object",
             "required": ["idShort"],
             "properties": {
                 "idShort": {
                     "type": "string",
-                    "example": "installedConnectors"
+                    "example": "Identification"
                 },
                 "kind": {
                     "type": "string",
@@ -730,8 +1243,8 @@
                 "id": {
                     "type": "object",
                     "example": {
-                        "idType": "Custom",
-                        "id": "installedConnectors"
+                        "idType": "IRI",
+                        "id": "http://i40.customer.com/type/1/1/F13E8576F6488342"
                     }
                 }
             }
@@ -758,166 +1271,6 @@
                 }
             }
         },
-        "AasInput": {
-            "type": "object",
-            "required": ["idShort"],
-            "properties": {
-                "identification": {
-                    "type": "object",
-                    "example": {
-                        "idType": "IRI",
-                        "id": "urn:::AAS:::iipEcosphere#"
-                    }
-                },
-                "idShort": {
-                    "type": "string",
-                    "example": "IIP_Ecosphere"
-                },
-                "conceptDictionaries": {
-                    "type": "array",
-                    "items": {
-                        "type": "object"
-                    },
-                    "example": "[]"
-                },
-                "hasDataSpecification": {
-                    "type": "array",
-                    "items": {
-                        "type": "object"
-                    },
-                    "example": "[]"
-                },
-                "administration": {
-                    "type": "object"
-                },
-                "derivedFrom": {
-                    "type": "object"
-                },
-                "modelType": {
-                    "type": "object",
-                    "example": {
-                        "name": "AssetAdministrationShell"
-                    }
-                },
-                "asset": {
-                    "type": "object",
-                    "example": {
-                        "keys": [{
-                                "idType": "IRI",
-                                "index": 0,
-                                "type": "Asset",
-                                "value": "urn:::AAS:::iipEcosphere#asset",
-                                "local": true
-                            }
-                        ]
-                    }
-                },
-                "category": {
-                    "type": "object"
-                },
-                "descriptions": {
-                    "type": "object"
-                },
-                "submodels": {
-                    "type": "array",
-                    "items": {
-                        "type": "object"
-                    },
-                    "example": [{
-                            "keys": [{
-                                    "idType": "Custom",
-                                    "index": 0,
-                                    "type": "Submodel",
-                                    "value": "installedConnectors",
-                                    "local": true
-                                }
-                            ]
-                        }, {
-                            "keys": [{
-                                    "idType": "Custom",
-                                    "index": 0,
-                                    "type": "Submodel",
-                                    "value": "platform",
-                                    "local": true
-                                }
-                            ]
-                        }, {
-                            "keys": [{
-                                    "idType": "Custom",
-                                    "index": 0,
-                                    "type": "Submodel",
-                                    "value": "Artifacts",
-                                    "local": true
-                                }
-                            ]
-                        }, {
-                            "keys": [{
-                                    "idType": "Custom",
-                                    "index": 0,
-                                    "type": "Submodel",
-                                    "value": "TechnicalData",
-                                    "local": true
-                                }
-                            ]
-                        }, {
-                            "keys": [{
-                                    "idType": "Custom",
-                                    "index": 0,
-                                    "type": "Submodel",
-                                    "value": "services",
-                                    "local": true
-                                }
-                            ]
-                        }, {
-                            "keys": [{
-                                    "idType": "Custom",
-                                    "index": 0,
-                                    "type": "Submodel",
-                                    "value": "activeConnectors",
-                                    "local": true
-                                }
-                            ]
-                        }, {
-                            "keys": [{
-                                    "idType": "Custom",
-                                    "index": 0,
-                                    "type": "Submodel",
-                                    "value": "transport",
-                                    "local": true
-                                }
-                            ]
-                        }, {
-                            "keys": [{
-                                    "idType": "Custom",
-                                    "index": 0,
-                                    "type": "Submodel",
-                                    "value": "resources",
-                                    "local": true
-                                }
-                            ]
-                        }, {
-                            "keys": [{
-                                    "idType": "Custom",
-                                    "index": 0,
-                                    "type": "Submodel",
-                                    "value": "netMgt",
-                                    "local": true
-                                }
-                            ]
-                        }, {
-                            "keys": [{
-                                    "idType": "Custom",
-                                    "index": 0,
-                                    "type": "Submodel",
-                                    "value": "types",
-                                    "local": true
-                                }
-                            ]
-                        }
-                    ]
-                }
-            }
-        },
         "Asset": {
             "type": "object",
             "required": ["idShort"],
@@ -926,12 +1279,12 @@
                     "type": "object",
                     "example": {
                         "idType": "IRI",
-                        "id": "urn:::AAS:::iipEcosphere#"
+                        "id": "http://customer.com/aas/9175_7013_7091_9168"
                     }
                 },
                 "idShort": {
                     "type": "string",
-                    "example": "IIP_Ecosphere"
+                    "example": "ExampleMotor"
                 }
             }
         },
@@ -942,26 +1295,29 @@
                 "semanticId": {
                     "type": "object",
                     "example": {
-                        "keys": []
+                        "keys": [{
+                                "idType": "IRDI",
+                                "index": 0,
+                                "type": "GlobalReference",
+                                "value": "0173-1#01-ADN198#009",
+                                "local": false
+                            }
+                        ]
                     }
                 },
                 "identification": {
                     "type": "object",
                     "example": {
-                        "idType": "Custom",
-                        "id": "installedConnectors"
+                        "idType": "IRI",
+                        "id": "http://i40.customer.com/type/1/1/F13E8576F6488342"
                     }
                 },
                 "idShort": {
                     "type": "string",
-                    "example": "installedConnectors"
+                    "example": "Identification"
                 },
                 "hasDataSpecification": {
-                    "type": "array",
-                    "items": {
-                        "type": "object"
-                    },
-                    "example": "[]"
+                    "type": "object"
                 },
                 "administration": {
                     "type": "object"
@@ -984,37 +1340,107 @@
                     }
                 },
                 "category": {
-                    "type": "object"
+                    "type": "string",
+                    "example": "CONSTANT"
                 },
                 "descriptions": {
-                    "type": "object"
+                    "type": "array",
+                    "items": {
+                        "type": "object"
+                    },
+                    "example": [{
+                            "language": "EN",
+                            "text": "Identification from Manufacturer"
+                        }
+                    ]
                 }
             }
         },
-        "ApiResponse": {
+        "ConceptDescription": {
             "type": "object",
-            "required": ["resultCode", "type", "message"],
+            "required": ["idShort"],
             "properties": {
-                "resultCode": {
-                    "format": "int32",
-                    "type": "integer",
-                    "example": 200
+                "identification": {
+                    "type": "object",
+                    "example": {
+                        "idType": "IRI",
+                        "id": "www.vdi2770.com/blatt1/Entwurf/Okt18/cd/Document"
+                    }
                 },
-                "type": {
+                "idShort": {
                     "type": "string",
-                    "example": "application/json"
+                    "example": "Document"
                 },
-                "message": {
-                    "type": "string",
-                    "example": "OK (updated)"
+                "administration": {
+                    "type": "object"
+                },
+                "isCaseOf": {
+                    "type": "array",
+                    "items": {
+                        "type": "object"
+                    }
+                },
+                "modelType": {
+                    "type": "object",
+                    "example": {
+                        "name": "ConceptDescription"
+                    }
+                },
+                "category": {
+                    "type": "object"
+                },
+                "descriptions": {
+                    "type": "array",
+                    "items": {
+                        "type": "object"
+                    },
+                    "example": "[]"
+                },
+                "embeddedDataSpecifications": {
+                    "type": "array",
+                    "items": {
+                        "type": "object"
+                    },
+                    "example": [{
+                            "dataSpecification": {
+                                "keys": [{
+                                        "idType": "IRI",
+                                        "index": 0,
+                                        "type": "GlobalReference",
+                                        "value": "http://admin-shell.io/DataSpecificationTemplates/DataSpecificationIEC61360",
+                                        "local": false
+                                    }
+                                ]
+                            },
+                            "dataSpecificationContent": {
+                                "symbol": null,
+                                "unit": "",
+                                "sourceOfDefinition": "[ISO 15519-1:2010]",
+                                "dataType": "ENTITY",
+                                "valueFormat": null,
+                                "unitId": null,
+                                "definition": [{
+                                        "language": "DE",
+                                        "text": "Feste und geordnete Menge von für die Verwendung durch Personen bestimmte Informationen, die verwaltet und als Einheit zwischen Benutzern und System ausgetauscht werden kann."
+                                    }
+                                ],
+                                "preferredName": [],
+                                "shortName": [{
+                                        "language": "EN?",
+                                        "text": "Document"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
                 }
             }
         }
     },
     "swagger": "2.0",
     "info": {
-        "description": "REST server for access to the Asset Administration Shell: IIP_Ecosphere",
-        "title": "Asset Adminstration Shell: IIP_Ecosphere",
+        "description": "REST server for access to the Asset Administration Shell: ExampleMotor",
+        "title": "Asset Adminstration Shell: ExampleMotor",
         "version": "1.0"
     },
     "tags": [{

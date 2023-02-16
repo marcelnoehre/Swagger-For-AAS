@@ -37,6 +37,15 @@ public class Schema {
     }
     
     /**
+     * Getter for the items of a definition.
+     * 
+     * @return The items of a definition
+     */
+    public Items getItems() {
+        return this.items;
+    }
+    
+    /**
      * Getter for the reference to a definition.
      * 
      * @return the reference to a definition
