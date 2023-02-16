@@ -87,7 +87,12 @@ public class DataGenerationService {
                 break;
             }
             if(!VALID_DEFINITION_NAMES.contains(schema.getRef())) {
-                schema = null;
+                String ref = "#/definitions/";
+                ref += route.getTag().equals("Submodelelement")
+                        ? "ExamplePutSubmodelElementBody"
+                        : "ExamplePutBody";
+                schema = new Schema(null, null, null, 
+                        ref);
             }
             parameterList.add(
                     new Parameter(route.getTag(),
@@ -403,14 +408,6 @@ public class DataGenerationService {
             RestService restService,
             Routes routes) {
         JSONParser parser = new JSONParser();
-        Property[] apiResponseProperties = new Property[] {
-                new Property("resultCode", "integer", "int32",
-                        null, null, "200", null, null, null),
-                new Property("type", "string", null, null, null,
-                        "application/json", null, null, null),
-                new Property("message", "string", null, null, null,
-                        "OK (updated)", null, null, null)
-        };
         ArrayList<JSONObject> validDefinitions = new ArrayList<JSONObject>();
         try {
             JSONObject aasResponse =
@@ -541,10 +538,13 @@ public class DataGenerationService {
             definitionExamples[i] = definition;
             i++;
         }
-        Definition[] definitions = new Definition[validDefinitions.size()+1];
-        definitions[0] = new Definition("ApiResponse", "object",
-                new String[] {"resultCode", "type", "message"},
-                apiResponseProperties);
+        Definition[] hardcodedDefinitions = Constants.HARDCODED_DEFINITIONS();
+        Definition[] definitions = new Definition[validDefinitions.size()
+                                                  + hardcodedDefinitions.length];
+        i = 0;
+        for(Definition definition : hardcodedDefinitions) {
+            definitions[i++] = definition;
+        }
         for (i = 0; i < definitionExamples.length; i++) {
             Property[] properties;
             if (definitionExamples[i].size() > 0) {
@@ -591,7 +591,8 @@ public class DataGenerationService {
             } else {
                 properties = null;
             }
-            definitions[i + 1] = new Definition(definitionNames[i],
+            definitions[i + hardcodedDefinitions.length]
+                    = new Definition(definitionNames[i],
                     "object", new String[]{"idShort"}, properties);
         }
         return definitions;

@@ -25,6 +25,9 @@
                         "type": "string",
                         "required": true
                     }, {
+                        "schema": {
+                            "$ref": "#/definitions/ExamplePutBody"
+                        },
                         "in": "body",
                         "name": "Concept Description",
                         "description": "The new or updated Concept Description",
@@ -54,6 +57,9 @@
                     }
                 },
                 "parameters": [{
+                        "schema": {
+                            "$ref": "#/definitions/ExamplePutBody"
+                        },
                         "in": "body",
                         "name": "Asset Administration Shell",
                         "description": "The new or updated Asset Administration Shell",
@@ -77,6 +83,9 @@
                     }
                 },
                 "parameters": [{
+                        "schema": {
+                            "$ref": "#/definitions/ExamplePutBody"
+                        },
                         "in": "body",
                         "name": "Asset",
                         "description": "The new or updated Asset",
@@ -169,6 +178,9 @@
                         "type": "string",
                         "required": true
                     }, {
+                        "schema": {
+                            "$ref": "#/definitions/ExamplePutBody"
+                        },
                         "in": "body",
                         "name": "Submodel",
                         "description": "The new or updated Submodel",
@@ -210,6 +222,9 @@
                         "type": "string",
                         "required": true
                     }, {
+                        "schema": {
+                            "$ref": "#/definitions/ExamplePutSubmodelElementBody"
+                        },
                         "in": "body",
                         "name": "Submodelelement",
                         "description": "The new or updated Submodelelement",
@@ -686,6 +701,20 @@
                 }
             }
         },
+        "ExamplePutBody": {
+            "type": "object",
+            "required": ["idShort", "id"],
+            "properties": {
+                "idShort": {
+                    "type": "string",
+                    "example": "exampleIdShort"
+                },
+                "id": {
+                    "type": "string",
+                    "example": "exampleId"
+                }
+            }
+        },
         "SubmodelListItem": {
             "type": "object",
             "required": ["idShort"],
@@ -703,6 +732,28 @@
                     "example": {
                         "idType": "Custom",
                         "id": "installedConnectors"
+                    }
+                }
+            }
+        },
+        "ExamplePutSubmodelElementBody": {
+            "type": "object",
+            "required": ["idShort", "id", "modelType"],
+            "properties": {
+                "idShort": {
+                    "type": "string",
+                    "example": "exampleIdShort"
+                },
+                "id": {
+                    "type": "string",
+                    "example": "exampleId"
+                },
+                "modelType": {
+                    "type": "object",
+                    "example": {
+                        "modelType": {
+                            "name": "Property"
+                        }
                     }
                 }
             }

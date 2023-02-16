@@ -1,5 +1,6 @@
 package utils;
 
+import templates.Definition;
 import templates.Items;
 import templates.Parameter;
 import templates.Property;
@@ -325,4 +326,38 @@ public class Constants {
     public static final Property EXAMPLE_IS_CASE_OF_PROPERTY = new Property(
             "isCaseOf", "array", null, null, null, null, null, new Items(
             "object", null, null, null), null);
+    
+    public static Definition[] HARDCODED_DEFINITIONS() {
+        Definition[] definitions = new Definition[3];
+        Property[] apiResponseProperties = new Property[] {
+                new Property("resultCode", "integer", "int32",
+                        null, null, "200", null, null, null),
+                new Property("type", "string", null, null, null,
+                        "application/json", null, null, null),
+                new Property("message", "string", null, null, null,
+                        "OK (updated)", null, null, null)
+        };
+        definitions[0] = new Definition("ApiResponse", "object",
+                new String[] {"resultCode", "type", "message"},
+                apiResponseProperties);
+        Property[] putProperties = new Property[] {
+                new Property("idShort", "string", null,
+                        null, null, "exampleIdShort", null, null, null),
+                new Property("id", "string", null, null, null,
+                        "exampleId", null, null, null)
+        };
+        definitions[1] = new Definition("ExamplePutBody", "object",
+                new String[] {"idShort", "id"},
+                putProperties);
+        Property[] putElementProperties = new Property[] {
+                putProperties[0], putProperties[1],
+                new Property("modelType", "object", null, null, null,
+                        "{\"modelType\":{\"name\":\"Property\"}}",
+                        null, null, null)
+        };
+        definitions[2] = new Definition("ExamplePutSubmodelElementBody",
+                "object", new String[] {"idShort", "id", "modelType"},
+                putElementProperties);
+        return definitions;
+    }
 }
