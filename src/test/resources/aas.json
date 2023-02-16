@@ -6,9 +6,6 @@
                 "produces": ["application/json"],
                 "responses": {
                     "200": {
-                        "schema": {
-                            "$ref": "#/definitions/Submodel"
-                        },
                         "description": "successful operation"
                     },
                     "404": {
@@ -60,15 +57,41 @@
                 "consumes": ["application/json"]
             }
         },
+        "/aas/{aas.idShort}/submodels/{submodel.idShort}/table": {
+            "get": {
+                "summary": "A list of all elements of an submodel",
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "404": {
+                        "description": "No AAS 'IIP_Ecosphere' or no Submodel with idShort 'example' found."
+                    }
+                },
+                "parameters": [{
+                        "in": "path",
+                        "name": "aas.idShort",
+                        "description": "The unique ID of an AAS",
+                        "type": "string",
+                        "required": true
+                    }, {
+                        "in": "path",
+                        "name": "submodel.idShort",
+                        "description": "The unique ID of an Submodel",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "tags": ["Submodel"]
+            }
+        },
         "/aas/{aas.idShort}": {
             "get": {
                 "summary": "Information about the Asset Administration Shell",
                 "produces": ["application/json"],
                 "responses": {
                     "200": {
-                        "schema": {
-                            "$ref": "#/definitions/AssetAdministrationShell"
-                        },
                         "description": "successful operation"
                     },
                     "404": {
@@ -114,166 +137,6 @@
                 "consumes": ["application/json"]
             }
         },
-        "/aas/": {
-            "put": {
-                "summary": "Add or update a Asset Administration Shell",
-                "produces": ["text/plain"],
-                "responses": {
-                    "200": {
-                        "schema": {
-                            "type": "string"
-                        },
-                        "description": "OK (new)"
-                    },
-                    "400": {
-                        "schema": {
-                            "type": "string"
-                        },
-                        "description": "Cannot deserialize payload: Unexpected character encountered while parsing value: e. Path '', line 0, position 0.."
-                    }
-                },
-                "parameters": [{
-                        "schema": {
-                            "$ref": "#/definitions/AasInput"
-                        },
-                        "in": "body",
-                        "name": "Asset Administration Shell",
-                        "description": "The new or updated Asset Administration Shell",
-                        "required": true
-                    }
-                ],
-                "tags": ["Asset Administration Shell"],
-                "consumes": ["application/json"]
-            }
-        },
-        "/assets/": {
-            "put": {
-                "summary": "Add or update a Asset",
-                "produces": ["text/plain"],
-                "responses": {
-                    "200": {
-                        "description": "OK (updated)"
-                    },
-                    "400": {
-                        "description": "No payload or content type is not JSON."
-                    }
-                },
-                "parameters": [{
-                        "schema": {
-                            "$ref": "#/definitions/AssetInput"
-                        },
-                        "in": "body",
-                        "name": "Asset",
-                        "description": "The new or updated Asset",
-                        "required": true
-                    }
-                ],
-                "tags": ["Asset"],
-                "consumes": ["application/json"]
-            }
-        },
-        "/aas/{aas.idShort}/submodels": {
-            "get": {
-                "summary": "A list of all submodels of an AAS",
-                "produces": ["application/json"],
-                "responses": {
-                    "200": {
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/SubmodelListItem"
-                            }
-                        },
-                        "description": "successful operation"
-                    },
-                    "404": {
-                        "description": "No AAS with idShort 'example' found."
-                    }
-                },
-                "parameters": [{
-                        "in": "path",
-                        "name": "aas.idShort",
-                        "description": "The unique ID of an AAS",
-                        "type": "string",
-                        "required": true
-                    }
-                ],
-                "tags": ["Asset Administration Shell"]
-            }
-        },
-        "/aas/{aas.idShort}/submodels/": {
-            "put": {
-                "summary": "Add or update asubmodel",
-                "produces": ["text/plain"],
-                "responses": {
-                    "200": {
-                        "schema": {
-                            "type": "string"
-                        },
-                        "description": "OK (new)"
-                    },
-                    "400": {
-                        "schema": {
-                            "type": "string"
-                        },
-                        "description": "Cannot deserialize payload: Unexpected character encountered while parsing value: e. Path '', line 0, position 0.."
-                    }
-                },
-                "parameters": [{
-                        "in": "path",
-                        "name": "aas.idShort",
-                        "description": "The unique ID of an AAS",
-                        "type": "string",
-                        "required": true
-                    }, {
-                        "schema": {
-                            "$ref": "#/definitions/SubmodelInput"
-                        },
-                        "in": "body",
-                        "name": "Submodel",
-                        "description": "The new or updated Submodel",
-                        "required": true
-                    }
-                ],
-                "tags": ["Submodel"],
-                "consumes": ["application/json"]
-            }
-        },
-        "/aas/{aas.idShort}/submodels/{submodel.idShort}/table": {
-            "get": {
-                "summary": "A list of all elements of an submodel",
-                "produces": ["application/json"],
-                "responses": {
-                    "200": {
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/SubmodelelementListItem"
-                            }
-                        },
-                        "description": "successful operation"
-                    },
-                    "404": {
-                        "description": "No AAS 'IIP_Ecosphere' or no Submodel with idShort 'example' found."
-                    }
-                },
-                "parameters": [{
-                        "in": "path",
-                        "name": "aas.idShort",
-                        "description": "The unique ID of an AAS",
-                        "type": "string",
-                        "required": true
-                    }, {
-                        "in": "path",
-                        "name": "submodel.idShort",
-                        "description": "The unique ID of an Submodel",
-                        "type": "string",
-                        "required": true
-                    }
-                ],
-                "tags": ["Submodel"]
-            }
-        },
         "/aas/{aas.idShort}/submodels/{submodel.idShort}/elements/": {
             "put": {
                 "summary": "Add or update a submodelelement",
@@ -305,9 +168,6 @@
                         "type": "string",
                         "required": true
                     }, {
-                        "schema": {
-                            "$ref": "#/definitions/SubmodelElementInput"
-                        },
                         "in": "body",
                         "name": "Submodelelement",
                         "description": "The new or updated Submodelelement",
@@ -343,9 +203,6 @@
                         "type": "string",
                         "required": true
                     }, {
-                        "schema": {
-                            "$ref": "#/definitions/ConceptDescriptionInput"
-                        },
                         "in": "body",
                         "name": "Concept Description",
                         "description": "The new or updated Concept Description",
@@ -362,12 +219,6 @@
                 "produces": ["application/json"],
                 "responses": {
                     "200": {
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/ConceptDescriptionListItem"
-                            }
-                        },
                         "description": "successful operation"
                     },
                     "404": {
@@ -391,9 +242,6 @@
                 "produces": ["application/json"],
                 "responses": {
                     "200": {
-                        "schema": {
-                            "$ref": "#/definitions/ConceptDescription"
-                        },
                         "description": "successful operation"
                     },
                     "404": {
@@ -451,18 +299,64 @@
                 "consumes": ["application/json"]
             }
         },
+        "/aas/": {
+            "put": {
+                "summary": "Add or update a Asset Administration Shell",
+                "produces": ["text/plain"],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "OK (new)"
+                    },
+                    "400": {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "Cannot deserialize payload: Unexpected character encountered while parsing value: e. Path '', line 0, position 0.."
+                    }
+                },
+                "parameters": [{
+                        "in": "body",
+                        "name": "Asset Administration Shell",
+                        "description": "The new or updated Asset Administration Shell",
+                        "required": true
+                    }
+                ],
+                "tags": ["Asset Administration Shell"],
+                "consumes": ["application/json"]
+            }
+        },
+        "/assets/": {
+            "put": {
+                "summary": "Add or update a Asset",
+                "produces": ["text/plain"],
+                "responses": {
+                    "200": {
+                        "description": "OK (updated)"
+                    },
+                    "400": {
+                        "description": "No payload or content type is not JSON."
+                    }
+                },
+                "parameters": [{
+                        "in": "body",
+                        "name": "Asset",
+                        "description": "The new or updated Asset",
+                        "required": true
+                    }
+                ],
+                "tags": ["Asset"],
+                "consumes": ["application/json"]
+            }
+        },
         "/assets/{aas.idShort}": {
             "get": {
                 "summary": "Information about the Asset",
                 "produces": ["application/json"],
                 "responses": {
                     "200": {
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/Asset"
-                            }
-                        },
                         "description": "successful operation"
                     }
                 },
@@ -477,16 +371,16 @@
                 "tags": ["Asset"]
             }
         },
-        "/aas/{aas.idShort}/submodels/{submodel.idShort}/elements/{element.idShort}": {
+        "/aas/{aas.idShort}/submodels": {
             "get": {
-                "summary": "Information about the submodelelement",
+                "summary": "A list of all submodels of an AAS",
                 "produces": ["application/json"],
                 "responses": {
-                    "404": {
-                        "schema": {
-                            "$ref": "#/definitions/SubmodelElement"
-                        },
+                    "200": {
                         "description": "successful operation"
+                    },
+                    "404": {
+                        "description": "No AAS with idShort 'example' found."
                     }
                 },
                 "parameters": [{
@@ -495,37 +389,27 @@
                         "description": "The unique ID of an AAS",
                         "type": "string",
                         "required": true
-                    }, {
-                        "in": "path",
-                        "name": "submodel.idShort",
-                        "description": "The unique ID of an Submodel",
-                        "type": "string",
-                        "required": true
-                    }, {
-                        "in": "path",
-                        "name": "element.idShort",
-                        "description": "The unique ID of an Element",
-                        "type": "string",
-                        "required": true
                     }
                 ],
-                "tags": ["Submodelelement"]
-            },
-            "delete": {
-                "summary": "Delete a submodelelement",
+                "tags": ["Asset Administration Shell"]
+            }
+        },
+        "/aas/{aas.idShort}/submodels/": {
+            "put": {
+                "summary": "Add or update asubmodel",
                 "produces": ["text/plain"],
                 "responses": {
                     "200": {
                         "schema": {
                             "type": "string"
                         },
-                        "description": "OK"
+                        "description": "OK (new)"
                     },
-                    "404": {
+                    "400": {
                         "schema": {
                             "type": "string"
                         },
-                        "description": "No matching element in Submodel found."
+                        "description": "Cannot deserialize payload: Unexpected character encountered while parsing value: e. Path '', line 0, position 0.."
                     }
                 },
                 "parameters": [{
@@ -535,20 +419,13 @@
                         "type": "string",
                         "required": true
                     }, {
-                        "in": "path",
-                        "name": "submodel.idShort",
-                        "description": "The unique ID of an Submodel",
-                        "type": "string",
-                        "required": true
-                    }, {
-                        "in": "path",
-                        "name": "element.idShort",
-                        "description": "The unique ID of an Element",
-                        "type": "string",
+                        "in": "body",
+                        "name": "Submodel",
+                        "description": "The new or updated Submodel",
                         "required": true
                     }
                 ],
-                "tags": ["Submodelelement"],
+                "tags": ["Submodel"],
                 "consumes": ["application/json"]
             }
         }
@@ -708,6 +585,33 @@
                                         "index": 0,
                                         "type": "Submodel",
                                         "value": "platform",
+                                        "local": true
+                                    }
+                                ]
+                            }, {
+                                "keys": [{
+                                        "idType": "Custom",
+                                        "index": 0,
+                                        "type": "Submodel",
+                                        "value": "Artifacts",
+                                        "local": true
+                                    }
+                                ]
+                            }, {
+                                "keys": [{
+                                        "idType": "Custom",
+                                        "index": 0,
+                                        "type": "Submodel",
+                                        "value": "TechnicalData",
+                                        "local": true
+                                    }
+                                ]
+                            }, {
+                                "keys": [{
+                                        "idType": "Custom",
+                                        "index": 0,
+                                        "type": "Submodel",
+                                        "value": "services",
                                         "local": true
                                     }
                                 ]
@@ -883,6 +787,33 @@
                                     "index": 0,
                                     "type": "Submodel",
                                     "value": "platform",
+                                    "local": true
+                                }
+                            ]
+                        }, {
+                            "keys": [{
+                                    "idType": "Custom",
+                                    "index": 0,
+                                    "type": "Submodel",
+                                    "value": "Artifacts",
+                                    "local": true
+                                }
+                            ]
+                        }, {
+                            "keys": [{
+                                    "idType": "Custom",
+                                    "index": 0,
+                                    "type": "Submodel",
+                                    "value": "TechnicalData",
+                                    "local": true
+                                }
+                            ]
+                        }, {
+                            "keys": [{
+                                    "idType": "Custom",
+                                    "index": 0,
+                                    "type": "Submodel",
+                                    "value": "services",
                                     "local": true
                                 }
                             ]

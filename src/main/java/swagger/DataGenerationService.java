@@ -1,6 +1,7 @@
 package swagger;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 
 import org.json.simple.JSONArray;
@@ -33,6 +34,7 @@ import utils.Routes;
  *
  */
 public class DataGenerationService {
+    private static ArrayList<String> VALID_DEFINITION_NAMES = new ArrayList<>();
     /**
      * Fill the parameter template with information.
      *
@@ -70,10 +72,10 @@ public class DataGenerationService {
                 schema = Constants.AAS_INPUT_SCHEMA;
                 break;
             case "Asset":
-                schema = Constants.ASSET_INPUT_SCHEMA;
+                schema = Constants.ASSET_INPUT_SCHEMA;      
                 break;
             case "Submodel":
-                schema = Constants.SUBMODEL_INPUT_SCHEMA;
+                schema = Constants.SUBMODEL_INPUT_SCHEMA;   
                 break;
             case "Submodelelement":
                 schema = Constants.ELEMENT_INPUT_SCHEMA;
@@ -83,6 +85,9 @@ public class DataGenerationService {
                 break;
             default:
                 break;
+            }
+            if(!VALID_DEFINITION_NAMES.contains(schema.getRef())) {
+                schema = null;
             }
             parameterList.add(
                     new Parameter(route.getTag(),
@@ -138,12 +143,12 @@ public class DataGenerationService {
             case "Submodel":
                 path = route.getPath().equals(
                         "/aas/{aas.idShort}/submodels/{submodel.idShort}")
-                                ? Constants.EXAMPLE_SUBMODEL
-                                : Constants.EXAMPLE_ELEMENT_LIST;
+                            ? Constants.EXAMPLE_SUBMODEL
+                            : Constants.EXAMPLE_ELEMENT_LIST;
                 schema = route.getPath().equals(
                         "/aas/{aas.idShort}/submodels/{submodel.idShort}")
-                                ? Constants.SUBMODEL_SCHEMA
-                                : Constants.ELEMENT_LIST_SCHEMA;
+                            ? Constants.SUBMODEL_SCHEMA
+                            : Constants.ELEMENT_LIST_SCHEMA;
                 break;
             case "Submodelelement":
                 path = Constants.EXAMPLE_ELEMENT;
@@ -167,6 +172,9 @@ public class DataGenerationService {
                     + routes.replaceIDs(route.getPath()));
             bad = restService.httpGet(routes.getBaseUrl()
                     + routes.replaceIDs(path));
+            if(!VALID_DEFINITION_NAMES.contains(schema.getRef())) {
+                schema = null;
+            }
             return new Response[] {
                     new Response(bad[0], bad[1], null, null),
                     new Response(good[0], "successful operation", schema, null)
@@ -321,13 +329,36 @@ public class DataGenerationService {
     public static Path[] generatePaths(
             RestService restService,
             Routes routes) {
-        Path[] paths = new Path[Routes.getRoutes().length
-                                + Routes.getMultiRoutes().length];
-        int i = 0;
+        ArrayList<Path> pathList = new ArrayList<Path>();
         for (Route[] routeList : Routes.getMultiRoutes()) {
             Request[] requestList = new Request[routeList.length];
             int j = 0;
             for (Route route : routeList) {
+                if(!Routes.getInvalidRoutes().contains(route.getPath())) {
+                    String[] consumes;
+                    String[] produces;
+                    if (route.getType().equals("get")) {
+                        consumes = new String[] {};
+                        produces = new String[] {"application/json"};
+                    } else {
+                        consumes = new String[] {"application/json"};
+                        produces = new String[] {"text/plain"};
+                    }
+                    requestList[j] = new Request(route.getType(),
+                            new String[] {route.getTag()},
+                            route.getSummary(), "", null,
+                            consumes, produces, generateParameters(route),
+                            generateResponses(restService, routes, route),
+                            "false");    
+                    j++;
+                }
+            }
+            if(requestList.length > 0) {
+                pathList.add(new Path(routeList[0].getPath(), requestList));
+            }
+        }
+        for (Route route : Routes.getRoutes()) {
+            if(!Routes.getInvalidRoutes().contains(route.getPath())) {
                 String[] consumes;
                 String[] produces;
                 if (route.getType().equals("get")) {
@@ -337,34 +368,25 @@ public class DataGenerationService {
                     consumes = new String[] {"application/json"};
                     produces = new String[] {"text/plain"};
                 }
-                requestList[j] = new Request(route.getType(),
+                Request request = new Request(route.getType(),
                         new String[] {route.getTag()},
                         route.getSummary(), "", null,
                         consumes, produces, generateParameters(route),
-                        generateResponses(restService, routes, route),
-                        "false");
-                j++;
+                        generateResponses(restService, routes, route), "false");
+                pathList.add(new Path(route.getPath(), new Request[] {request}));
             }
-            paths[i] = new Path(routeList[0].getPath(), requestList);
-            i++;
         }
-        for (Route route : Routes.getRoutes()) {
-            String[] consumes;
-            String[] produces;
-            if (route.getType().equals("get")) {
-                consumes = new String[] {};
-                produces = new String[] {"application/json"};
-            } else {
-                consumes = new String[] {"application/json"};
-                produces = new String[] {"text/plain"};
+        int i = 0;
+        Path[] paths = new Path[pathList.size()];
+        for(Path path : pathList) {
+            try {
+                path.asJson();
+                paths[i] = path;
+                i++;
+            } catch(Exception e) {
+                paths = Arrays.copyOf(paths, paths.length-1);
             }
-            Request request = new Request(route.getType(),
-                    new String[] {route.getTag()},
-                    route.getSummary(), "", null,
-                    consumes, produces, generateParameters(route),
-                    generateResponses(restService, routes, route), "false");
-            paths[i] = new Path(route.getPath(), new Request[] {request});
-            i++;
+            
         }
         return paths;
     }
@@ -390,22 +412,21 @@ public class DataGenerationService {
                         "OK (updated)", null, null, null)
         };
         ArrayList<JSONObject> validDefinitions = new ArrayList<JSONObject>();
-        ArrayList<String> validDefinitionNames = new ArrayList<String>();
         try {
             JSONObject aasResponse =
                     (JSONObject) parser.parse(restService.httpGet(
                     routes.getBaseUrl() + routes.getAASRouteWithId())[1]);
             validDefinitions.add(aasResponse);
-            validDefinitionNames.add("AssetAdministrationShell");
+            VALID_DEFINITION_NAMES.add("AssetAdministrationShell");
             try {
                 JSONObject aasInput = (JSONObject) aasResponse.get("AAS");
                 validDefinitions.add(aasInput);
-                validDefinitionNames.add("AasInput");
+                VALID_DEFINITION_NAMES.add("AasInput");
             } catch(Exception e) { }
             try {
                 JSONObject assetInput = (JSONObject) aasResponse.get("Asset");
                 validDefinitions.add(assetInput);
-                validDefinitionNames.add("AssetInput");
+                VALID_DEFINITION_NAMES.add("AssetInput");
             } catch(Exception e) { }
         } catch(Exception e) { }
         try {
@@ -417,7 +438,7 @@ public class DataGenerationService {
                 try {
                     assetListItem = (JSONObject) assetListObject;
                     validDefinitions.add(assetListItem);
-                    validDefinitionNames.add("Asset");
+                    VALID_DEFINITION_NAMES.add("Asset");
                     break;
                 } catch (NullPointerException assetListException) { }
             }
@@ -431,7 +452,7 @@ public class DataGenerationService {
                 try {
                     submodelListItem = (JSONObject) submodelListObject;
                     validDefinitions.add(submodelListItem);
-                    validDefinitionNames.add("SubmodelListItem");
+                    VALID_DEFINITION_NAMES.add("SubmodelListItem");
                     break;
                 } catch (NullPointerException submodelListException) { }
             }    
@@ -441,7 +462,7 @@ public class DataGenerationService {
                     routes.getBaseUrl()
                     + routes.getSubmodelRouteWithId())[1]);
             validDefinitions.add(submodel);
-            validDefinitionNames.add("Submodel");
+            VALID_DEFINITION_NAMES.add("Submodel");
         } catch(Exception e) { }
         try {
             JSONArray elementList = (JSONArray)
@@ -452,7 +473,7 @@ public class DataGenerationService {
                 try {
                     elementListItem = (JSONObject) elementListObject;
                     validDefinitions.add(elementListItem);
-                    validDefinitionNames.add("SubmodelelementListItem");
+                    VALID_DEFINITION_NAMES.add("SubmodelelementListItem");
                     break;
                 } catch (NullPointerException elementListException) { }
             }
@@ -462,7 +483,7 @@ public class DataGenerationService {
                     routes.getBaseUrl()
                     + routes.getElementRouteWithId())[1]);
             validDefinitions.add(element);
-            validDefinitionNames.add("SubmodelElement");
+            VALID_DEFINITION_NAMES.add("SubmodelElement");
         } catch(Exception e) { }
         try {
             JSONArray cdList = (JSONArray)
@@ -474,7 +495,7 @@ public class DataGenerationService {
                 try {
                     cdListItem = (JSONObject) cdListObject;
                     validDefinitions.add(cdListItem);
-                    validDefinitionNames.add("ConceptDescriptionListItem");
+                    VALID_DEFINITION_NAMES.add("ConceptDescriptionListItem");
                     break;
                 } catch (NullPointerException cdListException) { }
             }
@@ -484,21 +505,21 @@ public class DataGenerationService {
                     routes.getBaseUrl()
                     + routes.getConceptDescriptionRouteWithId())[1]);
             validDefinitions.add(cd);
-            validDefinitionNames.add("ConceptDescription");
+            VALID_DEFINITION_NAMES.add("ConceptDescription");
         } catch(Exception e) { }
         try {
             JSONObject submodelInput =
                     (JSONObject) parser.parse(restService.httpGet(
                     routes.getBaseUrl() + routes.getSubmodelRouteWithId())[1]);
             validDefinitions.add(submodelInput);
-            validDefinitionNames.add("SubmodelInput");
+            VALID_DEFINITION_NAMES.add("SubmodelInput");
         } catch(Exception e) { }
         try {
             JSONObject elementInput = (JSONObject) ((JSONObject) parser.parse(
                     restService.httpGet(routes.getBaseUrl()
                             + routes.getElementRouteWithId())[1])).get("elem");
             validDefinitions.add(elementInput);
-            validDefinitionNames.add("SubmodelElementInput");
+            VALID_DEFINITION_NAMES.add("SubmodelElementInput");
         } catch(Exception e) { }
         
         try {
@@ -506,11 +527,11 @@ public class DataGenerationService {
                     routes.getBaseUrl()
                     + routes.getConceptDescriptionRouteWithId())[1]);
             validDefinitions.add(cdInput);
-            validDefinitionNames.add("ConceptDescriptionInput");
+            VALID_DEFINITION_NAMES.add("ConceptDescriptionInput");
         } catch(Exception e) { }
-        String[] definitionNames = new String[validDefinitionNames.size()];
+        String[] definitionNames = new String[VALID_DEFINITION_NAMES.size()];
         int i = 0;
-        for(String definitionName : validDefinitionNames) {
+        for(String definitionName : VALID_DEFINITION_NAMES) {
             definitionNames[i] = definitionName;
             i++;
         }

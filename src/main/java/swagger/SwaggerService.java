@@ -93,10 +93,10 @@ public class SwaggerService {
         Info info = DataGenerationService
                 .generateInfo(restService, routes);
         Tag[] tags = DataGenerationService.generateTags();
-        Path[] paths = DataGenerationService
-                .generatePaths(restService, routes);
         Definition[] definitions = DataGenerationService
                 .generateDefinitions(restService, routes);
+        Path[] paths = DataGenerationService
+                .generatePaths(restService, routes);
         ExternalDocs externalDocs = DataGenerationService
                 .generateExternalDocs(restService, routes);
         Swagger swagger = new Swagger(

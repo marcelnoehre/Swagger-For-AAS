@@ -35,6 +35,15 @@ public class Schema {
         this.additionalProperties = additionalProperties;
         this.$ref = $ref;
     }
+    
+    /**
+     * Getter for the reference to a definition.
+     * 
+     * @return the reference to a definition
+     */
+    public String getRef() {
+        return this.$ref;
+    }
 
     /**
      * Get a array of all template values.

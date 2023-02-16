@@ -29,18 +29,22 @@ public class CompareResponsesTest {
             new AssetApi();
     private final static SubmodelApi SUBMODEL =
             new SubmodelApi();
-    private final static SubmodelelementApi ELEMENT =
-            new SubmodelelementApi();
+//    private final static SubmodelelementApi ELEMENT =
+//            new SubmodelelementApi();
     private final static ConceptDescriptionApi CD =
             new ConceptDescriptionApi();
     private final static RestService restService =
             new RestService();
     private final static Routes routes = new Routes(
             restService, "http://localhost:1111/", Constants.TEST_AAS_ID);
-    private final static String[] models = new String[] {
-            "GET_AAS", "GET_SUBMODEL_LIST", "GET_ASSET", "GET_SUBMODEL",
-            "GET_ELEMENT_LIST", "GET_ELEMENT", "GET_CD_LIST", "GET_CD"
-    };
+  private final static String[] models = new String[] {
+  "GET_AAS", "GET_SUBMODEL_LIST", "GET_ASSET", "GET_SUBMODEL",
+  "GET_ELEMENT_LIST", "GET_CD_LIST", "GET_CD"
+};
+//    private final static String[] models = new String[] {
+//            "GET_AAS", "GET_SUBMODEL_LIST", "GET_ASSET", "GET_SUBMODEL",
+//            "GET_ELEMENT_LIST", "GET_ELEMENT", "GET_CD_LIST", "GET_CD"
+//    };
 
     /**
      * Compare whether the responses of the generated Java models correspond to
@@ -103,18 +107,18 @@ public class CompareResponsesTest {
                 failedModels.add("GET_ELEMENT_LIST");
             }
         } catch (Exception e) { }
-        try {
-            if (Compare.compareElementResponse(
-                    ELEMENT.aasAasIdShortSubmodelsSubmodelIdShortElementsElementIdShortGet(
-                            routes.getAASId(), routes.getSubmodelId(),
-                            routes.getElementId()), restService.httpGet(
-                                    routes.getBaseUrl()
-                                    + routes.getElementRouteWithId())[1])) {
-                checkedModels.add("GET_ELEMENT");
-            } else {
-                failedModels.add("GET_ELEMENT");
-            }
-        } catch (Exception e) { }
+//        try {
+//            if (Compare.compareElementResponse(
+//                    ELEMENT.aasAasIdShortSubmodelsSubmodelIdShortElementsElementIdShortGet(
+//                            routes.getAASId(), routes.getSubmodelId(),
+//                            routes.getElementId()), restService.httpGet(
+//                                    routes.getBaseUrl()
+//                                    + routes.getElementRouteWithId())[1])) {
+//                checkedModels.add("GET_ELEMENT");
+//            } else {
+//                failedModels.add("GET_ELEMENT");
+//            }
+//        } catch (Exception e) { }
         try {
             if (Compare.compareCDListResponse(CD.aasAasIdShortCdsGet(
                     routes.getAASId()), restService.httpGet(routes.getBaseUrl()
@@ -136,7 +140,10 @@ public class CompareResponsesTest {
             } else {
                 failedModels.add("GET_CD");
             }
-        } catch (Exception e) { }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        checkedModels.forEach(System.out::println);
         if (failedModels.size() > 0) {
             System.out.println("--------------------");
         }

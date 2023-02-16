@@ -52,6 +52,7 @@ public class Routes {
                 Constants.DELETE_CONCEPT_DESCRIPTION
         }
     };
+    private static ArrayList<String> INVALID_ROUTES = new ArrayList<String>();
 
     /**
      * Sets up ids to fill routes.
@@ -105,6 +106,30 @@ public class Routes {
                 } catch (NullPointerException cdException) { }
             }
         } catch (ParseException parseException) { }
+        for(Route[] routeArray : MULTI_ROUTES) {
+            for(Route route : routeArray) {
+                validateRoute(restService, route);    
+            }
+        }
+        for(Route route : ROUTES) {
+            validateRoute(restService, route);
+        }
+    }
+    
+    private void validateRoute(RestService restService, Route route) {
+        if(route.getType().equals("get")) {
+            String response = restService.httpGet(baseUrl
+                    + this.replaceIDs(route.getPath()))[1];
+            try {
+                new org.json.JSONObject(response);
+            } catch(Exception object) {
+                try {
+                    new org.json.JSONArray(response);
+                } catch(Exception array) {
+                    INVALID_ROUTES.add(route.getPath());   
+                }
+            }
+        }
     }
 
     /**
@@ -132,6 +157,15 @@ public class Routes {
      */
     public static Route[] getRoutes() {
         return ROUTES;
+    }
+    
+    /**
+     * Get the list of invalid routes.
+     * 
+     * @return The list of invalid routes
+     */
+    public static ArrayList<String> getInvalidRoutes() {
+        return INVALID_ROUTES;
     }
 
     /**
