@@ -82,17 +82,36 @@ public class Routes {
             }
             for (String submodelId : submodelIds) {
                 this.submodelIdShort = submodelId;
-                JSONArray elements = (JSONArray) parser.parse(
-                        restService.httpGet(baseUrl + this.replaceIDs(
-                                Constants.GET_ELEMENT_LIST.getPath()))[1]);
+                boolean activeElementList = true;
+                JSONArray elements = null;
+                try {
+                    elements = (JSONArray) parser.parse(
+                            restService.httpGet(baseUrl + this.replaceIDs(
+                                    Constants.GET_ELEMENT_LIST.getPath()))[1]);
+                } catch(Exception e) {
+                    elements = (JSONArray) parser.parse(new org.json.JSONObject(restService.httpGet(baseUrl + this.replaceIDs(
+                            Constants.GET_SUBMODEL.getPath())+ "/complete")[1]).getJSONArray("submodelElements").toString());
+                    activeElementList = false;
+                }
+                if(elements.toString().equals("[]")) {
+                    elements = (JSONArray) parser.parse(new org.json.JSONObject(restService.httpGet(baseUrl + this.replaceIDs(
+                            Constants.GET_SUBMODEL.getPath())+ "/complete")[1]).getJSONArray("submodelElements").toString());
+                    activeElementList = false;
+                }
                 for (Object element : elements) {
                     try {
-                        this.elementIdShort = ((JSONObject)
-                                        element).get("idShorts").toString();
-                        break;
-                    } catch (NullPointerException elementException) { }
+                        JSONObject jsonElement = ((JSONObject) element);
+                        String id = activeElementList ? "idShorts" : "idShort";
+                        this.elementIdShort = jsonElement.get(id).toString();
+                        if(!this.elementIdShort.equals("")) {
+                            break;   
+                        }
+                    } catch (NullPointerException elementException) {
+                    }
                 }
-                break;
+                if(!this.elementIdShort.equals("")) {
+                    break;
+                }
             }
             JSONArray cds = (JSONArray) parser.parse(
                     restService.httpGet(baseUrl + this.replaceIDs(
