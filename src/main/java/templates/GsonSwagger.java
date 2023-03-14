@@ -8,7 +8,7 @@ import utils.Transform;
  *
  * Template for the swagger instance in the format of a gson string.
  *
- * @author Marcel N&oumlhre
+ * @author Marcel N&ouml;hre
  *
  */
 public class GsonSwagger {

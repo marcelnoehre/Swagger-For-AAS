@@ -105,7 +105,7 @@
                             <generateSupportingFiles>true</generateSupportingFiles>
                             <configOptions>
                                 <interfaceOnly>true</interfaceOnly>
-                                <dateLibrary>java8</dateLibrary>
+                                <dateLibrary>java</dateLibrary>
                                 <sourceFolder>/src/main/java</sourceFolder>
                                 <!-- <sourceFolder>src/main/python</sourceFolder> -->
                                 <!-- <sourceFolder>src/main/typescript</sourceFolder> -->

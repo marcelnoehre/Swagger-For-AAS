@@ -20,7 +20,7 @@ import utils.Transform;
 *
 * Collection of compare functionalities.
 *
-* @author Marcel N&oumlhre
+* @author Marcel N&ouml;hre
 *
 */
 public class Compare {

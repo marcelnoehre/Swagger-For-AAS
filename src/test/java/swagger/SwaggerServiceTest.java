@@ -11,7 +11,7 @@ import utils.Constants;
 /**
  * Unit test to test the Swagger-Service.
  *
- * @author Marcel N&oumlhre
+ * @author Marcel N&ouml;hre
  *
  */
 public class SwaggerServiceTest {

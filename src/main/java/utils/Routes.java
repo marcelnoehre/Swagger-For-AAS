@@ -14,7 +14,7 @@ import templates.Route;
  *
  * Service to handle routes.
  *
- * @author Marcel N&oumlhre
+ * @author Marcel N&ouml;hre
  *
  */
 public class Routes {
@@ -303,10 +303,10 @@ public class Routes {
      * @return The route with replaced variables
      */
     public String replaceIDs(String route) {
-        return route.replace("{aas.idShort}",
-                this.aasIdShort).replace("{submodel.idShort}",
-                this.submodelIdShort).replace("{element.idShort}",
-                this.elementIdShort).replace("{cd.idShort}",
-                this.cdIdShort);
+        return route
+            .replace("{aas.idShort}", this.aasIdShort)
+            .replace("{submodel.idShort}", this.submodelIdShort)
+            .replace("{element.idShort}", this.elementIdShort)
+            .replace("{cd.idShort}", this.cdIdShort);
     }
 }

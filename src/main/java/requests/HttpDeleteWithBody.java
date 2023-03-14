@@ -9,7 +9,7 @@ import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
  *
  * Template to handle http delete requests with a body.
  *
- * @author Marcel N&oumlhre
+ * @author Marcel N&ouml;hre
  *
  */
 @NotThreadSafe

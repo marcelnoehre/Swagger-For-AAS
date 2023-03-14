@@ -6,7 +6,7 @@ import utils.Transform;
  *
  * Template for a parameter instance.
  *
- * @author Marcel N&oumlhre
+ * @author Marcel N&ouml;hre
  *
  */
 public class Parameter {

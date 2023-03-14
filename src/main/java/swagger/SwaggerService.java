@@ -21,7 +21,7 @@ import utils.Transform;
  *
  * Service to generate a swagger documentation for a specific aas.
  *
- * @author Marcel N&oumlhre
+ * @author Marcel N&ouml;hre
  *
  */
 public class SwaggerService {

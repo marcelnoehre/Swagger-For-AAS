@@ -25,7 +25,7 @@ import swagger2java.model.SubmodelelementListItem;
 *
 * Collection of compare functionalities.
 *
-* @author Marcel N&oumlhre
+* @author Marcel N&ouml;hre
 *
 */
 public class Compare {

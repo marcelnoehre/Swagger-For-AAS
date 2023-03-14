@@ -23,7 +23,7 @@ import utils.Routes;
 /**
  * Unit test to test the model generation.
  *
- * @author Marcel N&oumlhre
+ * @author Marcel N&ouml;hre
  *
  */
 public class SwaggerToJavaTest {
@@ -175,6 +175,10 @@ public class SwaggerToJavaTest {
             }
         } catch (Exception e) {
             failedModels.add("PUT_CD");
+        }
+        checkedModels.forEach(System.out::println);
+        if (failedModels.size() > 0) {
+            System.out.println("--------------------");
         }
         failedModels.forEach(System.err::println);
         for (String model : models) {

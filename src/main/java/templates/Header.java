@@ -9,7 +9,7 @@ import utils.Transform;
  *
  * Template for a header instance.
  *
- * @author Marcel N&oumlhre
+ * @author Marcel N&ouml;hre
  *
  */
 public class Header {

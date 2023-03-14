@@ -8,7 +8,7 @@ import utils.Transform;
  *
  * Template for a response instance.
  *
- * @author Marcel N&oumlhre
+ * @author Marcel N&ouml;hre
  *
  */
 public class Response {

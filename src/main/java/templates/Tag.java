@@ -6,7 +6,7 @@ import utils.Transform;
  *
  * Template for a tag instance.
  *
- * @author Marcel N&oumlhre
+ * @author Marcel N&ouml;hre
  *
  */
 public class Tag {

@@ -19,7 +19,7 @@ import templates.SecurityDefinition;
  *
  * Collection of transform functionalities.
  *
- * @author Marcel N&oumlhre
+ * @author Marcel N&ouml;hre
  *
  */
 public class Transform {
@@ -224,22 +224,22 @@ public class Transform {
      * @param json The JSON String to get adjusted
      * @return The adjusted JSON String
      */
-    public static String adjustJson(String json) {
-        String tmp = "";
-        while (tmp != json) {
-            tmp = json;
-            json = json.replace("\\\\", "\\");
-        }
-        return json.replace("\\/", "/")
-                .replace("\\\"", "\"")
-                .replace("idShort}\"", "idShort}\"\"")
-                .replace("\"{", "{")
-                .replace("}\"", "}")
-                .replace("\"[\"", "[\"")
-                .replace("\"]\"", "\"]")
-                .replace("\"[{", "[{")
-                .replace("}]\"", "}]");
+public static String adjustJson(String json) {
+    String tmp = "";
+    while (tmp != json) {
+        tmp = json;
+        json = json.replace("\\\\", "\\");
     }
+    return json.replace("\\/", "/")
+        .replace("\\\"", "\"")
+        .replace("idShort}\"", "idShort}\"\"")
+        .replace("\"{", "{")
+        .replace("}\"", "}")
+        .replace("\"[\"", "[\"")
+        .replace("\"]\"", "\"]")
+        .replace("\"[{", "[{")
+        .replace("}]\"", "}]");
+}
 
     /**
      * Remove special chars to compare complex strings.

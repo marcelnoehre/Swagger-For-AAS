@@ -6,7 +6,7 @@ import utils.Transform;
  *
  * Template for a external docs instance.
  *
- * @author Marcel N&oumlhre
+ * @author Marcel N&ouml;hre
  *
  */
 public class ExternalDocs {

@@ -6,7 +6,7 @@ import org.json.simple.JSONObject;
  *
  * Template for a route instance.
  *
- * @author Marcel N&oumlhre
+ * @author Marcel N&ouml;hre
  *
  */
 public class Path {

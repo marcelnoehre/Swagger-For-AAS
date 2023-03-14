@@ -4,7 +4,7 @@ package templates;
  *
  * Template for a scope instance.
  *
- * @author Marcel N&oumlhre
+ * @author Marcel N&ouml;hre
  *
  */
 public class Scope {

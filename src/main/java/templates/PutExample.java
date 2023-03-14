@@ -4,7 +4,7 @@ package templates;
 *
 * Template to send a test put request.
 *
-* @author Marcel N&oumlhre
+* @author Marcel N&ouml;hre
 *
 */
 public class PutExample{

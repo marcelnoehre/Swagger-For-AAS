@@ -6,7 +6,7 @@ import utils.Transform;
  *
  * Template for a items instance.
  *
- * @author Marcel N&oumlhre
+ * @author Marcel N&ouml;hre
  *
  */
 public class Items {

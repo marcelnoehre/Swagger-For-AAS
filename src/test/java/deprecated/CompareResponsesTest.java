@@ -17,7 +17,7 @@ import utils.Routes;
 /**
  * Unit test to check the rest responses.
  *
- * @author Marcel N&oumlhre
+ * @author Marcel N&ouml;hre
  *
  */
 public class CompareResponsesTest {

@@ -19,7 +19,7 @@ import org.apache.http.util.EntityUtils;
  *
  * Service to handle REST requests.
  *
- * @author Marcel N&oumlhre
+ * @author Marcel N&ouml;hre
  *
  */
 public class RestService {

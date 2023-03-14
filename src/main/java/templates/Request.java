@@ -8,7 +8,7 @@ import utils.Transform;
  *
  * Template for a path instance.
  *
- * @author Marcel N&oumlhre
+ * @author Marcel N&ouml;hre
  *
  */
 public class Request {

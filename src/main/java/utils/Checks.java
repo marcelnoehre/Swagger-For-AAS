@@ -11,7 +11,7 @@ import org.json.JSONObject;
  *
  * Collection of check funktionalties.
  *
- * @author Marcel N&oumlhre
+ * @author Marcel N&ouml;hre
  *
  */
 public class Checks {

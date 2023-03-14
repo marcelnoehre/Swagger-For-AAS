@@ -30,7 +30,7 @@ import utils.Routes;
  *
  * Service to fill templates with generated information.
  *
- * @author Marcel N&oumlhre
+ * @author Marcel N&ouml;hre
  *
  */
 public class DataGenerationService {
