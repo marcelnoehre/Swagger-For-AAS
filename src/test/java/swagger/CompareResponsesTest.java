@@ -35,7 +35,7 @@ public class CompareResponsesTest {
             new ConceptDescriptionApi();
     private final static RestService restService =
             new RestService();
-    private final static Routes routes = new Routes(
+    private static Routes routes = new Routes(
             restService, "http://localhost:1111/", Constants.TEST_AAS_ID);
     private final static String[] models = new String[] {
             "GET_AAS", "GET_SUBMODEL_LIST", "GET_ASSET", "GET_SUBMODEL",
@@ -43,11 +43,23 @@ public class CompareResponsesTest {
     };
 
     /**
-     * Compare whether the responses of the generated Java models correspond to
-     * the responses of the REST requests.
+     * Handle response comparison for multiple Asset Administration Shells.
      */
     @Test
     public void compareResponses() {
+       compareSingleResponses(Constants.TEST_AAS_ID);
+        // for(String idShort: Constants.TEST_MULTIPLE_AAS_IDS) {
+        //     compareSingleResponses(idShort);
+        // }
+    }
+
+    /**
+     * Compare whether the responses of the generated Java models correspond to
+     * the responses of the REST requests.
+     */
+    public void compareSingleResponses(String idShort) {
+        routes = new Routes(
+            restService, "http://localhost:1111/", idShort);
         ArrayList<String> checkedModels = new ArrayList<String>();
         ArrayList<String> failedModels = new ArrayList<String>();
         try {
@@ -139,11 +151,14 @@ public class CompareResponsesTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        System.out.println("--------------------\n" + idShort);
+        System.out.println("--------------------");
         checkedModels.forEach(System.out::println);
         if (failedModels.size() > 0) {
             System.out.println("--------------------");
         }
         failedModels.forEach(System.err::println);
+        System.out.println("\n");
         for (String model : models) {
             assertTrue(checkedModels.contains(model));
         }

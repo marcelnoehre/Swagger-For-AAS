@@ -19,12 +19,20 @@ public class Constants {
     /**
      * AAS idShort to test the functionalities.
      */
-//    public static final String TEST_AAS_ID = "ExampleMotor";
+   public static final String TEST_AAS_ID = "ExampleMotor";
 //    public static final String TEST_AAS_ID = "Bosch_NexoPistolGripNutrunner";
 //    public static final String TEST_AAS_ID = "Festo_3S7PM0CP4BD";
 //    public static final String TEST_AAS_ID = "Lenze_i950";
 //    public static final String TEST_AAS_ID = "IIP_Ecosphere";
-    public static final String TEST_AAS_ID = "Sen_Ecosphere_Cell";
+
+    /**
+     * Multiple AAS idShorts to test the functionalities.
+     */
+    public static final String[] TEST_MULTIPLE_AAS_IDS = new String[] {
+        "AASHoldingAllSubmodels", "Sen_Ecosphere_Cell", "Sen_Robot1",
+        "Sen_Testsystem1", "Sen_TestAdapter1", "Sen_TestAdapter2",
+        "Sen_TestAdapter3", "Sen_BeltConveyor1", "Sen_OpticalTestsystem1"
+    };
 
     /**
      * Template for a http get request to get a AAS.

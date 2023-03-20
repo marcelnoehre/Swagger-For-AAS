@@ -54,8 +54,15 @@ public class Checks {
             } catch (JSONException jsonArray) {
                 if (Pattern.compile("^\\d+$").matcher(variable).matches()) {
                     return "integer";
+                } else if(Pattern.compile("^\\d+(\\.\\d+)?$").matcher(variable).matches()) {
+                    return "double";
                 } else {
+                    String tmp = variable.toLowerCase();
+                    if(tmp.equals("true") || tmp.equals("false")) {
+                        return "boolean";
+                    } else {
                     return "string";
+                    }
                 }
             }
         }
