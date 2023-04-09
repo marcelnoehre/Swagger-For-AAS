@@ -14,18 +14,19 @@ import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
  */
 @NotThreadSafe
 class HttpDeleteWithBody extends HttpEntityEnclosingRequestBase {
-
-    /**
-     * Sets the method name to DELETE.
-     */
     public static final String METHOD_NAME = "DELETE";
 
+    /**
+     * Getter for the method name.
+     * 
+     * @return The method name 
+     */
     public String getMethod() {
         return METHOD_NAME;
     }
 
     /**
-     * Sets up http delte request that can contain a body.
+     * Sets up http delete request that can contain a body.
      *
      * @param uri The requested URI
      */
@@ -33,5 +34,4 @@ class HttpDeleteWithBody extends HttpEntityEnclosingRequestBase {
         super();
         setURI(URI.create(uri));
     }
-
 }

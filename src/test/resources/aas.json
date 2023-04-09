@@ -12,7 +12,7 @@
                         "description": "successful operation"
                     },
                     "404": {
-                        "description": "No AAS 'ExampleMotor' or no Submodel with idShort 'example' found."
+                        "description": "No AAS 'ExampleMotor' or no Submodel with idShort '_example' found."
                     }
                 },
                 "parameters": [{
@@ -72,7 +72,7 @@
                         "description": "successful operation"
                     },
                     "404": {
-                        "description": "No AAS with id 'example' found."
+                        "description": "No AAS with id '_example' found."
                     }
                 },
                 "parameters": [{
@@ -99,7 +99,7 @@
                         "schema": {
                             "type": "string"
                         },
-                        "description": "No AAS with idShort 'example' found."
+                        "description": "No AAS with idShort '_example' found."
                     }
                 },
                 "parameters": [{
@@ -129,7 +129,7 @@
                         "schema": {
                             "type": "string"
                         },
-                        "description": "Cannot deserialize payload: Unexpected character encountered while parsing value: e. Path '', line 0, position 0.."
+                        "description": "Cannot deserialize payload: Unexpected character encountered while parsing value: _. Path '', line 0, position 0.."
                     }
                 },
                 "parameters": [{
@@ -187,7 +187,7 @@
                         "description": "successful operation"
                     },
                     "404": {
-                        "description": "No AAS with idShort 'example' found."
+                        "description": "No AAS with idShort '_example' found."
                     }
                 },
                 "parameters": [{
@@ -216,7 +216,7 @@
                         "schema": {
                             "type": "string"
                         },
-                        "description": "Cannot deserialize payload: Unexpected character encountered while parsing value: e. Path '', line 0, position 0.."
+                        "description": "Cannot deserialize payload: Unexpected character encountered while parsing value: _. Path '', line 0, position 0.."
                     }
                 },
                 "parameters": [{
@@ -254,7 +254,7 @@
                         "description": "successful operation"
                     },
                     "404": {
-                        "description": "No AAS 'ExampleMotor' or no Submodel with idShort 'example' found."
+                        "description": "No AAS 'ExampleMotor' or no Submodel with idShort '_example' found."
                     }
                 },
                 "parameters": [{
@@ -289,7 +289,7 @@
                         "schema": {
                             "type": "string"
                         },
-                        "description": "Cannot deserialize payload: Unexpected character encountered while parsing value: e. Path '', line 0, position 0.."
+                        "description": "Cannot deserialize payload: Unexpected character encountered while parsing value: _. Path '', line 0, position 0.."
                     }
                 },
                 "parameters": [{
@@ -333,7 +333,7 @@
                         "schema": {
                             "type": "string"
                         },
-                        "description": "Cannot deserialize payload: Unexpected character encountered while parsing value: e. Path '', line 0, position 0.."
+                        "description": "Cannot deserialize payload: Unexpected character encountered while parsing value: _. Path '', line 0, position 0.."
                     }
                 },
                 "parameters": [{
@@ -371,7 +371,7 @@
                         "description": "successful operation"
                     },
                     "404": {
-                        "description": "No AAS with idShort 'example' found."
+                        "description": "No AAS with idShort '_example' found."
                     }
                 },
                 "parameters": [{
@@ -397,7 +397,7 @@
                         "description": "successful operation"
                     },
                     "404": {
-                        "description": "No AAS 'ExampleMotor' or no ConceptDescription with id 'example' found."
+                        "description": "No AAS 'ExampleMotor' or no ConceptDescription with id '_example' found."
                     }
                 },
                 "parameters": [{
@@ -430,7 +430,7 @@
                         "schema": {
                             "type": "string"
                         },
-                        "description": "No AAS 'ExampleMotor' or no ConceptDescription with id 'example' found."
+                        "description": "No AAS 'ExampleMotor' or no ConceptDescription with id '_example' found."
                     }
                 },
                 "parameters": [{

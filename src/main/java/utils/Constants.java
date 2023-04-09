@@ -162,46 +162,46 @@ public class Constants {
     /**
      * Route for a example AAS.
      */
-    public static final String EXAMPLE_AAS = "/aas/example";
+    public static final String EXAMPLE_AAS = "/aas/_example";
 
     /**
      * Route for a example submodel list.
      */
     public static final String EXAMPLE_SUBMODEL_LIST =
-            "/aas/example/submodels/";
+            "/aas/_example/submodels/";
 
     /**
      * Route for a example asset.
      */
-    public static final String EXAMPLE_ASSETS = "/assets/example";
+    public static final String EXAMPLE_ASSETS = "/assets/_example";
 
     /**
      * Route for a example submodel.
      */
     public static final String EXAMPLE_SUBMODEL =
-            "/aas/{aas.idShort}/submodels/example";
+            "/aas/{aas.idShort}/submodels/_example";
 
     /**
      * Route for a example element list.
      */
     public static final String EXAMPLE_ELEMENT_LIST =
-            "/aas/{aas.idShort}/submodels/example/table";
+            "/aas/{aas.idShort}/submodels/_example/table";
 
     /**
      * Route for a example element.
      */
     public static final String EXAMPLE_ELEMENT =
-            "/aas/{aas.idShort}/submodels/{submodel.idShort}/elements/example";
+            "/aas/{aas.idShort}/submodels/{submodel.idShort}/elements/_example";
 
     /**
      * Route for a example concept description list.
      */
-    public static final String EXAMPLE_CD_LIST = "/aas/example/cds";
+    public static final String EXAMPLE_CD_LIST = "/aas/_example/cds";
 
     /**
      * Route for a example concept description.
      */
-    public static final String EXAMPLE_CD = "/aas/{aas.idShort}/cds/example";
+    public static final String EXAMPLE_CD = "/aas/{aas.idShort}/cds/_example";
 
     /**
      * Parameter definition of the AAS short id.

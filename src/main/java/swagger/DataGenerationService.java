@@ -124,11 +124,11 @@ public class DataGenerationService {
         String[] good = null;
         String[] bad = null;
         String[][] parameter = new String[][] {
-            new String[] {"idShort", "example"},
-            new String[] {"id", "example"}};
+            new String[] {"idShort", "_example"},
+            new String[] {"id", "_example"}};
         String path = "";
         String pathPut = "";
-        String goodExample = "{\"idShort\":\"example\",\"id\":\"example\"}";
+        String goodExample = "{\"idShort\":\"_example\",\"id\":\"_example\"}";
         Schema schema = new Schema("string", null, null, null);
         switch (route.getType()) {
         case "get":
@@ -158,10 +158,10 @@ public class DataGenerationService {
             case "Submodelelement":
                 path = Constants.EXAMPLE_ELEMENT;
                 schema = Constants.ELEMENT_SCHEMA;
-                goodExample = "{\"idShort\":\"example\",\"modelType\""
+                goodExample = "{\"idShort\":\"_example\",\"modelType\""
                         + ":{\"name\":\"Property\"}}";
-                parameter = new String[][] {new String[] {"idShort", "example"},
-                    new String[] {"id", "example"}, new String[] {"modelType",
+                parameter = new String[][] {new String[] {"idShort", "_example"},
+                    new String[] {"id", "_example"}, new String[] {"modelType",
                             "{\"name\":\"Property\"}"}};
                 break;
             case "Concept Description":
@@ -202,10 +202,10 @@ public class DataGenerationService {
                 break;
             case "Submodelelement":
                 path = Constants.EXAMPLE_ELEMENT;
-                goodExample = "{\"idShort\":\"example\",\"modelType\""
+                goodExample = "{\"idShort\":\"_example\",\"modelType\""
                         + ":{\"name\":\"Property\"}}";
-                parameter = new String[][] {new String[] {"idShort", "example"},
-                    new String[] {"id", "example"}, new String[] {"modelType",
+                parameter = new String[][] {new String[] {"idShort", "_example"},
+                    new String[] {"id", "_example"}, new String[] {"modelType",
                             "{\"name\":\"Property\"}"}};
                 break;
             case "Concept Description":
@@ -214,7 +214,7 @@ public class DataGenerationService {
             default:
                 break;
             }
-            restService.httpPut(routes.replaceIDs(path.replace("example", "")),
+            restService.httpPut(routes.replaceIDs(path.replace("_example", "")),
                     goodExample, parameter);
             good = restService.httpDelete(routes.getBaseUrl()
                     + routes.replaceIDs(path), goodExample);
@@ -239,7 +239,7 @@ public class DataGenerationService {
             case "Submodelelement":
                 path = routes.replaceIDs(Constants.EXAMPLE_ELEMENT);
                 pathPut = routes.replaceIDs(Constants.PUT_ELEMENT.getPath());
-                goodExample = "{\"idShort\":\"example\",\"modelType\""
+                goodExample = "{\"idShort\":\"_example\",\"modelType\""
                         + ":{\"name\":\"Property\"}}";
                 break;
             case "Concept Description":
@@ -252,7 +252,7 @@ public class DataGenerationService {
             }
             restService.httpDelete(routes.getBaseUrl() + path, goodExample);
             good = restService.httpPut(pathPut, goodExample, parameter);
-            bad = restService.httpPut(pathPut, "example", new String[][] {});
+            bad = restService.httpPut(pathPut, "_example", new String[][] {});
             restService.httpDelete(routes.getBaseUrl() + path, goodExample);
             return new Response[] {
                     new Response(bad[0], bad[1], schema, null),

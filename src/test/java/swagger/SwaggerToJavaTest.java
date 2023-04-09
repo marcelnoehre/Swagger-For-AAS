@@ -69,12 +69,12 @@ public class SwaggerToJavaTest {
         }
         try {
             AasInput aasInput = new AasInput();
-            aasInput.idShort("example");
-            aasInput.identification(new PutExample("example", "example"));
+            aasInput.idShort("_example");
+            aasInput.identification(new PutExample("_example", "_example"));
             AAS.aasPut(aasInput);
             checkedModels.add("PUT_AAS");
             try {
-                AAS.aasAasIdShortDelete("example");
+                AAS.aasAasIdShortDelete("_example");
                 checkedModels.add("DELETE_AAS");
             } catch (Exception e) {
                 failedModels.add("DELETE_AAS");
@@ -105,14 +105,14 @@ public class SwaggerToJavaTest {
         }
         try {
             SubmodelInput submodelInput = new SubmodelInput();
-            submodelInput.idShort("example");
-            submodelInput.identification(new PutExample("example", "example"));
+            submodelInput.idShort("_example");
+            submodelInput.identification(new PutExample("_example", "_example"));
             SUBMODEL.aasAasIdShortSubmodelsPut(
                     submodelInput, routes.getAASId());
             checkedModels.add("PUT_SUBMODEL");
             try {
                 SUBMODEL.aasAasIdShortSubmodelsSubmodelIdShortDelete(
-                        routes.getAASId(), "example");
+                        routes.getAASId(), "_example");
                 checkedModels.add("DELETE_SUBMODEL");
             } catch (Exception e) {
                 failedModels.add("DELETE_SUBMODEL");
@@ -131,7 +131,7 @@ public class SwaggerToJavaTest {
         }
         try {
             SubmodelElementInput elementInput = new SubmodelElementInput();
-            elementInput.idShort("example");
+            elementInput.idShort("_example");
             elementInput.modelType(new PutExample("Property"));
             ELEMENT.aasAasIdShortSubmodelsSubmodelIdShortElementsPut(
                     elementInput, routes.getAASId(), routes.getSubmodelId());
@@ -139,7 +139,7 @@ public class SwaggerToJavaTest {
             try {
                 ELEMENT.
                 aasAasIdShortSubmodelsSubmodelIdShortElementsElementIdShortDelete(
-                        routes.getAASId(), routes.getSubmodelId(), "example");
+                        routes.getAASId(), routes.getSubmodelId(), "_example");
                 checkedModels.add("DELETE_ELEMENT");
             } catch (Exception e) {
                 failedModels.add("DELETE_ELEMENT");
@@ -162,13 +162,13 @@ public class SwaggerToJavaTest {
         }
         try {
             ConceptDescriptionInput cdInput = new ConceptDescriptionInput();
-            cdInput.idShort("example");
-            cdInput.identification(new PutExample("example", "example"));
+            cdInput.idShort("_example");
+            cdInput.identification(new PutExample("_example", "_example"));
             CD.aasAasIdShortCdsPut(cdInput, routes.getAASId());
             checkedModels.add("PUT_CD");
             try {
                 CD.aasAasIdShortCdsCdIdShortDelete(routes.getAASId(),
-                        "example");
+                        "_example");
                 checkedModels.add("DELETE_CD");
             } catch (Exception e) {
                 failedModels.add("DELETE_CD");
