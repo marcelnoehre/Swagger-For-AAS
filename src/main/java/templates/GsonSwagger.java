@@ -42,17 +42,8 @@ public class GsonSwagger {
      * @param definitions the list of definitions
      * @param externalDocs the list of external documents
      */
-    public GsonSwagger(
-            String swagger,
-            Info info,
-            String host,
-            String basePath,
-            Tag[] tags,
-            String[] schemes,
-            Path[] paths,
-            SecurityDefinition[] securityDefinitions,
-            Definition[] definitions,
-            ExternalDocs externalDocs) {
+    public GsonSwagger(String swagger, Info info, String host, String basePath, Tag[] tags, String[] schemes,
+            Path[] paths, SecurityDefinition[] securityDefinitions, Definition[] definitions, ExternalDocs externalDocs) {
         this.swagger = swagger;
         this.info = info;
         this.host = host;
@@ -104,10 +95,8 @@ public class GsonSwagger {
                 Transform.arrayToJson(tagArr),
                 Transform.arrayToJson(this.schemes),
                 Transform.pathsToGson(this.paths),
-                Transform.securityDefinitionsToJson(
-                        securityDefinitions),
-                Transform.definitionsToJson(this.definitions),
-                externalDocs};
+                Transform.securityDefinitionsToJson(securityDefinitions),
+                Transform.definitionsToJson(this.definitions), externalDocs};
     }
 
     /**

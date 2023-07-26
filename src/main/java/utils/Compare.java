@@ -37,42 +37,36 @@ public class Compare {
      * @return whether the object parameters match
      */
     @SuppressWarnings("rawtypes")
-    public static boolean compareJSONObject(
-            LinkedTreeMap model, String rest) {
+    public static boolean compareJSONObject(LinkedTreeMap model, String rest) {
         boolean check = true;
         try {
-            for (Iterator iterator = model.keySet().iterator();
-                iterator.hasNext();) {
-            String key = (String) iterator.next();
+            for (Iterator iterator = model.keySet().iterator(); iterator.hasNext()) {
+                String key = (String) iterator.next();
                 if (model.get(key).getClass().equals(LinkedTreeMap.class)) {
-                    if (!compareJSONObject((LinkedTreeMap) model.get(key),
-                            new JSONObject(rest).get(key).toString())) {
+                    if (!compareJSONObject((LinkedTreeMap) model.get(key), new JSONObject(rest).get(key).toString())) {
                         check = false;
                     }
                 } else if (model.get(key).getClass().equals(ArrayList.class)) {
-                    if (!compareJSONArray(Transform.objectToList(model.get(key)),
-                            new JSONObject(rest).get(key).toString())) {
+                    if (!compareJSONArray(Transform.objectToList(model.get(key)), new JSONObject(rest).get(key).toString())) {
                         check = false;
                     }
                 } else if (model.get(key).getClass().equals(String.class)) {
-                    if (!compareValues(model.get(key).toString(),
-                            new JSONObject(rest).get(key).toString())) {
+                    if (!compareValues(model.get(key).toString(), new JSONObject(rest).get(key).toString())) {
                         check = false;
                     }
                 } else {
                     if (model.get(key) != (new JSONObject(rest).get(key))) {
-                        if (!(model.get(key).toString().replaceAll("0.0", "0"))
-                                .equals(new JSONObject(rest)
-                                        .get(key).toString())) {
-                            System.err.println(model.get(key).toString()
-                                    .replaceAll("0.0", "0") + " : "
-                                    + new JSONObject(rest).get(key).toString());
+                        if (!(model.get(key).toString().replaceAll("0.0", "0")).equals(new JSONObject(rest).get(key).toString())) {
+                            System.err.println(model.get(key).toString().replaceAll("0.0", "0")
+                                    + " : " + new JSONObject(rest).get(key).toString());
                             check = false;
                         }
                     }
                 }
             }
-        } catch (NullPointerException nullPointer) { }
+        } catch (NullPointerException nullPointer) {
+            nullPointer.printStackTrace();
+        }
         return check;
     }
 
@@ -97,8 +91,7 @@ public class Compare {
             i = 0;
             for (Object object : model) {
                 try {
-                    if (!compareJSONObject((LinkedTreeMap) object,
-                            restArray[i].toString())) {
+                    if (!compareJSONObject((LinkedTreeMap) object, restArray[i].toString())) {
                         check = false;
                     }
                 } catch (NullPointerException nullPointer) { }
@@ -145,13 +138,11 @@ public class Compare {
         boolean check = true;
         try {
             if (model.getClass().equals(LinkedTreeMap.class)) {
-                if (!compareJSONObject((LinkedTreeMap) model,
-                        new JSONObject(rest.toString()).toString())) {
+                if (!compareJSONObject((LinkedTreeMap) model, new JSONObject(rest.toString()).toString())) {
                     check = false;
                 }
             } else if (model.getClass().equals(ArrayList.class)) {
-                if (!compareJSONArray(Transform.objectToList(model),
-                        rest.toString())) {
+                if (!compareJSONArray(Transform.objectToList(model), rest.toString())) {
                     check = false;
                 }
             } else if (model.getClass().equals(String.class)) {
@@ -160,11 +151,9 @@ public class Compare {
                 }
             } else {
                 if (model != (new JSONObject(rest.toString()))) {
-                    if (!(model.toString().replaceAll("0.0", "0")).equals(
-                            new JSONObject(rest.toString()).toString())) {
-                        System.err.println(model.toString()
-                                .replaceAll("0.0", "0") + " : "
-                                + new JSONObject(rest.toString()).toString());
+                    if (!(model.toString().replaceAll("0.0", "0")).equals(new JSONObject(rest.toString()).toString())) {
+                        System.err.println(model.toString().replaceAll("0.0", "0")
+                                + " : " + new JSONObject(rest.toString()).toString());
                         check = false;
                     }
                 }
@@ -186,8 +175,7 @@ public class Compare {
      * @param keys the parameter keys
      * @return whether the responses match
      */
-    public static boolean compareResponse(
-            Object[] model, JSONObject rest, String[] keys) {
+    public static boolean compareResponse(Object[] model, JSONObject rest, String[] keys) {
         for (int i = 0; i < keys.length; i++) {
             if (!compareGeneric(model[i], rest.get(keys[i]).toString())) {
                 return false;
@@ -203,15 +191,10 @@ public class Compare {
      * @param rest the response of the rest service
      * @return whether the responses match
      */
-    public static boolean compareAASResponse(
-            AssetAdministrationShell model, String rest) {
+    public static boolean compareAASResponse(AssetAdministrationShell model, String rest) {
         JSONObject restObject = new JSONObject(rest);
-        Object[] aasModel = new Object[] {
-                model.getAAS(), model.getAsset()
-        };
-        String[] aasKeys = new String[] {
-                "AAS", "Asset"
-        };
+        Object[] aasModel = new Object[] {model.getAAS(), model.getAsset()};
+        String[] aasKeys = new String[] {"AAS", "Asset"};
         return compareResponse(aasModel, restObject, aasKeys);
     }
 
@@ -222,13 +205,10 @@ public class Compare {
      * @param rest the response of the rest service
      * @return whether the resposnes match
      */
-    public static boolean compareSubmodelListResponse(
-            List<SubmodelListItem> model, String rest) {
+    public static boolean compareSubmodelListResponse(List<SubmodelListItem> model, String rest) {
         JSONArray jsonArray = new JSONArray(rest);
         JSONObject[] restArray = new JSONObject[jsonArray.length()];
-        String[] keys = new String[] {
-                "id", "idShort", "kind"
-        };
+        String[] keys = new String[] {"id", "idShort", "kind"};
         int i = 0;
         for (Object object : jsonArray) {
             restArray[i] = new JSONObject(object.toString());
@@ -256,13 +236,10 @@ public class Compare {
      * @param rest the response of the rest service
      * @return whether the resposnes match
      */
-    public static boolean compareAssetsResponse(
-            List<Asset> model, String rest) {
+    public static boolean compareAssetsResponse(List<Asset> model, String rest) {
         JSONArray jsonArray = new JSONArray(rest);
         JSONObject[] restArray = new JSONObject[jsonArray.length()];
-        String[] keys = new String[] {
-                "identification", "idShort"
-        };
+        String[] keys = new String[] {"identification", "idShort"};
         int i = 0;
         for (Object object : jsonArray) {
             restArray[i] = (JSONObject) object;
@@ -270,10 +247,7 @@ public class Compare {
         }
         i = 0;
         for (Asset asset : model) {
-            Object[] modelArray = new Object[] {
-                    asset.getIdentification(),
-                    asset.getIdShort()
-            };
+            Object[] modelArray = new Object[] {asset.getIdentification(), asset.getIdShort()};
             if (!compareResponse(modelArray, restArray[i], keys)) {
                 return false;
             }
@@ -324,8 +298,7 @@ public class Compare {
      * @param rest the response of the rest service
      * @return whether the resposnes match
      */
-    public static boolean compareElementListResponse(
-            List<SubmodelelementListItem> model, String rest) {
+    public static boolean compareElementListResponse(List<SubmodelelementListItem> model, String rest) {
         JSONArray jsonArray = new JSONArray(rest);
         JSONObject[] restArray = new JSONObject[jsonArray.length()];
         String[] keys = new String[] {
@@ -363,21 +336,15 @@ public class Compare {
      * @param rest the response of the rest service
      * @return whether the resposnes match
      */
-    public static boolean compareElementResponse(
-            SubmodelElement model, String rest) {
+    public static boolean compareElementResponse(SubmodelElement model, String rest) {
         JSONObject restObject = new JSONObject(rest);
         Object[] modelArray = new Object[] {
                 model.getElem(),
                 model.getParent(),
                 model.getWrapper()
         };
-        String[] keys = new String[] {
-                "elem", "parent", "wrapper"
-        };
-        if (!compareResponse(modelArray, restObject, keys)) {
-            return false;
-        }
-        return true;
+        String[] keys = new String[] {"elem", "parent", "wrapper"};
+        return compareResponse(modelArray, restObject, keys);
     }
 
     /**
@@ -387,8 +354,7 @@ public class Compare {
      * @param rest the response of the rest service
      * @return whether the resposnes match
      */
-    public static boolean compareCDListResponse(
-            List<ConceptDescriptionListItem> model, String rest) {
+    public static boolean compareCDListResponse(List<ConceptDescriptionListItem> model, String rest) {
         JSONArray jsonArray = new JSONArray(rest);
         JSONObject[] restArray = new JSONObject[jsonArray.length()];
         int i = 0;
@@ -404,9 +370,7 @@ public class Compare {
                     cdListItem.getIsCaseOf(),
                     cdListItem.getShortName()
             };
-            String[] keys = new String[] {
-                    "identification", "idShort", "isCaseOf", "shortName"
-            };
+            String[] keys = new String[] {"identification", "idShort", "isCaseOf", "shortName"};
             if (!compareResponse(modelArray, restArray[i], keys)) {
                 return false;
             }
@@ -422,8 +386,7 @@ public class Compare {
      * @param rest the response of the rest service
      * @return whether the resposnes match
      */
-    public static boolean compareCDResponse(
-            ConceptDescription model, String rest) {
+    public static boolean compareCDResponse(ConceptDescription model, String rest) {
         JSONObject restObject = new JSONObject(rest);
         Object[] modelArray = new Object[] {
                 model.getAdministration(),
@@ -440,9 +403,6 @@ public class Compare {
                 "embeddedDataSpecifications", "identification", "idShort",
                 "isCaseOf", "modelType"
         };
-        if (!compareResponse(modelArray, restObject, keys)) {
-            return false;
-        }
-        return true;
+        return compareResponse(modelArray, restObject, keys);
     }
 }

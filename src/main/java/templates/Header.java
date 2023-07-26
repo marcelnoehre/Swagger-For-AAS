@@ -13,8 +13,7 @@ import utils.Transform;
  *
  */
 public class Header {
-    private final String[] keys =
-            new String[] {"type", "format", "description"};
+    private final String[] keys = new String[] {"type", "format", "description"};
     private String id;
     private String type;
     private String format;
@@ -28,11 +27,7 @@ public class Header {
      * @param format the format associated with the type
      * @param description the description of the header
      */
-    public Header(
-            String id,
-            String type,
-            String format,
-            String description) {
+    public Header(String id, String type, String format, String description) {
         this.id = id;
         this.type = type;
         this.format = format;

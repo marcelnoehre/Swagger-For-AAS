@@ -14,11 +14,7 @@ public class Route {
      * @param type the type of the route endpoint
      * @param path the path of the route
      */
-    public Route(
-            String tag,
-            String summary,
-            String type,
-            String path) {
+    public Route(String tag, String summary, String type, String path) {
         this.tag = tag;
         this.summary = summary;
         this.type = type;

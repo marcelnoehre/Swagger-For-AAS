@@ -10,15 +10,7 @@ import utils.Transform;
  *
  */
 public class Property {
-    private final String[] keys = new String[] {
-            "type",
-            "format",
-            "description",
-            "enum",
-            "example",
-            "example",
-            "items",
-            "$ref"};
+    private final String[] keys = new String[] {"type", "format", "description", "enum", "example", "example", "items", "$ref"};
     private String id;
     private String type;
     private String format;
@@ -42,16 +34,8 @@ public class Property {
      * @param items the items of the property
      * @param $ref the reference to a existing property
      */
-    public Property(
-            String id,
-            String type,
-            String format,
-            String description,
-            String[] enums,
-            String example,
-            String[] exampleArray,
-            Items items,
-            String $ref) {
+    public Property(String id, String type, String format, String description, String[] enums,
+            String example, String[] exampleArray, Items items, String $ref) {
         this.id = id;
         this.type = type;
         this.format = format;
@@ -84,15 +68,8 @@ public class Property {
         } catch (NullPointerException itemsNull) {
             items = null;
         }
-        return new String[] {
-                this.type,
-                this.format,
-                this.description,
-                Transform.arrayToJson(this.enums),
-                this.example,
-                Transform.arrayToJson(this.exampleArray),
-                items,
-                this.$ref};
+        return new String[] {this.type, this.format, this.description, Transform.arrayToJson(this.enums),
+                this.example, Transform.arrayToJson(this.exampleArray), items, this.$ref};
     }
 
     /**

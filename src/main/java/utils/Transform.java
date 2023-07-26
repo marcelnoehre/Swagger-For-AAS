@@ -54,9 +54,7 @@ public class Transform {
      * @return The transformed instance as a JSON String
      */
     @SuppressWarnings("unchecked")
-    public static String instanceToJson(
-            String[] keys,
-            String[] values) {
+    public static String instanceToJson(String[] keys, String[] values) {
         JSONObject container = new JSONObject();
         boolean filled = false;
         for (int i = 0; i < keys.length; i++) {
@@ -183,14 +181,12 @@ public class Transform {
      * @return The transformed list as JSON String
      */
     @SuppressWarnings("unchecked")
-    public static String securityDefinitionsToJson(
-            SecurityDefinition[] securityDefinitions) {
+    public static String securityDefinitionsToJson(SecurityDefinition[] securityDefinitions) {
         try {
             JSONObject container = new JSONObject();
             for (SecurityDefinition securityDefinition : securityDefinitions) {
                 System.out.println(securityDefinition.asJson());
-                container.put(securityDefinition.getId(),
-                        securityDefinition.asJson());
+                container.put(securityDefinition.getId(), securityDefinition.asJson());
             }
             return container.toJSONString();
         } catch (NullPointerException nullPointer) {
@@ -231,14 +227,14 @@ public static String adjustJson(String json) {
         json = json.replace("\\\\", "\\");
     }
     return json.replace("\\/", "/")
-        .replace("\\\"", "\"")
-        .replace("idShort}\"", "idShort}\"\"")
-        .replace("\"{", "{")
-        .replace("}\"", "}")
-        .replace("\"[\"", "[\"")
-        .replace("\"]\"", "\"]")
-        .replace("\"[{", "[{")
-        .replace("}]\"", "}]");
+            .replace("\\\"", "\"")
+            .replace("idShort}\"", "idShort}\"\"")
+            .replace("\"{", "{")
+            .replace("}\"", "}")
+            .replace("\"[\"", "[\"")
+            .replace("\"]\"", "\"]")
+            .replace("\"[{", "[{")
+            .replace("}]\"", "}]");
 }
 
     /**

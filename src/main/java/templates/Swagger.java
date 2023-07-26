@@ -12,11 +12,8 @@ import utils.Transform;
  *
  */
 public class Swagger {
-    private final String[] keys = new String[] {
-            "swagger", "info", "host", "basePath",
-            "tags", "schemes", "paths",
-            "securityDefinitions",
-            "definitions", "externalDocs"};
+    private final String[] keys = new String[] {"swagger", "info", "host", "basePath", "tags",
+            "schemes", "paths", "securityDefinitions", "definitions", "externalDocs"};
     private String swagger;
     private Info info;
     private String host;
@@ -42,17 +39,8 @@ public class Swagger {
      * @param definitions the list of definitions
      * @param externalDocs the list of external documents
      */
-    public Swagger(
-            String swagger,
-            Info info,
-            String host,
-            String basePath,
-            Tag[] tags,
-            String[] schemes,
-            Path[] paths,
-            SecurityDefinition[] securityDefinitions,
-            Definition[] definitions,
-            ExternalDocs externalDocs) {
+    public Swagger(String swagger, Info info, String host, String basePath, Tag[] tags, String[] schemes, Path[] paths,
+            SecurityDefinition[] securityDefinitions, Definition[] definitions, ExternalDocs externalDocs) {
         this.swagger = swagger;
         this.info = info;
         this.host = host;
@@ -104,10 +92,8 @@ public class Swagger {
                 Transform.arrayToJson(tagArr),
                 Transform.arrayToJson(this.schemes),
                 Transform.pathsToJson(this.paths),
-                Transform.securityDefinitionsToJson(
-                        securityDefinitions),
-                Transform.definitionsToJson(this.definitions),
-                externalDocs};
+                Transform.securityDefinitionsToJson(securityDefinitions),
+                Transform.definitionsToJson(this.definitions), externalDocs};
     }
 
     /**

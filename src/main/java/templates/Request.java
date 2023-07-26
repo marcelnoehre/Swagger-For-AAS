@@ -12,16 +12,8 @@ import utils.Transform;
  *
  */
 public class Request {
-    private final String[] keys = new String[] {
-            "tags",
-            "summary",
-            "description",
-            "operationID",
-            "consumes",
-            "produces",
-            "parameters",
-            "responses",
-            "deprecated"};
+    private final String[] keys = new String[] {"tags", "summary", "description", "operationID",
+            "consumes", "produces", "parameters", "responses", "deprecated"};
     private String requestType;
     private String[] tags;
     private String summary;
@@ -47,17 +39,8 @@ public class Request {
      * @param responses the possible responses of the request
      * @param deprecated whether the corresponding endpoint is deprecated
      */
-    public Request(
-            String requestType,
-            String[] tags,
-            String summary,
-            String description,
-            String operationID,
-            String[] consumes,
-            String[] produces,
-            Parameter[] parameters,
-            Response[] responses,
-            String deprecated) {
+    public Request(String requestType, String[] tags, String summary, String description, String operationID,
+            String[] consumes, String[] produces, Parameter[] parameters, Response[] responses, String deprecated) {
         this.requestType = requestType;
         this.tags = tags;
         this.summary = summary;
@@ -87,8 +70,7 @@ public class Request {
     private String[] getValueArray() {
         String[] parameterArr;
         try {
-            ArrayList<String> parameterList =
-                    new ArrayList<String>();
+            ArrayList<String> parameterList = new ArrayList<String>();
             for (Parameter parameter: parameters) {
                 parameterList.add(parameter.asJson());
             }
@@ -101,16 +83,8 @@ public class Request {
         } catch (NullPointerException parameterNull) {
             parameterArr = null;
         }
-        return new String[] {
-                Transform.arrayToJson(this.tags),
-                this.summary,
-                this.description,
-                this.operationID,
-                Transform.arrayToJson(this.consumes),
-                Transform.arrayToJson(this.produces),
-                Transform.arrayToJson(parameterArr),
-                Transform.responsesToJson(responses),
-                this.deprecated};
+        return new String[] {Transform.arrayToJson(this.tags), this.summary, this.description, this.operationID, Transform.arrayToJson(this.consumes), 
+                Transform.arrayToJson(this.produces), Transform.arrayToJson(parameterArr), Transform.responsesToJson(responses), this.deprecated};
     }
 
     /**

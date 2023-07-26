@@ -32,8 +32,7 @@ public class Checks {
      * @return The filtered array without empty elements
      */
     public static String[] filterArray(String[] array) {
-        return Arrays.stream(array).filter(
-                value -> !value.trim().equals("")
+        return Arrays.stream(array).filter(value -> !value.trim().equals("") 
                 && !value.equals(null)).toArray(size -> new String[size]);
     }
 
@@ -61,7 +60,7 @@ public class Checks {
                     if(tmp.equals("true") || tmp.equals("false")) {
                         return "boolean";
                     } else {
-                    return "string";
+                        return "string";
                     }
                 }
             }

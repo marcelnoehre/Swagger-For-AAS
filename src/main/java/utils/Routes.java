@@ -33,24 +33,12 @@ public class Routes {
             Constants.PUT_ELEMENT,
             Constants.GET_CONCEPT_DESCRIPTION_LIST,
             Constants.PUT_CONCEPT_DESCRIPTION
-            };
+    };
     private static final Route[][] MULTI_ROUTES = new Route[][] {
-        new Route[] {
-                Constants.GET_AAS,
-                Constants.DELETE_AAS
-        },
-        new Route[] {
-                Constants.GET_SUBMODEL,
-                Constants.DELETE_SUBMODEL
-        },
-        new Route[] {
-                Constants.GET_ELEMENT,
-                Constants.DELETE_ELEMENT
-        },
-        new Route[] {
-                Constants.GET_CONCEPT_DESCRIPTION,
-                Constants.DELETE_CONCEPT_DESCRIPTION
-        }
+            new Route[] {Constants.GET_AAS, Constants.DELETE_AAS},
+            new Route[] {Constants.GET_SUBMODEL, Constants.DELETE_SUBMODEL},
+            new Route[] {Constants.GET_ELEMENT, Constants.DELETE_ELEMENT},
+            new Route[] {Constants.GET_CONCEPT_DESCRIPTION, Constants.DELETE_CONCEPT_DESCRIPTION}
     };
     private static ArrayList<String> INVALID_ROUTES = new ArrayList<String>();
 
@@ -61,23 +49,17 @@ public class Routes {
      * @param baseUrl The base url of all requests
      * @param aasIdShort The id to get the aas
      */
-    public Routes(
-            RestService restService,
-            String baseUrl,
-            String aasIdShort) {
+    public Routes(RestService restService, String baseUrl, String aasIdShort) {
         this.baseUrl = baseUrl;
         this.aasIdShort = aasIdShort;
         try {
             JSONParser parser = new JSONParser();
             ArrayList<String> submodelIds = new ArrayList<String>();
-            JSONArray submodels = (JSONArray) parser.
-                    parse(restService.httpGet(
-                            baseUrl + this.replaceIDs(
-                                    Constants.GET_SUBMODEL_LIST.getPath()))[1]);
+            JSONArray submodels = (JSONArray) parser.parse(restService.httpGet(
+                    baseUrl + this.replaceIDs(Constants.GET_SUBMODEL_LIST.getPath()))[1]);
             for (Object submodel : submodels) {
                 try {
-                    submodelIds.add(((JSONObject)
-                            submodel).get("idShort").toString());
+                    submodelIds.add(((JSONObject) submodel).get("idShort").toString());
                 } catch (NullPointerException submodelException) { }
             }
             for (String submodelId : submodelIds) {
@@ -86,8 +68,7 @@ public class Routes {
                 JSONArray elements = null;
                 try {
                     elements = (JSONArray) parser.parse(
-                            restService.httpGet(baseUrl + this.replaceIDs(
-                                    Constants.GET_ELEMENT_LIST.getPath()))[1]);
+                            restService.httpGet(baseUrl + this.replaceIDs(Constants.GET_ELEMENT_LIST.getPath()))[1]);
                 } catch(Exception e) {
                     elements = (JSONArray) parser.parse(new org.json.JSONObject(restService.httpGet(baseUrl + this.replaceIDs(
                             Constants.GET_SUBMODEL.getPath())+ "/complete")[1]).getJSONArray("submodelElements").toString());
@@ -106,21 +87,17 @@ public class Routes {
                         if(!this.elementIdShort.equals("")) {
                             break;   
                         }
-                    } catch (NullPointerException elementException) {
-                    }
+                    } catch (NullPointerException elementException) { }
                 }
                 if(!this.elementIdShort.equals("")) {
                     break;
                 }
             }
             JSONArray cds = (JSONArray) parser.parse(
-                    restService.httpGet(baseUrl + this.replaceIDs(
-                            Constants.GET_CONCEPT_DESCRIPTION_LIST
-                            .getPath()))[1]);
+                    restService.httpGet(baseUrl + this.replaceIDs(Constants.GET_CONCEPT_DESCRIPTION_LIST.getPath()))[1]);
             for (Object cd : cds) {
                 try {
-                    this.cdIdShort =
-                            ((JSONObject) cd).get("idShort").toString();
+                    this.cdIdShort = ((JSONObject) cd).get("idShort").toString();
                     break;
                 } catch (NullPointerException cdException) { }
             }
@@ -137,8 +114,7 @@ public class Routes {
     
     private void validateRoute(RestService restService, Route route) {
         if(route.getType().equals("get")) {
-            String response = restService.httpGet(baseUrl
-                    + this.replaceIDs(route.getPath()))[1];
+            String response = restService.httpGet(baseUrl + this.replaceIDs(route.getPath()))[1];
             try {
                 new org.json.JSONObject(response);
             } catch(Exception object) {
@@ -292,8 +268,7 @@ public class Routes {
      * @return THe route to a concept description list with filled ids
      */
     public String getConceptDescriptionListRouteWithId() {
-        return this.replaceIDs(
-                Constants.GET_CONCEPT_DESCRIPTION_LIST.getPath());
+        return this.replaceIDs(Constants.GET_CONCEPT_DESCRIPTION_LIST.getPath());
     }
 
     /**

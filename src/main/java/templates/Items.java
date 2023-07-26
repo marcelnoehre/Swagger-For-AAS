@@ -10,8 +10,7 @@ import utils.Transform;
  *
  */
 public class Items {
-    private final String[] keys =
-            new String[] {"type", "enum", "default", "$ref"};
+    private final String[] keys = new String[] {"type", "enum", "default", "$ref"};
     private String type;
     private String[] enums;
     private String defaultValue;
@@ -25,11 +24,7 @@ public class Items {
      * @param defaultValue the defalut value of an item
      * @param $ref the refernece to existing items
      */
-    public Items(
-            String type,
-            String[] enums,
-            String defaultValue,
-            String $ref) {
+    public Items(String type, String[] enums, String defaultValue, String $ref) {
         this.type = type;
         this.enums = enums;
         this.defaultValue = defaultValue;
@@ -51,9 +46,7 @@ public class Items {
      * @return array of all template values
      */
     private String[] getValueArray() {
-        return new String[] {this.type,
-                Transform.arrayToJson(this.enums),
-                this.defaultValue, this.$ref};
+        return new String[] {this.type, Transform.arrayToJson(this.enums), this.defaultValue, this.$ref};
     }
 
     /**
@@ -62,8 +55,6 @@ public class Items {
      * @return json string of the instance
      */
     public String asJson() {
-        return Transform.instanceToJson(
-                this.keys,
-                this.getValueArray());
+        return Transform.instanceToJson(this.keys, this.getValueArray());
     }
 }

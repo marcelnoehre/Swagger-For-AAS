@@ -43,8 +43,7 @@ public class DataGenerationService {
      */
     private static Parameter[] generateParameters(Route route) {
         ArrayList<Parameter> parameterList = new ArrayList<Parameter>();
-        String[] possibleParameters = new String[] {"{aas.idShort}",
-                "{submodel.idShort}", "{element.idShort}", "{cd.idShort}"};
+        String[] possibleParameters = new String[] {"{aas.idShort}", "{submodel.idShort}", "{element.idShort}", "{cd.idShort}"};
         for (String possibleParameter : possibleParameters) {
             if (route.getPath().contains(possibleParameter)) {
                 switch (possibleParameter.replace("{", "").replace("}", "")) {
@@ -88,17 +87,11 @@ public class DataGenerationService {
             }
             if(!VALID_DEFINITION_NAMES.contains(schema.getRef().replace("#/definitions/", ""))) {
                 String ref = "#/definitions/";
-                ref += route.getTag().equals("Submodelelement")
-                        ? "ExamplePutSubmodelElementBody"
-                        : "ExamplePutBody";
-                schema = new Schema(null, null, null, 
-                        ref);
+                ref += route.getTag().equals("Submodelelement") ? "ExamplePutSubmodelElementBody" : "ExamplePutBody";
+                schema = new Schema(null, null, null, ref);
             }
-            parameterList.add(
-                    new Parameter(route.getTag(),
-                            "body", "The new or updated "
-                    + route.getTag(), "true", null, null,
-                    null, null, null, null, schema));
+            parameterList.add(new Parameter(route.getTag(), "body", "The new or updated " + route.getTag(),
+                    "true", null, null, null, null, null, null, schema));
         }
         Parameter[] parameters = new Parameter[parameterList.size()];
         int i = 0;
@@ -117,15 +110,10 @@ public class DataGenerationService {
      * @param route The route to generate the responses for
      * @return The list of filled response templates
      */
-    private static Response[] generateResponses(
-            RestService restService,
-            Routes routes,
-            Route route) {
+    private static Response[] generateResponses(RestService restService, Routes routes, Route route) {
         String[] good = null;
         String[] bad = null;
-        String[][] parameter = new String[][] {
-            new String[] {"idShort", "_example"},
-            new String[] {"id", "_example"}};
+        String[][] parameter = new String[][] {new String[] {"idShort", "_example"}, new String[] {"id", "_example"}};
         String path = "";
         String pathPut = "";
         String goodExample = "{\"idShort\":\"_example\",\"id\":\"_example\"}";
@@ -134,63 +122,45 @@ public class DataGenerationService {
         case "get":
             switch (route.getTag()) {
             case "Asset Administration Shell":
-                path = route.getPath().equals("/aas/{aas.idShort}")
-                        ? Constants.EXAMPLE_AAS
-                        : Constants.EXAMPLE_SUBMODEL_LIST;
-                schema = route.getPath().equals("/aas/{aas.idShort}")
-                        ? Constants.AAS_SCHEMA
-                        : Constants.SUBMODEL_LIST_SCHEMA;
+                path = route.getPath().equals("/aas/{aas.idShort}") ? Constants.EXAMPLE_AAS : Constants.EXAMPLE_SUBMODEL_LIST;
+                schema = route.getPath().equals("/aas/{aas.idShort}") ? Constants.AAS_SCHEMA : Constants.SUBMODEL_LIST_SCHEMA;
                 break;
             case "Asset":
                 path = Constants.EXAMPLE_ASSETS;
                 schema = Constants.ASSETS_SCHEMA;
                 break;
             case "Submodel":
-                path = route.getPath().equals(
-                        "/aas/{aas.idShort}/submodels/{submodel.idShort}")
-                            ? Constants.EXAMPLE_SUBMODEL
-                            : Constants.EXAMPLE_ELEMENT_LIST;
-                schema = route.getPath().equals(
-                        "/aas/{aas.idShort}/submodels/{submodel.idShort}")
-                            ? Constants.SUBMODEL_SCHEMA
-                            : Constants.ELEMENT_LIST_SCHEMA;
+                path = route.getPath().equals("/aas/{aas.idShort}/submodels/{submodel.idShort}")
+                            ? Constants.EXAMPLE_SUBMODEL : Constants.EXAMPLE_ELEMENT_LIST;
+                schema = route.getPath().equals("/aas/{aas.idShort}/submodels/{submodel.idShort}")
+                            ? Constants.SUBMODEL_SCHEMA : Constants.ELEMENT_LIST_SCHEMA;
                 break;
             case "Submodelelement":
                 path = Constants.EXAMPLE_ELEMENT;
                 schema = Constants.ELEMENT_SCHEMA;
-                goodExample = "{\"idShort\":\"_example\",\"modelType\""
-                        + ":{\"name\":\"Property\"}}";
+                goodExample = "{\"idShort\":\"_example\",\"modelType\":{\"name\":\"Property\"}}";
                 parameter = new String[][] {new String[] {"idShort", "_example"},
-                    new String[] {"id", "_example"}, new String[] {"modelType",
-                            "{\"name\":\"Property\"}"}};
+                        new String[] {"id", "_example"}, new String[] {"modelType", "{\"name\":\"Property\"}"}};
                 break;
             case "Concept Description":
-                path = route.getPath().equals("/aas/{aas.idShort}/cds")
-                        ? Constants.EXAMPLE_CD_LIST : Constants.EXAMPLE_CD;
-                schema = route.getPath().equals("/aas/{aas.idShort}/cds")
-                        ? Constants.CD_LIST_SCHEMA : Constants.CD_SCHEMA;
+                path = route.getPath().equals("/aas/{aas.idShort}/cds") ? Constants.EXAMPLE_CD_LIST : Constants.EXAMPLE_CD;
+                schema = route.getPath().equals("/aas/{aas.idShort}/cds") ? Constants.CD_LIST_SCHEMA : Constants.CD_SCHEMA;
                 break;
             default:
                 break;
             }
-            good = restService.httpGet(routes.getBaseUrl()
-                    + routes.replaceIDs(route.getPath()));
-            bad = restService.httpGet(routes.getBaseUrl()
-                    + routes.replaceIDs(path));
+            good = restService.httpGet(routes.getBaseUrl() + routes.replaceIDs(route.getPath()));
+            bad = restService.httpGet(routes.getBaseUrl() + routes.replaceIDs(path));
             try {
-                if(!VALID_DEFINITION_NAMES.contains(
-                        schema.getRef().replace("#/definitions/", ""))) {
+                if(!VALID_DEFINITION_NAMES.contains(schema.getRef().replace("#/definitions/", ""))) {
                     schema = null;
                 }
             } catch(NullPointerException nullPointer) {
-                if(!VALID_DEFINITION_NAMES.contains(schema.getItems().getRef()
-                        .replace("#/definitions/", ""))) {
+                if(!VALID_DEFINITION_NAMES.contains(schema.getItems().getRef().replace("#/definitions/", ""))) {
                     schema = null;
                 }
             }
-            return new Response[] {
-                    new Response(bad[0], bad[1], null, null),
-                    new Response(good[0], "successful operation", schema, null)
+            return new Response[] {new Response(bad[0], bad[1], null, null), new Response(good[0], "successful operation", schema, null)
             };
         case "delete":
             switch (route.getTag()) {
@@ -202,11 +172,9 @@ public class DataGenerationService {
                 break;
             case "Submodelelement":
                 path = Constants.EXAMPLE_ELEMENT;
-                goodExample = "{\"idShort\":\"_example\",\"modelType\""
-                        + ":{\"name\":\"Property\"}}";
+                goodExample = "{\"idShort\":\"_example\",\"modelType\":{\"name\":\"Property\"}}";
                 parameter = new String[][] {new String[] {"idShort", "_example"},
-                    new String[] {"id", "_example"}, new String[] {"modelType",
-                            "{\"name\":\"Property\"}"}};
+                    new String[] {"id", "_example"}, new String[] {"modelType", "{\"name\":\"Property\"}"}};
                 break;
             case "Concept Description":
                 path = Constants.EXAMPLE_CD;
@@ -214,16 +182,10 @@ public class DataGenerationService {
             default:
                 break;
             }
-            restService.httpPut(routes.replaceIDs(path.replace("_example", "")),
-                    goodExample, parameter);
-            good = restService.httpDelete(routes.getBaseUrl()
-                    + routes.replaceIDs(path), goodExample);
-            bad = restService.httpDelete(routes.getBaseUrl()
-                    + routes.replaceIDs(path), goodExample);
-            return new Response[] {
-                    new Response(bad[0], bad[1], schema, null),
-                    new Response(good[0], good[1], schema, null)
-            };
+            restService.httpPut(routes.replaceIDs(path.replace("_example", "")), goodExample, parameter);
+            good = restService.httpDelete(routes.getBaseUrl() + routes.replaceIDs(path), goodExample);
+            bad = restService.httpDelete(routes.getBaseUrl() + routes.replaceIDs(path), goodExample);
+            return new Response[] {new Response(bad[0], bad[1], schema, null), new Response(good[0], good[1], schema, null)};
         case "put":
             switch (route.getTag()) {
             case "Asset Administration Shell":
@@ -239,13 +201,11 @@ public class DataGenerationService {
             case "Submodelelement":
                 path = routes.replaceIDs(Constants.EXAMPLE_ELEMENT);
                 pathPut = routes.replaceIDs(Constants.PUT_ELEMENT.getPath());
-                goodExample = "{\"idShort\":\"_example\",\"modelType\""
-                        + ":{\"name\":\"Property\"}}";
+                goodExample = "{\"idShort\":\"_example\",\"modelType\":{\"name\":\"Property\"}}";
                 break;
             case "Concept Description":
                 path = routes.replaceIDs(Constants.EXAMPLE_CD);
-                pathPut = routes.replaceIDs(
-                        Constants.PUT_CONCEPT_DESCRIPTION.getPath());
+                pathPut = routes.replaceIDs(Constants.PUT_CONCEPT_DESCRIPTION.getPath());
                 break;
             default:
                 break;
@@ -254,9 +214,7 @@ public class DataGenerationService {
             good = restService.httpPut(pathPut, goodExample, parameter);
             bad = restService.httpPut(pathPut, "_example", new String[][] {});
             restService.httpDelete(routes.getBaseUrl() + path, goodExample);
-            return new Response[] {
-                    new Response(bad[0], bad[1], schema, null),
-                    new Response(good[0], good[1], schema, null)
+            return new Response[] {new Response(bad[0], bad[1], schema, null), new Response(good[0], good[1], schema, null)
             };
         default:
             break;
@@ -271,37 +229,25 @@ public class DataGenerationService {
      * @param routes The service to handle routes
      * @return The filled info template
      */
-    public static Info generateInfo(
-            RestService restService,
-            Routes routes) {
+    public static Info generateInfo(RestService restService, Routes routes) {
         try {
             JSONParser parser = new JSONParser();
-            JSONObject json = (JSONObject) parser.parse(restService.httpGet(
-                    routes.getBaseUrl() + routes.getAASRouteWithId())[1]);
+            JSONObject json = (JSONObject) parser.parse(restService.httpGet(routes.getBaseUrl() + routes.getAASRouteWithId())[1]);
             String description = "";
             String title = "Asset Adminstration Shell: " + routes.getAASId();
             try {
-                JSONArray descriptions = (JSONArray) ((JSONObject) parser.parse(
-                        json.get("Asset").toString())).get("descriptions");
+                JSONArray descriptions = (JSONArray) ((JSONObject) parser.parse(json.get("Asset").toString())).get("descriptions");
                 int i = 0;
                 for (Object descriptionObj : descriptions) {
                     JSONObject descriptionValue = (JSONObject) descriptionObj;
-                    if (i == 0
-                            || descriptionValue.get("language").equals("EN")) {
-                        description =
-                                "REST server for access to the "
-                                + "Asset Administration Shell: "
-                                + routes.getAASId()
-                                + ". The AAS belongs to the asset: "
-                                + descriptionValue.get("text");
+                    if (i == 0 || descriptionValue.get("language").equals("EN")) {
+                        description = "REST server for access to the Asset Administration Shell: " + routes.getAASId()
+                        + ". The AAS belongs to the asset: " + descriptionValue.get("text");
                     }
                     i++;
                 }
             } catch (NullPointerException desc) {
-                description =
-                        "REST server for access to the "
-                        + "Asset Administration Shell: "
-                        + routes.getAASId();
+                description = "REST server for access to the Asset Administration Shell: " + routes.getAASId();
             }
             return new Info(description, "1.0", title, null, null, null);
         } catch (ParseException parse) {
@@ -315,13 +261,10 @@ public class DataGenerationService {
      * @return The list of filled tag templates
      */
     public static Tag[] generateTags() {
-        String[] tagNames = new String[] {
-                "Asset Administration Shell", "Asset",
-                "Submodel", "Submodelelement", "Concept Description"};
+        String[] tagNames = new String[] {"Asset Administration Shell", "Asset", "Submodel", "Submodelelement", "Concept Description"};
         ArrayList<Tag> tagList = new ArrayList<Tag>();
         for (String tag : tagNames) {
-            tagList.add(new Tag(tag, "Operations that belong to "
-        + tag + "s", null));
+            tagList.add(new Tag(tag, "Operations that belong to " + tag + "s", null));
         }
         Tag[] tags = new Tag[tagList.size()];
         int i = 0;
@@ -339,9 +282,7 @@ public class DataGenerationService {
      * @param routes The service to handle routes
      * @return The list of filled path templates
      */
-    public static Path[] generatePaths(
-            RestService restService,
-            Routes routes) {
+    public static Path[] generatePaths(RestService restService, Routes routes) {
         ArrayList<Path> pathList = new ArrayList<Path>();
         for (Route[] routeList : Routes.getMultiRoutes()) {
             Request[] requestList = new Request[routeList.length];
@@ -357,12 +298,8 @@ public class DataGenerationService {
                         consumes = new String[] {"application/json"};
                         produces = new String[] {"text/plain"};
                     }
-                    requestList[j] = new Request(route.getType(),
-                            new String[] {route.getTag()},
-                            route.getSummary(), "", null,
-                            consumes, produces, generateParameters(route),
-                            generateResponses(restService, routes, route),
-                            "false");    
+                    requestList[j] = new Request(route.getType(), new String[] {route.getTag()}, route.getSummary(), "", null,
+                            consumes, produces, generateParameters(route), generateResponses(restService, routes, route), "false");    
                     j++;
                 }
             }
@@ -381,11 +318,8 @@ public class DataGenerationService {
                     consumes = new String[] {"application/json"};
                     produces = new String[] {"text/plain"};
                 }
-                Request request = new Request(route.getType(),
-                        new String[] {route.getTag()},
-                        route.getSummary(), "", null,
-                        consumes, produces, generateParameters(route),
-                        generateResponses(restService, routes, route), "false");
+                Request request = new Request(route.getType(), new String[] {route.getTag()}, route.getSummary(), "", null,
+                        consumes, produces, generateParameters(route), generateResponses(restService, routes, route), "false"); 
                 pathList.add(new Path(route.getPath(), new Request[] {request}));
             }
         }
@@ -399,7 +333,6 @@ public class DataGenerationService {
             } catch(Exception e) {
                 paths = Arrays.copyOf(paths, paths.length-1);
             }
-            
         }
         return paths;
     }
@@ -412,14 +345,11 @@ public class DataGenerationService {
      * @return The list of filled definition templates
      */
     @SuppressWarnings("rawtypes")
-    public static Definition[] generateDefinitions(
-            RestService restService,
-            Routes routes) {
+    public static Definition[] generateDefinitions(RestService restService, Routes routes) {
         JSONParser parser = new JSONParser();
         ArrayList<JSONObject> validDefinitions = new ArrayList<JSONObject>();
         try {
-            JSONObject aasResponse =
-                    (JSONObject) parser.parse(restService.httpGet(
+            JSONObject aasResponse = (JSONObject) parser.parse( restService.httpGet(
                     routes.getBaseUrl() + routes.getAASRouteWithId())[1]);
             validDefinitions.add(aasResponse);
             VALID_DEFINITION_NAMES.add("AssetAdministrationShell");
@@ -435,9 +365,8 @@ public class DataGenerationService {
             } catch(Exception e) { }
         } catch(Exception e) { }
         try {
-            JSONArray assetList = (JSONArray)
-                    parser.parse(restService.httpGet(routes.getBaseUrl()
-                            + routes.getAssetRouteWithId())[1]);
+            JSONArray assetList = (JSONArray) parser.parse(restService.httpGet(
+                    routes.getBaseUrl() + routes.getAssetRouteWithId())[1]);
             JSONObject assetListItem = null;
             for (Object assetListObject : assetList) {
                 try {
@@ -449,9 +378,8 @@ public class DataGenerationService {
             }
         } catch(Exception e) { }            
         try {
-            JSONArray submodelList = (JSONArray)
-                    parser.parse(restService.httpGet(routes.getBaseUrl()
-                            + routes.getSubmodelListRouteWithId())[1]);
+            JSONArray submodelList = (JSONArray) parser.parse(restService.httpGet(
+                    routes.getBaseUrl() + routes.getSubmodelListRouteWithId())[1]);
             JSONObject submodelListItem = null;
             for (Object submodelListObject : submodelList) {
                 try {
@@ -464,15 +392,13 @@ public class DataGenerationService {
         } catch(Exception e) { }
         try {
             JSONObject submodel = (JSONObject) parser.parse(restService.httpGet(
-                    routes.getBaseUrl()
-                    + routes.getSubmodelRouteWithId())[1]);
+                    routes.getBaseUrl() + routes.getSubmodelRouteWithId())[1]);
             validDefinitions.add(submodel);
             VALID_DEFINITION_NAMES.add("Submodel");
         } catch(Exception e) { }
         try {
-            JSONArray elementList = (JSONArray)
-                    parser.parse(restService.httpGet(routes.getBaseUrl()
-                            + routes.getElementListRouteWithId())[1]);
+            JSONArray elementList = (JSONArray) parser.parse(restService.httpGet(
+                    routes.getBaseUrl() + routes.getElementListRouteWithId())[1]);
             JSONObject elementListItem = null;
             for (Object elementListObject : elementList) {
                 try {
@@ -485,16 +411,13 @@ public class DataGenerationService {
         } catch(Exception e) { }
         try {
             JSONObject element = (JSONObject) parser.parse(restService.httpGet(
-                    routes.getBaseUrl()
-                    + routes.getElementRouteWithId())[1]);
+                    routes.getBaseUrl() + routes.getElementRouteWithId())[1]);
             validDefinitions.add(element);
             VALID_DEFINITION_NAMES.add("SubmodelElement");
         } catch(Exception e) { }
         try {
-            JSONArray cdList = (JSONArray)
-                    parser.parse(restService.httpGet(routes.getBaseUrl()
-                            + routes.
-                            getConceptDescriptionListRouteWithId())[1]);
+            JSONArray cdList = (JSONArray) parser.parse(restService.httpGet(
+                    routes.getBaseUrl() + routes. getConceptDescriptionListRouteWithId())[1]);
             JSONObject cdListItem = null;
             for (Object cdListObject : cdList) {
                 try {
@@ -507,30 +430,26 @@ public class DataGenerationService {
         } catch(Exception e) { }
         try {
             JSONObject cd = (JSONObject) parser.parse(restService.httpGet(
-                    routes.getBaseUrl()
-                    + routes.getConceptDescriptionRouteWithId())[1]);
+                    routes.getBaseUrl() + routes.getConceptDescriptionRouteWithId())[1]);
             validDefinitions.add(cd);
             VALID_DEFINITION_NAMES.add("ConceptDescription");
         } catch(Exception e) { }
         try {
-            JSONObject submodelInput =
-                    (JSONObject) parser.parse(restService.httpGet(
+            JSONObject submodelInput = (JSONObject) parser.parse(restService.httpGet(
                     routes.getBaseUrl() + routes.getSubmodelRouteWithId())[1]);
             validDefinitions.add(submodelInput);
             VALID_DEFINITION_NAMES.add("SubmodelInput");
         } catch(Exception e) { }
         try {
-            JSONObject elementInput = (JSONObject) ((JSONObject) parser.parse(
-                    restService.httpGet(routes.getBaseUrl()
-                            + routes.getElementRouteWithId())[1])).get("elem");
+            JSONObject elementInput = (JSONObject) ((JSONObject) parser.parse(restService.httpGet(
+                    routes.getBaseUrl() + routes.getElementRouteWithId())[1])).get("elem");
             validDefinitions.add(elementInput);
             VALID_DEFINITION_NAMES.add("SubmodelElementInput");
         } catch(Exception e) { }
         
         try {
             JSONObject cdInput = (JSONObject) parser.parse(restService.httpGet(
-                    routes.getBaseUrl()
-                    + routes.getConceptDescriptionRouteWithId())[1]);
+                    routes.getBaseUrl() + routes.getConceptDescriptionRouteWithId())[1]);
             validDefinitions.add(cdInput);
             VALID_DEFINITION_NAMES.add("ConceptDescriptionInput");
         } catch(Exception e) { }
@@ -547,8 +466,7 @@ public class DataGenerationService {
             i++;
         }
         Definition[] hardcodedDefinitions = Constants.HARDCODED_DEFINITIONS();
-        Definition[] definitions = new Definition[validDefinitions.size()
-                                                  + hardcodedDefinitions.length];
+        Definition[] definitions = new Definition[validDefinitions.size() + hardcodedDefinitions.length];
         i = 0;
         for(Definition definition : hardcodedDefinitions) {
             definitions[i++] = definition;
@@ -558,24 +476,19 @@ public class DataGenerationService {
             if (definitionExamples[i].size() > 0) {
                 properties = new Property[definitionExamples[i].size()];
                 int j = 0;
-                for (Iterator iterator =
-                        definitionExamples[i].keySet().iterator();
-                        iterator.hasNext();) {
+                for (Iterator iterator = definitionExamples[i].keySet().iterator(); iterator.hasNext()) {
                     String key = (String) iterator.next();
                     String value;
                     String type;
                     String format;
                     Items items = null;
                     if (key.equals("isCaseOf")) {
-                        properties[j]
-                                = Constants.EXAMPLE_IS_CASE_OF_PROPERTY;
+                        properties[j] = Constants.EXAMPLE_IS_CASE_OF_PROPERTY;
                     } else {
                         try {
-                            value = (String) definitionExamples[i]
-                                    .get(key).toString();
+                            value = (String) definitionExamples[i].get(key).toString();
                             type = Checks.variableType(value);
-                            format = type.equals("integer")
-                                    ? "int64" : null;
+                            format = type.equals("integer") ? "int64" : null;
                         } catch (NullPointerException nullPointer) {
                             value = null;
                             type = "object";
@@ -583,16 +496,12 @@ public class DataGenerationService {
                         }
                         if (type.equals("array")) {
                             items = new Items("object", null, null, null);
-                            for (Object element
-                                    : new org.json.JSONArray(value)) {
-                                items = new Items(Checks.variableType(
-                                        element.toString()),
-                                        null, null, null);
+                            for (Object element : new org.json.JSONArray(value)) {
+                                items = new Items(Checks.variableType(element.toString()), null, null, null);
                                 break;
                             }
                         }
-                        properties[j] = new Property(key, type, format,
-                                null, null, value, null, items, null);
+                        properties[j] = new Property(key, type, format, null, null, value, null, items, null);
                     }
                     j++;
                 }
@@ -600,8 +509,7 @@ public class DataGenerationService {
                 properties = null;
             }
             definitions[i + hardcodedDefinitions.length]
-                    = new Definition(definitionNames[i],
-                    "object", new String[]{"idShort"}, properties);
+                    = new Definition(definitionNames[i], "object", new String[]{"idShort"}, properties);
         }
         return definitions;
     }
@@ -613,36 +521,27 @@ public class DataGenerationService {
      * @param routes The service to handle routes
      * @return The filled external documents template
      */
-    public static ExternalDocs generateExternalDocs(
-            RestService restService,
-            Routes routes) {
+    public static ExternalDocs generateExternalDocs(RestService restService, Routes routes) {
         try {
             JSONParser parser = new JSONParser();
-            JSONObject json = (JSONObject) parser.parse(
-                    restService.httpGet(routes.getBaseUrl()
-                            + routes.getAASRouteWithId())[1]);
+            JSONObject json = (JSONObject) parser.parse(restService.httpGet(
+                routes.getBaseUrl() + routes.getAASRouteWithId())[1]);
             String description = "";
             String url = "";
             try {
-                JSONObject identification =
-                        (JSONObject) ((JSONObject) parser.parse(
-                                json.get("Asset").toString()))
-                        .get("identification");
+                JSONObject identification = (JSONObject) ((JSONObject)
+                        parser.parse(json.get("Asset").toString())).get("identification");
                 if (identification.get("type").toString().equals("IRI")) {
                     url = identification.get("id").toString();
                 }
                 try {
                     JSONArray descriptions = (JSONArray) ((JSONObject)
-                            parser.parse(json.get("Asset").toString()))
-                            .get("descriptions");
+                            parser.parse(json.get("Asset").toString())).get("descriptions");
                     int i = 0;
                     for (Object descriptionObj : descriptions) {
-                        JSONObject descriptionValue =
-                                (JSONObject) descriptionObj;
-                        if (i == 0 || descriptionValue
-                                .get("language").equals("EN")) {
-                            description = "More information about "
-                                + descriptionValue.get("text");
+                        JSONObject descriptionValue = (JSONObject) descriptionObj;
+                        if (i == 0 || descriptionValue.get("language").equals("EN")) {
+                            description = "More information about " + descriptionValue.get("text");
                         }
                         i++;
                     }

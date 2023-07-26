@@ -29,9 +29,9 @@ public class Constants {
      * Multiple AAS idShorts to test the functionalities.
      */
     public static final String[] TEST_MULTIPLE_AAS_IDS = new String[] {
-        "AASHoldingAllSubmodels", "Sen_Ecosphere_Cell", "Sen_Robot1",
-        "Sen_Testsystem1", "Sen_TestAdapter1", "Sen_TestAdapter2",
-        "Sen_TestAdapter3", "Sen_BeltConveyor1", "Sen_OpticalTestsystem1"
+            "AASHoldingAllSubmodels", "Sen_Ecosphere_Cell", "Sen_Robot1",
+            "Sen_Testsystem1", "Sen_TestAdapter1", "Sen_TestAdapter2",
+            "Sen_TestAdapter3", "Sen_BeltConveyor1", "Sen_OpticalTestsystem1"
     };
 
     /**
@@ -167,8 +167,7 @@ public class Constants {
     /**
      * Route for a example submodel list.
      */
-    public static final String EXAMPLE_SUBMODEL_LIST =
-            "/aas/_example/submodels/";
+    public static final String EXAMPLE_SUBMODEL_LIST = "/aas/_example/submodels/";
 
     /**
      * Route for a example asset.
@@ -178,20 +177,17 @@ public class Constants {
     /**
      * Route for a example submodel.
      */
-    public static final String EXAMPLE_SUBMODEL =
-            "/aas/{aas.idShort}/submodels/_example";
+    public static final String EXAMPLE_SUBMODEL = "/aas/{aas.idShort}/submodels/_example";
 
     /**
      * Route for a example element list.
      */
-    public static final String EXAMPLE_ELEMENT_LIST =
-            "/aas/{aas.idShort}/submodels/_example/table";
+    public static final String EXAMPLE_ELEMENT_LIST = "/aas/{aas.idShort}/submodels/_example/table";
 
     /**
      * Route for a example element.
      */
-    public static final String EXAMPLE_ELEMENT =
-            "/aas/{aas.idShort}/submodels/{submodel.idShort}/elements/_example";
+    public static final String EXAMPLE_ELEMENT = "/aas/{aas.idShort}/submodels/{submodel.idShort}/elements/_example";
 
     /**
      * Route for a example concept description list.
@@ -234,28 +230,24 @@ public class Constants {
     /**
      * Schema definition for a api response.
      */
-    public static final Schema API_RESPONSE = new Schema(
-            null, null, null, "#/definitions/ApiResponse");
+    public static final Schema API_RESPONSE = new Schema(null, null, null, "#/definitions/ApiResponse");
 
     /**
      * Schema definition for a aas.
      */
-    public static final Schema AAS_SCHEMA = new Schema(
-            null, null, null, "#/definitions/AssetAdministrationShell");
+    public static final Schema AAS_SCHEMA = new Schema(null, null, null, "#/definitions/AssetAdministrationShell");
 
     /**
      * Schema definition for a asset.
      */
     public static final Schema ASSETS_SCHEMA = new Schema(
-            "array", new Items(null, null, null,
-                "#/definitions/Asset"), null, null);
+            "array", new Items(null, null, null, "#/definitions/Asset"), null, null);
 
     /**
      * Schema definition for a item in a submodellist.
      */
     public static final Schema SUBMODEL_LIST_SCHEMA = new Schema(
-            "array", new Items(null, null, null,
-                    "#/definitions/SubmodelListItem"), null, null);
+            "array", new Items(null, null, null, "#/definitions/SubmodelListItem"), null, null);
 
     /**
      * Schema definition for a submodel.
@@ -267,8 +259,7 @@ public class Constants {
      * Schema definition for a item in a submodelelementlist.
      */
     public static final Schema ELEMENT_LIST_SCHEMA = new Schema(
-            "array", new Items(null, null, null,
-                    "#/definitions/SubmodelelementListItem"), null, null);
+            "array", new Items(null, null, null, "#/definitions/SubmodelelementListItem"), null, null);
 
     /**
      * Schema definition for a submodelelement.
@@ -286,87 +277,67 @@ public class Constants {
      * Schema definition for a concept description list.
      */
     public static final Schema CD_LIST_SCHEMA = new Schema(
-                "array", new Items(null, null, null,
-                        "#/definitions/ConceptDescriptionListItem"),
-                null, null);
+            "array", new Items(null, null, null, "#/definitions/ConceptDescriptionListItem"), null, null);
 
     /**
      * Schema definition for a aas input.
      */
-    public static final Schema AAS_INPUT_SCHEMA = new Schema(
-            null, null, null, "#/definitions/AasInput");
+    public static final Schema AAS_INPUT_SCHEMA = new Schema(null, null, null, "#/definitions/AasInput");
 
     /**
      * Schema definition for a asset input.
      */
-    public static final Schema ASSET_INPUT_SCHEMA = new Schema(
-            null, null, null, "#/definitions/AssetInput");
+    public static final Schema ASSET_INPUT_SCHEMA = new Schema(null, null, null, "#/definitions/AssetInput");
 
     /**
      * Schema definition for a submodel input.
      */
-    public static final Schema SUBMODEL_INPUT_SCHEMA = new Schema(
-            null, null, null, "#/definitions/SubmodelInput");
+    public static final Schema SUBMODEL_INPUT_SCHEMA = new Schema(null, null, null, "#/definitions/SubmodelInput");
 
     /**
      * Schema definition for a submodel element input.
      */
-    public static final Schema ELEMENT_INPUT_SCHEMA = new Schema(
-            null, null, null, "#/definitions/SubmodelElementInput");
+    public static final Schema ELEMENT_INPUT_SCHEMA = new Schema(null, null, null, "#/definitions/SubmodelElementInput");
 
     /**
      * Schema definition for a submodel element input.
      */
-    public static final Schema CD_INPUT_SCHEMA = new Schema(
-            null, null, null, "#/definitions/ConceptDescriptionInput");
+    public static final Schema CD_INPUT_SCHEMA = new Schema(null, null, null, "#/definitions/ConceptDescriptionInput");
 
     /**
      * Example response for a http put request to add/update a asset.
      */
     public static final Response[] PUT_ASSET_EXAMPLE_RESPONSE = new Response[] {
             new Response("200", "OK (updated)", null, null),
-            new Response("400", "No payload or content type is not JSON.",
-                    null, null)
+            new Response("400", "No payload or content type is not JSON.", null, null)
     };
 
     /**
      * Example Property of the is case of variable.
      */
     public static final Property EXAMPLE_IS_CASE_OF_PROPERTY = new Property(
-            "isCaseOf", "array", null, null, null, null, null, new Items(
-            "object", null, null, null), null);
+            "isCaseOf", "array", null, null, null, null, null,
+            new Items("object", null, null, null), null);
     
     public static Definition[] HARDCODED_DEFINITIONS() {
-        Definition[] definitions = new Definition[3];
-        Property[] apiResponseProperties = new Property[] {
-                new Property("resultCode", "integer", "int32",
-                        null, null, "200", null, null, null),
-                new Property("type", "string", null, null, null,
-                        "application/json", null, null, null),
-                new Property("message", "string", null, null, null,
-                        "OK (updated)", null, null, null)
-        };
-        definitions[0] = new Definition("ApiResponse", "object",
-                new String[] {"resultCode", "type", "message"},
-                apiResponseProperties);
-        Property[] putProperties = new Property[] {
-                new Property("idShort", "string", null,
-                        null, null, "exampleIdShort", null, null, null),
-                new Property("id", "string", null, null, null,
-                        "exampleId", null, null, null)
-        };
-        definitions[1] = new Definition("ExamplePutBody", "object",
-                new String[] {"idShort", "id"},
-                putProperties);
-        Property[] putElementProperties = new Property[] {
-                putProperties[0], putProperties[1],
-                new Property("modelType", "object", null, null, null,
-                        "{\"modelType\":{\"name\":\"Property\"}}",
-                        null, null, null)
-        };
-        definitions[2] = new Definition("ExamplePutSubmodelElementBody",
-                "object", new String[] {"idShort", "id", "modelType"},
-                putElementProperties);
-        return definitions;
+            Definition[] definitions = new Definition[3];
+            Property[] apiResponseProperties = new Property[] {
+                    new Property("resultCode", "integer", "int32", null, null, "200", null, null, null),
+                    new Property("type", "string", null, null, null, "application/json", null, null, null),
+                    new Property("message", "string", null, null, null, "OK (updated)", null, null, null)
+            };
+            definitions[0] = new Definition("ApiResponse", "object",
+                    new String[] {"resultCode", "type", "message"}, apiResponseProperties);
+            Property[] putProperties = new Property[] {
+                    new Property("idShort", "string", null, null, null, "exampleIdShort", null, null, null),
+                    new Property("id", "string", null, null, null, "exampleId", null, null, null)
+            };
+            definitions[1] = new Definition("ExamplePutBody", "object", new String[] {"idShort", "id"}, putProperties);
+            Property[] putElementProperties = new Property[] { putProperties[0], putProperties[1], new Property("modelType",
+                    "object", null, null, null, "{\"modelType\":{\"name\":\"Property\"}}", null, null, null)
+            };
+            definitions[2] = new Definition("ExamplePutSubmodelElementBody", "object",
+                    new String[] {"idShort", "id", "modelType"}, putElementProperties);
+            return definitions;
     }
 }

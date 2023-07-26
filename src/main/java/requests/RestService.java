@@ -37,10 +37,8 @@ public class RestService {
      * Sets up the connection pool.
      */
     private void setupConnectionManager() {
-        HttpClientConnectionManager poolingConnectionManager =
-                new PoolingHttpClientConnectionManager();
-        this.client = HttpClients.custom()
-                .setConnectionManager(poolingConnectionManager).build();
+        HttpClientConnectionManager poolingConnectionManager = new PoolingHttpClientConnectionManager();
+        this.client = HttpClients.custom().setConnectionManager(poolingConnectionManager).build();
     }
 
     /**
@@ -55,10 +53,8 @@ public class RestService {
         try {
             HttpGet get = new HttpGet(url);
             this.httpResponse = this.client.execute(get);
-            response = EntityUtils
-                    .toString(this.httpResponse.getEntity());
-            resultCode = this.httpResponse
-                    .getStatusLine().getStatusCode();
+            response = EntityUtils.toString(this.httpResponse.getEntity());
+            resultCode = this.httpResponse.getStatusLine().getStatusCode();
         } catch (IOException io) {
             io.printStackTrace();
         }
@@ -95,23 +91,15 @@ public class RestService {
      * @param parameters The uri parameters
      * @return 0) resultCode 1) response
      */
-    public String[] httpPut(
-            String path,
-            String input,
-            String[][] parameters) {
+    public String[] httpPut(String path, String input, String[][] parameters) {
         int resultCode = -1;
         String response = "";
         try {
             HttpPut put = new HttpPut();
             try {
-                URIBuilder builder = new URIBuilder()
-                        .setScheme("http")
-                        .setHost("localhost:1111")
-                        .setPath(path);
+                URIBuilder builder = new URIBuilder().setScheme("http").setHost("localhost:1111").setPath(path);
                 for (String[] parameter: parameters) {
-                    builder.addParameter(
-                            parameter[0],
-                            parameter[1]);
+                    builder.addParameter(parameter[0], parameter[1]);
                 }
                 put.setURI(builder.build());
             } catch (URISyntaxException e) {
@@ -142,10 +130,8 @@ public class RestService {
             delete.setHeader("Content-type", "application/json");
             delete.setEntity(new StringEntity(input));
             this.httpResponse = this.client.execute(delete);
-            response = EntityUtils
-                    .toString(this.httpResponse.getEntity());
-            resultCode = this.httpResponse
-                    .getStatusLine().getStatusCode();
+            response = EntityUtils.toString(this.httpResponse.getEntity());
+            resultCode = this.httpResponse.getStatusLine().getStatusCode();
         } catch (IOException io) {
             io.printStackTrace();
         }

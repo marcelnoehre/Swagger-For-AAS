@@ -10,8 +10,7 @@ import utils.Transform;
  *
  */
 public class Tag {
-    private final String[] keys = new String[]
-            {"name", "description", "externalDocs"};
+    private final String[] keys = new String[] {"name", "description", "externalDocs"};
     private String name;
     private String description;
     private ExternalDocs externalDocs;
@@ -23,10 +22,7 @@ public class Tag {
      * @param description the description of the instance
      * @param externalDocs the external documents that belong to the tag
      */
-    public Tag(
-            String name,
-            String description,
-            ExternalDocs externalDocs) {
+    public Tag(String name, String description, ExternalDocs externalDocs) {
         this.name = name;
         this.description = description;
         this.externalDocs = externalDocs;

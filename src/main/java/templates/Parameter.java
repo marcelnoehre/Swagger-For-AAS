@@ -41,18 +41,8 @@ public class Parameter {
      * @param collectionFormat the collection format of the parameter array
      * @param schema the schema of the parameter
      */
-    public Parameter(
-            String name,
-            String in,
-            String description,
-            String required,
-            String type,
-            String format,
-            String minimum,
-            String maximum,
-            Items items,
-            String collectionFormat,
-            Schema schema) {
+    public Parameter(String name, String in, String description, String required, String type, String format,
+            String minimum, String maximum, Items items, String collectionFormat, Schema schema) {
         this.name = name;
         this.in = in;
         this.description = description;
@@ -84,11 +74,13 @@ public class Parameter {
         } catch (NullPointerException schemaNull) {
             schema = null;
         }
-        return new String[] {this.name, this.in,
+        return new String[] {
+                this.name, this.in,
                 this.description, this.required,
                 this.type, this.format, this.minimum,
                 this.maximum, items,
-                this.collectionFormat, schema};
+                this.collectionFormat, schema
+        };
     }
 
     /**

@@ -10,14 +10,7 @@ import utils.Transform;
  *
  */
 public class Info {
-    private final String[] keys =
-            new String[] {
-                    "description",
-                    "version",
-                    "title",
-                    "termsOfService",
-                    "contact",
-                    "license"};
+    private final String[] keys = new String[] {"description", "version", "title", "termsOfService", "contact", "license"};
     private String description;
     private String version;
     private String title;
@@ -35,13 +28,7 @@ public class Info {
      * @param contact the contact options
      * @param license the license information
      */
-    public Info(
-            String description,
-            String version,
-            String title,
-            String termsOfService,
-            Contact contact,
-            License license) {
+    public Info(String description, String version, String title, String termsOfService, Contact contact, License license) {
         this.description = description;
         this.version = version;
         this.title = title;
@@ -68,13 +55,7 @@ public class Info {
         } catch (NullPointerException licenseNull) {
             license = null;
         }
-        return new String[] {
-                this.description,
-                this.version,
-                this.title,
-                this.termsOfService,
-                contact,
-                license};
+        return new String[] {this.description, this.version, this.title, this.termsOfService, contact, license};
     }
 
     /**

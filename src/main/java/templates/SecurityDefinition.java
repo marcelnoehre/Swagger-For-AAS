@@ -10,9 +10,7 @@ import utils.Transform;
  *
  */
 public class SecurityDefinition {
-    private String[] keys = new String[] {
-            "type", "name", "in",
-            "authorizationUrl", "flow", "scopes"};
+    private String[] keys = new String[] {"type", "name", "in", "authorizationUrl", "flow", "scopes"};
     private String id;
     private String type;
     private String name;
@@ -32,14 +30,7 @@ public class SecurityDefinition {
      * @param flow the flow of the security definition
      * @param scopes the list of scopes of the security definition
      */
-    public SecurityDefinition(
-            String id,
-            String type,
-            String name,
-            String in,
-            String authorizationUrl,
-            String flow,
-            Scope[] scopes) {
+    public SecurityDefinition(String id, String type, String name, String in, String authorizationUrl, String flow, Scope[] scopes) {
         this.id = id;
         this.type = type;
         this.name = name;

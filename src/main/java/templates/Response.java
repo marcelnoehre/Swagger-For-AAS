@@ -12,8 +12,7 @@ import utils.Transform;
  *
  */
 public class Response {
-    private String[] keys = 
-            new String[] {"description", "schema", "headers"};
+    private String[] keys = new String[] {"description", "schema", "headers"};
     private String resultCode;
     private String description;
     private Schema schema;
@@ -27,11 +26,7 @@ public class Response {
      * @param schema the schema of the response
      * @param headers the lsit of header of the response
      */
-    public Response(
-            String resultCode,
-            String description,
-            Schema schema,
-            Header[] headers) {
+    public Response(String resultCode, String description, Schema schema, Header[] headers) {
         this.resultCode = resultCode;
         this.description = description;
         this.schema = schema;
@@ -77,9 +72,7 @@ public class Response {
         } catch (NullPointerException schemaNull) {
             schema = null;
         }
-        return new String[] {
-                this.description, schema,
-                Transform.arrayToJson(headerArr)};
+        return new String[] {this.description, schema, Transform.arrayToJson(headerArr)};
     }
 
     /**
